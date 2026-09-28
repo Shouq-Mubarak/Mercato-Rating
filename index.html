@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>MERCATO | قيّم تجربتك معنا</title>
 
 <style>
+
 :root {
     --color-primary: #2760a8;
     --color-secondary: #b43784;
@@ -32,6 +36,7 @@ textarea {
 body {
     margin: 0;
     min-height: 100vh;
+
     background-color: var(--color-background);
 
     display: flex;
@@ -39,6 +44,7 @@ body {
     align-items: center;
 
     padding: 25px 15px;
+
     color: var(--color-dark);
 }
 
@@ -65,26 +71,41 @@ body {
 ========================= */
 
 .logo-wrapper {
+    width: 92px;
+    height: 92px;
+
+    margin: 0 auto 18px;
+
     display: flex;
     justify-content: center;
     align-items: center;
 
-    margin-bottom: 18px;
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    background: transparent;
+
+    box-shadow: none;
 }
 
 .logo {
-    width: 92px;
-    height: 92px;
+    width: 100%;
+    height: 100%;
+
+    display: block;
 
     object-fit: cover;
+    object-position: center;
 
     border-radius: 50%;
 
-    background: #ffffff;
-
     padding: 0;
+    margin: 0;
 
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+    background: transparent;
+
+    box-shadow: none;
 }
 
 
@@ -200,6 +221,7 @@ h1 {
 }
 
 @keyframes fadeIn {
+
     from {
         opacity: 0;
         transform: translateY(6px);
@@ -209,6 +231,7 @@ h1 {
         opacity: 1;
         transform: translateY(0);
     }
+
 }
 
 .comment-title {
@@ -361,7 +384,7 @@ footer {
         border-radius: 21px;
     }
 
-    .logo {
+    .logo-wrapper {
         width: 84px;
         height: 84px;
     }
@@ -373,8 +396,11 @@ footer {
     .star {
         font-size: 38px;
     }
+
 }
+
 </style>
+
 </head>
 
 
@@ -382,27 +408,37 @@ footer {
 
 <div class="container">
 
+
     <!-- LOGO -->
+
     <div class="logo-wrapper">
+
         <img
             src="./logo.jpeg.jpeg"
             class="logo"
             alt="MERCATO"
         >
+
     </div>
 
 
     <!-- TITLE -->
-    <h1>قيّم تجربتك معنا</h1>
+
+    <h1>
+        قيّم تجربتك معنا
+    </h1>
+
 
     <p class="subtitle">
         شاركنا تقييمك
     </p>
 
+
     <div class="brand-line"></div>
 
 
     <!-- STARS -->
+
     <div class="stars">
 
         <span
@@ -439,13 +475,15 @@ footer {
 
 
     <!-- RATING MESSAGE -->
+
     <div
         id="ratingMessage"
         class="rating-message"
     ></div>
 
 
-    <!-- FEEDBACK SECTION -->
+    <!-- FEEDBACK -->
+
     <div
         id="feedbackSection"
         class="feedback-section"
@@ -482,25 +520,33 @@ footer {
 
 
     <!-- GOOGLE MESSAGE -->
+
     <div
         id="googleMessage"
         class="google-message"
     >
+
         شكرًا لك على تقييمك 🤍
+
         <br>
+
         سيتم تحويلك الآن لتقييم تجربتك على Google
+
     </div>
 
 
     <!-- FOOTER -->
+
     <footer>
         شكراً لك على وقتك ومشاركتك لرأيك
     </footer>
+
 
 </div>
 
 
 <script>
+
 
 /* =========================
    BRANCHES
@@ -617,12 +663,13 @@ const branches = {
 
 
 /* =========================
-   GET BRANCH FROM URL
+   GET BRANCH
 ========================= */
 
-const params = new URLSearchParams(
-    window.location.search
-);
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
 
 let rawBranchID =
     params.get("branch") || "01";
@@ -650,27 +697,30 @@ function selectRating(rating) {
     selectedRating = rating;
 
 
-    /* Update stars */
-
     const allStars =
         document.querySelectorAll(".star");
 
-    allStars.forEach((star, index) => {
 
-        if (index < rating) {
+    allStars.forEach(
+        (star, index) => {
 
-            star.classList.add("active");
+            if (index < rating) {
 
-        } else {
+                star.classList.add(
+                    "active"
+                );
 
-            star.classList.remove("active");
+            } else {
+
+                star.classList.remove(
+                    "active"
+                );
+
+            }
 
         }
+    );
 
-    });
-
-
-    /* Elements */
 
     const feedbackSection =
         document.getElementById(
@@ -705,11 +755,14 @@ function selectRating(rating) {
 
         const messages = {
 
-            1: "نأسف أن تجربتك لم تكن بالمستوى المطلوب",
+            1:
+                "نأسف أن تجربتك لم تكن بالمستوى المطلوب",
 
-            2: "نحتاج إلى تحسين تجربتك",
+            2:
+                "نحتاج إلى تحسين تجربتك",
 
-            3: "نقدّر ملاحظتك ونسعى دائمًا للتحسين"
+            3:
+                "نقدّر ملاحظتك ونسعى دائمًا للتحسين"
 
         };
 
@@ -738,17 +791,15 @@ function selectRating(rating) {
             "شكرًا لك على تقييمك 🤍";
 
 
-        /*
-         * تحويل العميل مباشرة
-         * إلى صفحة كتابة تقييم Google
-         */
+        setTimeout(
+            function () {
 
-        setTimeout(function () {
+                window.location.href =
+                    currentBranch.review;
 
-            window.location.href =
-                currentBranch.review;
-
-        }, 700);
+            },
+            700
+        );
 
     }
 
@@ -756,12 +807,10 @@ function selectRating(rating) {
 
 
 /* =========================
-   SEND TO WHATSAPP
+   WHATSAPP
 ========================= */
 
 function sendToSupport() {
-
-    /* Make sure rating exists */
 
     if (selectedRating === 0) {
 
@@ -773,18 +822,15 @@ function sendToSupport() {
     }
 
 
-    /* Get comment */
-
     const commentElement =
         document.getElementById(
             "comment"
         );
 
+
     const comment =
         commentElement.value.trim();
 
-
-    /* Make sure comment exists */
 
     if (!comment) {
 
@@ -798,9 +844,8 @@ function sendToSupport() {
     }
 
 
-    /* Create WhatsApp message */
-
     const message =
+
         "مرحباً، لدي ملاحظة على تجربتي مع MERCATO.\n\n" +
 
         "الفرع: " +
@@ -815,14 +860,12 @@ function sendToSupport() {
         comment;
 
 
-    /* WhatsApp URL */
-
     const whatsappURL =
+
         "https://wa.me/966920021310?text=" +
+
         encodeURIComponent(message);
 
-
-    /* Open WhatsApp */
 
     window.location.href =
         whatsappURL;
