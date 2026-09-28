@@ -1,878 +1,904 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>MERCATO | قيّم تجربتك معنا</title>
-
-<style>
-
-:root {
-    --color-primary: #2760a8;
-    --color-secondary: #b43784;
-    --color-light: #f1e4ed;
-    --color-background: #f3ecf3;
-    --color-dark: #333333;
-    --color-gray: #777777;
-    --color-border: #dddddd;
-    --color-star: #f5b400;
-}
-
-* {
-    box-sizing: border-box;
-}
-
-html,
-body,
-button,
-textarea {
-    font-family: 'CALRO', 'Cairo', Arial, Tahoma, sans-serif;
-}
-
-body {
-    margin: 0;
-    min-height: 100vh;
-
-    background-color: var(--color-background);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding: 25px 15px;
-
-    color: var(--color-dark);
-}
-
-.container {
-    width: 100%;
-    max-width: 470px;
-
-    background: #ffffff;
-
-    padding: 32px 28px 27px;
-
-    border-radius: 24px;
-
-    text-align: center;
-
-    border-top: 5px solid var(--color-primary);
-
-    box-shadow: 0 10px 35px rgba(39, 96, 168, 0.10);
-}
-
-
-/* =========================
-   LOGO
-========================= */
-
-.logo-wrapper {
-    width: 92px;
-    height: 92px;
-
-    margin: 0 auto 18px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border-radius: 50%;
-
-    overflow: hidden;
-
-    background: transparent;
-
-    box-shadow: none;
-}
-
-.logo {
-    width: 100%;
-    height: 100%;
-
-    display: block;
-
-    object-fit: cover;
-    object-position: center;
-
-    border-radius: 50%;
-
-    padding: 0;
-    margin: 0;
-
-    background: transparent;
-
-    box-shadow: none;
-}
-
-
-/* =========================
-   TITLE
-========================= */
-
-h1 {
-    margin: 0 0 8px;
-
-    color: var(--color-primary);
-
-    font-size: 27px;
-
-    font-weight: 700;
-}
-
-.subtitle {
-    margin: 0 0 18px;
-
-    color: var(--color-gray);
-
-    font-size: 14px;
-}
-
-.brand-line {
-    width: 80px;
-    height: 4px;
-
-    margin: 0 auto 22px;
-
-    border-radius: 20px;
-
-    background: linear-gradient(
-        90deg,
-        var(--color-primary) 0 50%,
-        var(--color-secondary) 50% 100%
-    );
-}
-
-
-/* =========================
-   STARS
-========================= */
-
-.stars {
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    gap: 7px;
-
-    direction: ltr;
-
-    margin-bottom: 8px;
-}
-
-.star {
-    font-size: 42px;
-
-    line-height: 1;
-
-    color: #d9d9d9;
-
-    cursor: pointer;
-
-    user-select: none;
-
-    transition:
-        transform 0.18s ease,
-        color 0.18s ease;
-}
-
-.star:hover {
-    transform: scale(1.10);
-}
-
-.star.active {
-    color: var(--color-star);
-}
-
-
-/* =========================
-   RATING MESSAGE
-========================= */
-
-.rating-message {
-    min-height: 25px;
-
-    margin: 8px 0 18px;
-
-    color: var(--color-primary);
-
-    font-size: 13px;
-
-    font-weight: 600;
-}
-
-
-/* =========================
-   FEEDBACK
-========================= */
-
-.feedback-section {
-    display: none;
-
-    animation: fadeIn 0.25s ease;
-}
-
-.feedback-section.show {
-    display: block;
-}
-
-@keyframes fadeIn {
-
-    from {
-        opacity: 0;
-        transform: translateY(6px);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ميركاتو Mercato | قيّم تجربتك معنا</title>
+
+  <!-- Google Fonts: Cairo, Tajawal, Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Outfit:wght@600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            mercato: {
+              lime: '#689f38',
+              brightlime: '#7cb342',
+              greenborder: '#558b2f',
+              blue: '#0288d1',
+              darkblue: '#0277bd',
+              navy: '#0d47a1',
+              magenta: '#ad1457',
+              pinkpurple: '#c2185b',
+              plum: '#880e4f',
+              brandtext: '#0b5394',
+            }
+          },
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+            tajawal: ['Tajawal', 'sans-serif'],
+            outfit: ['Outfit', 'sans-serif'],
+          },
+          boxShadow: {
+            'app': '0 20px 40px -15px rgba(2, 119, 189, 0.12), 0 10px 25px -5px rgba(173, 20, 87, 0.08)',
+            'card': '0 12px 30px rgba(0,0,0,0.06)',
+            'glow-blue': '0 0 25px rgba(2, 136, 209, 0.35)',
+            'glow-magenta': '0 0 25px rgba(173, 20, 87, 0.35)',
+          }
+        }
+      }
     }
+  </script>
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
     }
-
-}
-
-.comment-title {
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    gap: 7px;
-
-    margin-bottom: 9px;
-
-    color: var(--color-dark);
-
-    font-size: 14px;
-
-    font-weight: 600;
-}
-
-.comment-icon {
-    color: var(--color-secondary);
-
-    font-size: 19px;
-}
-
-
-/* =========================
-   TEXTAREA
-========================= */
-
-textarea {
-    width: 100%;
-
-    height: 105px;
-
-    resize: none;
-
-    border: 1px solid var(--color-border);
-
-    border-radius: 13px;
-
-    padding: 12px;
-
-    outline: none;
-
-    background: #ffffff;
-
-    color: var(--color-dark);
-
-    font-size: 14px;
-
-    line-height: 1.7;
-}
-
-textarea::placeholder {
-    color: #aaaaaa;
-}
-
-textarea:focus {
-    border-color: var(--color-primary);
-
-    box-shadow: 0 0 0 3px rgba(39, 96, 168, 0.08);
-}
-
-
-/* =========================
-   SUPPORT BUTTON
-========================= */
-
-.support-button {
-    margin-top: 17px;
-
-    width: 210px;
-
-    padding: 12px 18px;
-
-    border: none;
-
-    border-radius: 30px;
-
-    background-color: var(--color-secondary);
-
-    color: #ffffff;
-
-    font-size: 14px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: 0.2s ease;
-
-    box-shadow: 0 5px 14px rgba(180, 55, 132, 0.20);
-}
-
-.support-button:hover {
-    transform: translateY(-1px);
-
-    background-color: #9f2f73;
-}
-
-
-/* =========================
-   GOOGLE MESSAGE
-========================= */
-
-.google-message {
-    display: none;
-
-    margin-top: 14px;
-
-    color: var(--color-primary);
-
-    font-size: 13px;
-
-    line-height: 1.8;
-}
-
-.google-message.show {
-    display: block;
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
-footer {
-    margin-top: 20px;
-
-    color: #999999;
-
-    font-size: 11px;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 480px) {
-
     body {
-        padding: 18px 12px;
+      font-family: 'Tajawal', 'Cairo', sans-serif;
+      touch-action: manipulation;
+      user-select: none;
+    }
+    .font-cairo { font-family: 'Cairo', sans-serif; }
+    .font-outfit { font-family: 'Outfit', sans-serif; }
+
+    /* Custom scrollbars */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 9999px; }
+
+    /* Touch Button Bounce */
+    .touch-bounce {
+      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .touch-bounce:active {
+      transform: scale(0.96);
     }
 
-    .container {
-        padding: 28px 20px 24px;
-
-        border-radius: 21px;
+    /* Star Interaction Animation */
+    .star-btn {
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.15s ease;
+    }
+    .star-btn:active {
+      transform: scale(1.4) rotate(-8deg);
     }
 
-    .logo-wrapper {
-        width: 84px;
-        height: 84px;
+    /* Bottom Sheet Slide */
+    .sheet-drawer {
+      transform: translateY(100%);
+      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .sheet-drawer.open {
+      transform: translateY(0%);
     }
 
-    h1 {
-        font-size: 24px;
+    /* Pulse Glow */
+    @keyframes pulse-subtle {
+      0%, 100% { transform: scale(1); box-shadow: 0 10px 25px rgba(2, 119, 189, 0.35); }
+      50% { transform: scale(1.02); box-shadow: 0 12px 30px rgba(173, 20, 87, 0.45); }
+    }
+    .btn-pulse {
+      animation: pulse-subtle 2.5s infinite ease-in-out;
     }
 
-    .star {
-        font-size: 38px;
+    /* Textile Mesh Background Overlay */
+    .denim-pattern {
+      background-color: #f8fafc;
+      background-image: radial-gradient(rgba(2, 136, 209, 0.08) 1px, transparent 1px),
+                        radial-gradient(rgba(173, 20, 87, 0.06) 1px, #f8fafc 1px);
+      background-size: 24px 24px;
+      background-position: 0 0, 12px 12px;
     }
-
-}
-
+  
+    .star-pop { animation: mercatoStarPop .42s cubic-bezier(.2,.8,.2,1); }
+    @keyframes mercatoStarPop { 0%{transform:scale(1)} 45%{transform:scale(1.22) rotate(-5deg)} 75%{transform:scale(.96) rotate(3deg)} 100%{transform:scale(1) rotate(0)} }
+    .positive-stars-burst { animation: mercatoStarsBurst .65s ease-out; }
+    @keyframes mercatoStarsBurst { 0%{transform:scale(1)} 35%{transform:scale(1.035) translateY(-2px)} 70%{transform:scale(.99) translateY(1px)} 100%{transform:scale(1)} }
+    #starContainer .star-btn { transition: transform .18s ease, color .18s ease; }
+    
 </style>
 
+<style id="mobile-fit-adjustments">
+html,body{width:100%;min-height:100%;margin:0;overflow-x:hidden;}
+body{min-height:100svh;}
+@media (max-width:640px){
+  body{padding:0 !important;}
+  header{padding-left:10px !important;padding-right:10px !important;}
+  main{max-width:100% !important;padding-left:10px !important;padding-right:10px !important;padding-top:8px !important;padding-bottom:8px !important;}
+  main > div{width:100% !important;}
+}
+</style>
 </head>
 
+<body class="denim-pattern text-slate-800 min-h-screen flex flex-col justify-between antialiased relative overflow-x-hidden selection:bg-sky-500 selection:text-white">
 
-<body>
+  <!-- Top Ambient Glow Orbs -->
+  <div class="fixed -top-24 right-1/2 translate-x-1/2 w-96 h-96 bg-gradient-to-b from-sky-400/20 via-pink-400/15 to-transparent rounded-full blur-3xl pointer-events-none"></div>
 
-<div class="container">
-
-
-    <!-- LOGO -->
-
-    <div class="logo-wrapper">
-
-        <img
-            src="./logo.jpeg.jpeg"
-            class="logo"
-            alt="MERCATO"
-        >
-
+  <!-- Header -->
+  <header class="sticky top-0 z-30 w-full max-w-md mx-auto px-4 py-2.5 backdrop-blur-md bg-white/85 border-b border-slate-200/80 shadow-sm">
+    <div class="flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2 min-w-0">
+        <button id="headerBackBtn" onclick="resetFlow()" class="hidden w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 items-center justify-center transition border border-slate-200 shrink-0" title="الرجوع للرئيسية">
+          <i data-lucide="arrow-right" class="w-4 h-4 text-slate-700"></i>
+        </button>
+        <div class="w-10 h-10 rounded-full bg-white shadow-sm border-2 border-mercato-lime overflow-hidden shrink-0">
+          <img src="./logo.jpeg.jpeg" alt="شعار ميركاتو" class="w-full h-full object-cover">
+        </div>
+        <div class="min-w-0 text-right">
+          <div class="flex items-center gap-1">
+            <span class="font-cairo font-black text-xs text-slate-900">ميركاتو</span>
+            <span class="font-outfit text-[10px] font-bold text-sky-600 tracking-wide">MERCATO</span>
+          </div>
+          <div class="text-[11px] font-bold text-mercato-greenborder truncate max-w-[190px]" id="headerBranchLabel">فرع التحلية - جدة</div>
+        </div>
+      </div>
     </div>
+  </header>
 
+  <main class="w-full max-w-md mx-auto px-4 py-3 flex-1 flex flex-col justify-center relative z-10">
+    <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-app border border-slate-100 relative overflow-hidden transition-all duration-300">
 
-    <!-- TITLE -->
+      <!-- Mercato Color Accent Bar -->
+      <div class="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-mercato-lime via-mercato-blue via-mercato-magenta to-mercato-lime"></div>
 
-    <h1>
-        قيّم تجربتك معنا
-    </h1>
+      <!-- MERCATO Logo -->
+      <div class="flex flex-col items-center justify-center pt-1 mb-4 text-center">
+        <div class="relative w-32 h-32 sm:w-36 sm:h-36 drop-shadow-md rounded-full overflow-hidden bg-white">
+          <img src="./logo.jpeg.jpeg" alt="شعار ميركاتو" class="w-full h-full object-cover">
+        </div>
+      </div>
 
-
-    <p class="subtitle">
-        شاركنا تقييمك
-    </p>
-
-
-    <div class="brand-line"></div>
-
-
-    <!-- STARS -->
-
-    <div class="stars">
-
-        <span
-            class="star"
-            data-rating="1"
-            onclick="selectRating(1)"
-        >★</span>
-
-        <span
-            class="star"
-            data-rating="2"
-            onclick="selectRating(2)"
-        >★</span>
-
-        <span
-            class="star"
-            data-rating="3"
-            onclick="selectRating(3)"
-        >★</span>
-
-        <span
-            class="star"
-            data-rating="4"
-            onclick="selectRating(4)"
-        >★</span>
-
-        <span
-            class="star"
-            data-rating="5"
-            onclick="selectRating(5)"
-        >★</span>
-
-    </div>
-
-
-    <!-- RATING MESSAGE -->
-
-    <div
-        id="ratingMessage"
-        class="rating-message"
-    ></div>
-
-
-    <!-- FEEDBACK -->
-
-    <div
-        id="feedbackSection"
-        class="feedback-section"
-    >
-
-        <div class="comment-title">
-
-            <span class="comment-icon">
-                ✎
-            </span>
-
-            <span>
-                ملاحظاتك تهمنا
-            </span>
-
+          <h1 class="text-xl font-cairo font-black text-slate-900 leading-tight">
+            قيّم تجربتك معنا
+          </h1>
         </div>
 
+        <!-- 5 Interactive Ergonomic Stars -->
+        <div class="flex flex-col items-center justify-center my-3">
+          <div id="starContainer" class="flex items-center justify-center gap-2 p-2.5 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-inner w-full max-w-xs">
+            <button type="button" onclick="rateStore(1)" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none" aria-label="نجمة 1">
+              <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
+            </button>
+            <button type="button" onclick="rateStore(2)" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none" aria-label="نجمتان">
+              <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
+            </button>
+            <button type="button" onclick="rateStore(3)" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none" aria-label="3 نجوم">
+              <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
+            </button>
+            <button type="button" onclick="rateStore(4)" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none" aria-label="4 نجوم">
+              <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
+            </button>
+            <button type="button" onclick="rateStore(5)" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none" aria-label="5 نجوم">
+              <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
+            </button>
+          </div>
 
-        <textarea
-            id="comment"
-            placeholder="اكتب تعليقك هنا..."
-        ></textarea>
+          <div class="flex items-center justify-between w-full max-w-xs px-3 mt-1.5 text-[11px] font-bold font-tajawal text-slate-500">
+            <span>غير راضي</span>
+            <span>ممتاز</span>
+          </div>
+        </div>
 
+        <!-- Trust footer -->
+        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-center gap-1.5 text-[11px] text-slate-400">
+          <i data-lucide="badge-check" class="w-4 h-4 text-mercato-lime"></i>
+          <span>تقييم آمن ومباشر لإدارة فروع ميركاتو</span>
+        </div>
 
-        <button
-            type="button"
-            class="support-button"
-            onclick="sendToSupport()"
-        >
-            التواصل مع الدعم الفني
+      </section>
+
+      <section id="stepPositiveFlow" class="hidden text-center transition-all duration-300">
+        
+        <!-- Top Back Navigation in Card -->
+        <div class="flex items-center justify-between mb-2">
+          <button onclick="resetFlow()" class="inline-flex items-center gap-1.5 text-xs text-slate-600 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-full font-tajawal active:scale-95 transition">
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            <span>تعديل التقييم</span>
+          </button>
+          <span class="text-[11px] font-bold text-amber-500 flex items-center gap-1">
+            <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+            تقييم إيجابي مميز
+          </span>
+        </div>
+
+        <!-- Celebration Crown -->
+        <div class="w-16 h-16 mx-auto rounded-3xl bg-gradient-to-tr from-mercato-blue via-mercato-magenta to-mercato-lime p-0.5 shadow-lg mb-3">
+          <div class="w-full h-full bg-white rounded-[1.35rem] flex items-center justify-center text-mercato-magenta">
+            <i data-lucide="heart-handshake" class="w-8 h-8 text-mercato-pinkpurple"></i>
+          </div>
+        </div>
+
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-lime-50 text-mercato-greenborder border border-lime-200 mb-1.5 font-cairo">
+          نسعد دائماً بخدمتك ويسرنا رضاك! 🌿
+        </span>
+        <h2 class="text-xl font-cairo font-black text-slate-900 mb-1">
+          رأيك الجميل يدعم فريق ميركاتو!
+        </h2>
+        <p class="text-xs text-slate-600 font-tajawal mb-4 max-w-sm mx-auto leading-relaxed">
+          يسعدنا جداً مشاركة رأيك الطيب على خرائط <span class="font-bold text-slate-800">Google</span> لمساعدة عشاق الماركات العالمية المخفضة في معرفة <span id="positiveBranchTitle" class="font-bold text-mercato-darkblue">الفرع</span>.
+        </p>
+
+        <!-- Suggested Review with 1-Tap Copy -->
+        <div class="bg-gradient-to-r from-sky-50 via-purple-50/40 to-lime-50 rounded-2xl p-3.5 border border-slate-200/90 text-right mb-4 shadow-sm">
+          <div class="flex items-center justify-between text-xs mb-1.5">
+            <span class="font-bold text-mercato-brandtext flex items-center gap-1">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-mercato-blue"></i>
+              نص مقترح لتعليقك (جاهز للنسخ):
+            </span>
+            <button onclick="copySuggestedText()" class="inline-flex items-center gap-1 text-[11px] font-bold bg-white text-mercato-darkblue px-2.5 py-1 rounded-lg border border-slate-200 active:scale-95 shadow-sm transition">
+              <i data-lucide="copy" class="w-3 h-3 text-sky-600"></i>
+              <span id="copyButtonText">نسخ النص</span>
+            </button>
+          </div>
+          <p id="suggestedReviewParagraph" class="text-xs text-slate-700 bg-white p-2.5 rounded-xl border border-slate-200 font-tajawal leading-relaxed">
+            ميركاتو خياري الأول دائماً للماركات العالمية الأصلية والملابس بأسعار مخفضة جداً! خامات ممتازة، ومقاسات متنوعة، وطاقم عمل راقٍ وسريع في الخدمة. أنصح به وبشدة! ⭐⭐⭐⭐⭐
+          </p>
+        </div>
+
+        <!-- Google Maps Main Action Button -->
+        <div class="space-y-2.5">
+          <a id="btnGoogleMapsRedirect" href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn-pulse w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-mercato-darkblue via-blue-700 to-mercato-magenta text-white font-cairo font-bold text-sm shadow-xl flex items-center justify-center gap-2.5 active:scale-98 transition">
+            <i data-lucide="map-pin" class="w-5 h-5 text-amber-300"></i>
+            <span>إضافة تقييمك الآن على خرائط Google</span>
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          </a>
+
+          <button onclick="resetFlow()" class="inline-flex items-center justify-center gap-1.5 w-full py-2 px-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-xs text-slate-600 font-cairo font-bold transition">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+            <span>الرجوع وتغيير التقييم</span>
+          </button>
+        </div>
+
+      </section>
+
+      <section id="stepComplaintFlow" class="hidden transition-all duration-300">
+        <div class="flex items-center justify-between mb-2">
+          <button onclick="resetFlow()" type="button" class="inline-flex items-center gap-1.5 text-xs text-slate-600 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-full font-tajawal active:scale-95 transition">
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            <span>الرجوع للتقييم</span>
+          </button>
+          <span class="text-[11px] font-bold text-rose-500 flex items-center gap-1">
+            <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+            ملاحظتك تهمنا
+          </span>
+        </div>
+
+        <div class="text-center mb-3">
+          <div class="w-12 h-12 mx-auto rounded-2xl bg-pink-50 text-mercato-magenta border border-pink-200 flex items-center justify-center mb-1.5 shadow-sm">
+            <i data-lucide="message-square-text" class="w-6 h-6"></i>
+          </div>
+          <h2 class="text-lg font-cairo font-black text-slate-900 leading-snug">
+            نعتذر، شاركنا ملاحظتك
+          </h2>
+          <p class="text-xs text-slate-500 font-tajawal mt-0.5">
+            اكتب ملاحظتك وسنساعدك مباشرة.
+          </p>
+        </div>
+
+        <div class="space-y-2.5 text-right">
+          <input type="hidden" id="hiddenRatingScore" value="1">
+          <label for="custDetails" class="block text-[11px] font-bold text-slate-700 mb-1">
+            ملاحظتك <span class="text-rose-500">*</span>
+          </label>
+          <textarea id="custDetails" rows="5" required placeholder="اكتب ملاحظتك هنا..." class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:border-mercato-blue focus:ring-2 focus:ring-sky-100 bg-slate-50 outline-none transition resize-none font-tajawal"></textarea>
+
+          <button type="button" onclick="openWhatsAppFeedback()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-mercato-magenta to-mercato-plum active:scale-98 text-white font-cairo font-bold text-xs shadow-md shadow-pink-900/20 transition flex items-center justify-center gap-2">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            إرسال الملاحظة عبر واتساب الدعم
+          </button>
+        </div>
+      </section>
+
+      <section id="stepSuccessTicket" class="hidden text-center py-2 transition-all duration-300">
+        
+        <div class="w-14 h-14 mx-auto rounded-3xl bg-lime-50 text-mercato-lime border-2 border-mercato-lime flex items-center justify-center mb-2 shadow-sm">
+          <i data-lucide="check" class="w-8 h-8 stroke-[3]"></i>
+        </div>
+
+        <span class="inline-block px-3 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200 mb-1 font-cairo">
+          تم فتح تذكرة عناية عاجلة 🚨
+        </span>
+        <h2 class="text-lg font-cairo font-black text-slate-900 mb-1">
+          شكراً لصراحتك.. حقك محفوظ
+        </h2>
+        <p class="text-xs text-slate-500 font-tajawal mb-3">
+          تم توجيه البلاغ مباشرة لهاتف مدير <span id="confirmedTicketBranch" class="font-bold text-mercato-darkblue">الفرع</span>
+        </p>
+
+        <!-- Summary Card -->
+        <div class="bg-slate-50 rounded-2xl border border-slate-200 p-3 mb-3 text-right space-y-1.5 text-xs font-tajawal">
+          <div class="flex items-center justify-between border-b border-slate-200/70 pb-1.5">
+            <span class="text-slate-500">رقم البلاغ:</span>
+            <span id="ticketNumberDisplay" class="font-mono font-bold text-mercato-brandtext bg-white px-2 py-0.5 rounded border border-slate-200">#MC-99214</span>
+          </div>
+          <div class="flex items-center justify-between border-b border-slate-200/70 pb-1.5">
+            <span class="text-slate-500">الفرع المعني:</span>
+            <span id="ticketBranchDisplay" class="font-bold text-slate-800">فرع التحلية</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-500">وقت الاتصال المتوقع:</span>
+            <span class="font-bold text-mercato-lime flex items-center gap-1">
+              <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+              أقل من 15 دقيقة
+            </span>
+          </div>
+        </div>
+
+        <button onclick="resetFlow()" class="inline-flex items-center gap-1.5 text-xs text-mercato-brandtext font-cairo font-bold bg-sky-50 px-4 py-2 rounded-xl border border-sky-100 active:scale-95 transition">
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+          <span>تقييم تجربة جديدة</span>
         </button>
 
-    </div>
-
-
-    <!-- GOOGLE MESSAGE -->
-
-    <div
-        id="googleMessage"
-        class="google-message"
-    >
-
-        شكرًا لك على تقييمك 🤍
-
-        <br>
-
-        سيتم تحويلك الآن لتقييم تجربتك على Google
+      </section>
 
     </div>
+  </main>
 
+  
 
-    <!-- FOOTER -->
+  
+  
 
-    <footer>
-        شكراً لك على وقتك ومشاركتك لرأيك
-    </footer>
+  
 
+  <script>
+    // 1. Mercato Official Branches Database
+    const MERCATO_BRANCHES = {
+      '1': {
+        code: '1',
+        name: 'الرياض - الملز',
+        neighborhood: 'الملز',
+        short: 'الرياض - الملز',
+        city: 'الرياض',
+        manager: 'إدارة فرع الرياض - الملز',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/Ca3jSr1Z0dUYEBM/review'
+      },
+      '2': {
+        code: '2',
+        name: 'الرياض - إشبيليا',
+        neighborhood: 'إشبيليا',
+        short: 'الرياض - إشبيليا',
+        city: 'الرياض',
+        manager: 'إدارة فرع الرياض - إشبيليا',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/CdllYciMoT8GEBM/review'
+      },
+      '3': {
+        code: '3',
+        name: 'الرياض - الشفاء',
+        neighborhood: 'الشفاء',
+        short: 'الرياض - الشفاء',
+        city: 'الرياض',
+        manager: 'إدارة فرع الرياض - الشفاء',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/CbNrebES7OEiEBM/review'
+      },
+      '4': {
+        code: '4',
+        name: 'الرياض - النسيم',
+        neighborhood: 'النسيم',
+        short: 'الرياض - النسيم',
+        city: 'الرياض',
+        manager: 'إدارة فرع الرياض - النسيم',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/CVAh0_CJDoo1EBM/review'
+      },
+      '5': {
+        code: '5',
+        name: 'جدة - الفيصلية',
+        neighborhood: 'الفيصلية',
+        short: 'جدة - الفيصلية',
+        city: 'جدة',
+        manager: 'إدارة فرع جدة - الفيصلية',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/CfrU07iMJpmpEBM/review'
+      },
+      '6': {
+        code: '6',
+        name: 'الطائف - شارع أبو بكر',
+        neighborhood: 'شارع أبو بكر',
+        short: 'الطائف - شارع أبو بكر',
+        city: 'الطائف',
+        manager: 'إدارة فرع الطائف - شارع أبو بكر',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/CQRdKswUzDrTEBM/review'
+      },
+      '7': {
+        code: '7',
+        name: 'الدمام - حياة بلازا',
+        neighborhood: 'حياة بلازا',
+        short: 'الدمام - حياة بلازا',
+        city: 'الدمام',
+        manager: 'إدارة فرع الدمام - حياة بلازا',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/Cd427IaBBwTDEBM/review'
+      },
+      '8': {
+        code: '8',
+        name: 'الدمام - النخيل',
+        neighborhood: 'النخيل',
+        short: 'الدمام - النخيل',
+        city: 'الدمام',
+        manager: 'إدارة فرع الدمام - النخيل',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/CXPiyk6_F2pjEBM/review'
+      },
+      '9': {
+        code: '9',
+        name: 'الخبر - شمال الخبر',
+        neighborhood: 'شمال الخبر',
+        short: 'الخبر - شمال الخبر',
+        city: 'الخبر',
+        manager: 'إدارة فرع الخبر - شمال الخبر',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/CWbsamymNfqbEBM/review'
+      },
+      '10': {
+        code: '10',
+        name: 'عنيزة - السليمانية',
+        neighborhood: 'السليمانية',
+        short: 'عنيزة - السليمانية',
+        city: 'عنيزة',
+        manager: 'إدارة فرع عنيزة - السليمانية',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/CWT69dlXEyXDEBM/review'
+      },
+      '11': {
+        code: '11',
+        name: 'بريدة - الإسكان',
+        neighborhood: 'الإسكان',
+        short: 'بريدة - الإسكان',
+        city: 'بريدة',
+        manager: 'إدارة فرع بريدة - الإسكان',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/CSPtzNKMBkSTEBM/review'
+      },
+      '12': {
+        code: '12',
+        name: 'المدينة المنورة - الجماوات',
+        neighborhood: 'الجماوات',
+        short: 'المدينة المنورة - الجماوات',
+        city: 'المدينة المنورة',
+        manager: 'إدارة فرع المدينة المنورة - الجماوات',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/CaUq9hk10TkFEBM/review'
+      },
+      '13': {
+        code: '13',
+        name: 'تبوك - العزيزية القديمة',
+        neighborhood: 'العزيزية القديمة',
+        short: 'تبوك - العزيزية القديمة',
+        city: 'تبوك',
+        manager: 'إدارة فرع تبوك - العزيزية القديمة',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/CSVAo0c_XHlMEBM/review'
+      },
+      '14': {
+        code: '14',
+        name: 'حائل - الزبارة',
+        neighborhood: 'الزبارة',
+        short: 'حائل - الزبارة',
+        city: 'حائل',
+        manager: 'إدارة فرع حائل - الزبارة',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/CU12tV0Av1tWEBM/review'
+      },
+      '15': {
+        code: '15',
+        name: 'أبها - الربوة',
+        neighborhood: 'الربوة',
+        short: 'أبها - الربوة',
+        city: 'أبها',
+        manager: 'إدارة فرع أبها - الربوة',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/CX6cv1eiMksiEBM/review'
+      },
+      '16': {
+        code: '16',
+        name: 'أبها الجديدة - طريق الملك فهد',
+        neighborhood: 'طريق الملك فهد',
+        short: 'أبها الجديدة - طريق الملك فهد',
+        city: 'أبها الجديدة',
+        manager: 'إدارة فرع أبها الجديدة - طريق الملك فهد',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/CWxbPgb3sCpLEBM/review'
+      },
+      '17': {
+        code: '17',
+        name: 'خميس مشيط - الرصراص',
+        neighborhood: 'الرصراص',
+        short: 'خميس مشيط - الرصراص',
+        city: 'خميس مشيط',
+        manager: 'إدارة فرع خميس مشيط - الرصراص',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/CQc_0qnQtHzyEBM/review'
+      },
+      '18': {
+        code: '18',
+        name: 'محايل عسير - طريق الملك عبدالعزيز',
+        neighborhood: 'طريق الملك عبدالعزيز',
+        short: 'محايل عسير - طريق الملك عبدالعزيز',
+        city: 'محايل عسير',
+        manager: 'إدارة فرع محايل عسير - طريق الملك عبدالعزيز',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/CbMXRafIapltEBM/review'
+      },
+      '19': {
+        code: '19',
+        name: 'نجران - الفيصلية',
+        neighborhood: 'الفيصلية',
+        short: 'نجران - الفيصلية',
+        city: 'نجران',
+        manager: 'إدارة فرع نجران - الفيصلية',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/CeRzQxhd84AIEBM/review'
+      },
+      '20': {
+        code: '20',
+        name: 'الأحساء - المسعودي',
+        neighborhood: 'المسعودي',
+        short: 'الأحساء - المسعودي',
+        city: 'الأحساء',
+        manager: 'إدارة فرع الأحساء - المسعودي',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/CV7O-FIlni6REBM/review'
+      },
+      '21': {
+        code: '21',
+        name: 'حفر الباطن - الخالدية',
+        neighborhood: 'الخالدية',
+        short: 'حفر الباطن - الخالدية',
+        city: 'حفر الباطن',
+        manager: 'إدارة فرع حفر الباطن - الخالدية',
+        phone: '',
+        googleReviewUrl: 'https://g.page/r/CfK7zOR61FmhEBM/review'
+      }
+    };
 
-</div>
+    let activeBranch = MERCATO_BRANCHES['1'];
+    let currentRatingValue = 0;
 
+    // Initialization on DOM Load
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      initBranchFromUrl();
+      writeAuditLog(`تم تشغيل تطبيق ميركاتو وضبط الفرع الحالي على [${activeBranch.name}]`);
+    });
 
-<script>
-
-
-/* =========================
-   BRANCHES
-========================= */
-
-const branches = {
-
-    "01": {
-        name: "الرياض – الملز",
-        review: "https://g.page/r/Ca3jSr1Z0dUYEBM/review"
-    },
-
-    "02": {
-        name: "الرياض – اشبيليه",
-        review: "https://g.page/r/CdllYciMoT8GEBM/review"
-    },
-
-    "03": {
-        name: "الرياض – الشفا",
-        review: "https://g.page/r/CbNrebES7OEiEBM/review"
-    },
-
-    "04": {
-        name: "الرياض – النسيم",
-        review: "https://g.page/r/CVAh0_CJDoo1EBM/review"
-    },
-
-    "05": {
-        name: "جدة – الفيصلية",
-        review: "https://g.page/r/CfrU07iMJpmpEBM/review"
-    },
-
-    "06": {
-        name: "الطائف – شارع أبوبكر",
-        review: "https://g.page/r/CQRdKswUzDrTEBM/review"
-    },
-
-    "07": {
-        name: "الدمام – حياة بلازا",
-        review: "https://g.page/r/Cd427IaBBwTDEBM/review"
-    },
-
-    "08": {
-        name: "الدمام – النخيل",
-        review: "https://g.page/r/CXPiyk6_F2pjEBM/review"
-    },
-
-    "09": {
-        name: "الخبر – الخبر الشمالية",
-        review: "https://g.page/r/CWbsamymNfqbEBM/review"
-    },
-
-    "10": {
-        name: "عنيزة – السليمانية",
-        review: "https://g.page/r/CWT69dlXEyXDEBM/review"
-    },
-
-    "11": {
-        name: "بريدة – الاسكان",
-        review: "https://g.page/r/CSPtzNKMBkSTEBM/review"
-    },
-
-    "12": {
-        name: "المدينة المنورة – الجماوات",
-        review: "https://g.page/r/CaUq9hk10TkFEBM/review"
-    },
-
-    "13": {
-        name: "تبوك – العزيزية القديمة",
-        review: "https://g.page/r/CSVAo0c_XHlMEBM/review"
-    },
-
-    "14": {
-        name: "حائل – الزباره",
-        review: "https://g.page/r/CU12tV0Av1tWEBM/review"
-    },
-
-    "15": {
-        name: "أبها – الربوة",
-        review: "https://g.page/r/CX6cv1eiMksiEBM/review"
-    },
-
-    "16": {
-        name: "أبها الجديد – طريق الملك فهد",
-        review: "https://g.page/r/CWxbPgb3sCpLEBM/review"
-    },
-
-    "17": {
-        name: "خميس مشيط – الرصراص",
-        review: "https://g.page/r/CQc_0qnQtHzyEBM/review"
-    },
-
-    "18": {
-        name: "محايل عسير – طريق الملك عبدالعزيز",
-        review: "https://g.page/r/CbMXRafIapltEBM/review"
-    },
-
-    "19": {
-        name: "نجران – الفيصلية",
-        review: "https://g.page/r/CeRzQxhd84AIEBM/review"
-    },
-
-    "20": {
-        name: "الأحساء – المسعودي",
-        review: "https://g.page/r/CV7O-FIlni6REBM/review"
-    },
-
-    "21": {
-        name: "حفر الباطن – الخالدية",
-        review: "https://g.page/r/CfK7zOR61FmhEBM/review"
-    }
-
-};
-
-
-/* =========================
-   GET BRANCH
-========================= */
-
-const params =
-    new URLSearchParams(
-        window.location.search
-    );
-
-let rawBranchID =
-    params.get("branch") || "01";
-
-const branchID =
-    rawBranchID.padStart(2, "0");
-
-const currentBranch =
-    branches[branchID] || branches["01"];
-
-
-/* =========================
-   SELECTED RATING
-========================= */
-
-let selectedRating = 0;
-
-
-/* =========================
-   SELECT RATING
-========================= */
-
-function selectRating(rating) {
-
-    selectedRating = rating;
-
-
-    const allStars =
-        document.querySelectorAll(".star");
-
-
-    allStars.forEach(
-        (star, index) => {
-
-            if (index < rating) {
-
-                star.classList.add(
-                    "active"
-                );
-
-            } else {
-
-                star.classList.remove(
-                    "active"
-                );
-
-            }
-
+    // Extract Branch code from URL Search Query (?branch=code)
+    function initBranchFromUrl() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const branchCode = urlParams.get('branch');
+        if (branchCode && MERCATO_BRANCHES[branchCode.toLowerCase()]) {
+          activeBranch = MERCATO_BRANCHES[branchCode.toLowerCase()];
         }
-    );
-
-
-    const feedbackSection =
-        document.getElementById(
-            "feedbackSection"
-        );
-
-    const googleMessage =
-        document.getElementById(
-            "googleMessage"
-        );
-
-    const ratingMessage =
-        document.getElementById(
-            "ratingMessage"
-        );
-
-
-    /* =========================
-       1 - 3 STARS
-    ========================= */
-
-    if (rating <= 3) {
-
-        feedbackSection.classList.add(
-            "show"
-        );
-
-        googleMessage.classList.remove(
-            "show"
-        );
-
-
-        const messages = {
-
-            1:
-                "نأسف أن تجربتك لم تكن بالمستوى المطلوب",
-
-            2:
-                "نحتاج إلى تحسين تجربتك",
-
-            3:
-                "نقدّر ملاحظتك ونسعى دائمًا للتحسين"
-
-        };
-
-
-        ratingMessage.textContent =
-            messages[rating];
-
+      } catch (err) {
+        activeBranch = MERCATO_BRANCHES['1'];
+      }
+      refreshBranchBindings();
     }
 
+    // Update all text and link bindings across DOM
+    function refreshBranchBindings() {
+      document.getElementById('headerBranchLabel').innerText = activeBranch.name;
+      document.getElementById('currentBranchLabelHero').innerText = activeBranch.name;
+      document.getElementById('positiveBranchTitle').innerText = `MERCATO — ${activeBranch.name}`;
+      document.getElementById('hiddenBranchCode').value = activeBranch.code;
+      document.getElementById('hiddenBranchName').value = activeBranch.name;
+      document.getElementById('confirmedTicketBranch').innerText = activeBranch.name;
+      document.getElementById('ticketBranchDisplay').innerText = activeBranch.name;
+      document.getElementById('waBranchNameText').innerText = activeBranch.name;
+      document.getElementById('waManagerTarget').innerText = `إلى: ${activeBranch.manager}`;
+      
+      // Update Google maps links
+      document.getElementById('btnGoogleMapsRedirect').href = activeBranch.googleReviewUrl;
+      document.getElementById('ethicalMapLink').href = activeBranch.googleReviewUrl;
 
-    /* =========================
-       4 - 5 STARS
-    ========================= */
-
-    else {
-
-        feedbackSection.classList.remove(
-            "show"
-        );
-
-        googleMessage.classList.add(
-            "show"
-        );
-
-        ratingMessage.textContent =
-            "شكرًا لك على تقييمك 🤍";
-
-
-        setTimeout(
-            function () {
-
-                window.location.href =
-                    currentBranch.review;
-
-            },
-            700
-        );
-
+      // Update QR modal
+      document.getElementById('qrModalBranchLabel').innerText = activeBranch.name;
+      const targetUrl = `${window.location.origin}${window.location.pathname}?branch=${activeBranch.code}`;
+      document.getElementById('qrImageDisplay').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(targetUrl)}`;
     }
 
-}
+    // Rate store function triggered by clicking any star
+    function rateStore(stars) {
+      triggerHaptic(30);
+      currentRatingValue = stars;
 
+      highlightStars(stars);
+      animateSelectedStar(stars);
 
-/* =========================
-   WHATSAPP
-========================= */
+      writeAuditLog(`قام العميل بالنقر على تقييم: (${stars} من 5 نجوم) في [${activeBranch.short}]`);
 
-function sendToSupport() {
+      // Gentle transition timeout
+      setTimeout(() => {
+        executeGatingLogic(stars);
+      }, 350);
+    }
 
-    if (selectedRating === 0) {
+    function animateSelectedStar(stars) {
+      const starButtons = document.querySelectorAll('#starContainer .star-btn');
+      const selected = starButtons[stars - 1];
+      if (!selected) return;
+      selected.classList.remove('star-pop');
+      void selected.offsetWidth;
+      selected.classList.add('star-pop');
+      setTimeout(() => selected.classList.remove('star-pop'), 450);
+      if (stars >= 4) {
+        const container = document.getElementById('starContainer');
+        container.classList.remove('positive-stars-burst');
+        void container.offsetWidth;
+        container.classList.add('positive-stars-burst');
+        setTimeout(() => container.classList.remove('positive-stars-burst'), 700);
+      }
+    }
 
-        alert(
-            "فضلاً اختر تقييمك أولاً."
-        );
+    function highlightStars(count) {
+      const starButtons = document.querySelectorAll('#starContainer .star-btn');
+      starButtons.forEach((btn, idx) => {
+        if (idx < count) {
+          btn.classList.remove('text-slate-300');
+          btn.classList.add('text-amber-400');
+        } else {
+          btn.classList.add('text-slate-300');
+          btn.classList.remove('text-amber-400');
+        }
+      });
+    }
 
+    // Review Gating core logic
+    function executeGatingLogic(stars) {
+      const stepInitial = document.getElementById('stepInitialRating');
+      const stepPositive = document.getElementById('stepPositiveFlow');
+      const stepComplaint = document.getElementById('stepComplaintFlow');
+      const headerBackBtn = document.getElementById('headerBackBtn');
+
+      stepInitial.classList.add('hidden');
+      if (headerBackBtn) headerBackBtn.classList.remove('hidden');
+
+      if (stars >= 4) {
+        // POSITIVE (4-5 Stars) -> Google Maps
+        stepPositive.classList.remove('hidden');
+        shootMercatoConfetti();
+        writeAuditLog(`مسار إيجابي (${stars} نجوم) ➔ توجيه العميل إلى خرائط Google`);
+
+        setTimeout(() => {
+          window.location.href = activeBranch.googleReviewUrl;
+        }, 2200);
+
+        dispatchWebhookPayload({
+          event: "positive_rating_gated",
+          stars: `${stars}/5`,
+          branch: activeBranch,
+          destination: "Google_Maps_Redirect",
+          timestamp: new Date().toISOString()
+        });
+
+      } else {
+        // NEGATIVE (1-3 Stars) -> Internal Complaint Form
+        stepComplaint.classList.remove('hidden');
+        document.getElementById('hiddenRatingScore').value = stars;
+        writeAuditLog(`مسار سلبي (${stars} نجوم) ➔ تحويل العميل لنموذج الشكاوى والعناية بـ [${activeBranch.short}]`);
+
+        dispatchWebhookPayload({
+          event: "negative_feedback_intercepted",
+          stars: `${stars}/5`,
+          branch: activeBranch,
+          destination: "Internal_Care_Desk",
+          timestamp: new Date().toISOString()
+        });
+      }
+      lucide.createIcons();
+    }
+
+    // Mercato Themed Confetti Explosion
+    function shootMercatoConfetti() {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 75,
+          spread: 70,
+          origin: { y: 0.65 },
+          colors: ['#0288d1', '#ad1457', '#7cb342', '#0b5394', '#f59e0b']
+        });
+      }
+    }
+
+    // Copy Predefined Review Text
+    function copySuggestedText() {
+      const text = document.getElementById('suggestedReviewParagraph').innerText;
+      copyToClipboard(text);
+      triggerHaptic(20);
+
+      const btnText = document.getElementById('copyButtonText');
+      btnText.innerText = 'تم النسخ بنجاح!';
+      setTimeout(() => {
+        btnText.innerText = 'نسخ النص';
+      }, 2000);
+
+      writeAuditLog("نسخ العميل نص التقييم المقترح لنشره على قوقل");
+    }
+
+    // Submit Internal Complaint
+    function submitCustomerComplaint(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const dept = document.getElementById('complaintDept').value;
+      const details = document.getElementById('custDetails').value.trim();
+      const score = document.getElementById('hiddenRatingScore').value;
+      const randomTicketId = `#MC-${Math.floor(10000 + Math.random() * 90000)}`;
+
+      document.getElementById('stepComplaintFlow').classList.add('hidden');
+      document.getElementById('stepSuccessTicket').classList.remove('hidden');
+      document.getElementById('ticketNumberDisplay').innerText = randomTicketId;
+
+      triggerHaptic([40, 60, 40]);
+
+      // Update WhatsApp Simulation card
+      document.getElementById('waCustomerName').innerText = name;
+      document.getElementById('waCustomerPhone').innerText = phone;
+      document.getElementById('waCategoryText').innerText = dept;
+      document.getElementById('waDetailsText').innerText = details;
+      document.getElementById('waBranchNameText').innerText = activeBranch.name;
+      document.getElementById('waManagerTarget').innerText = `إلى: ${activeBranch.manager}`;
+
+      // Dispatch simulated Webhook
+      dispatchWebhookPayload({
+        event: "complaint_ticket_created",
+        ticket_id: randomTicketId,
+        customer: { name, phone },
+        rating: `${score}/5`,
+        category: dept,
+        notes: details,
+        branch: activeBranch,
+        status: "urgent_followup_pending",
+        timestamp: new Date().toISOString()
+      });
+
+      writeAuditLog(`تم فتح تذكرة شكوى [${randomTicketId}] وإشعار مدير [${activeBranch.short}] بالواتساب`);
+    }
+
+    function openWhatsAppFeedback() {
+      const details = document.getElementById('custDetails').value.trim();
+      if (!details) {
+        document.getElementById('custDetails').focus();
         return;
+      }
+      const message = `مرحباً، لدي ملاحظة على تجربتي مع MERCATO.\n\nالفرع: ${activeBranch.name}\nالتقييم: ${currentRatingValue}/5\n\nالملاحظة:\n${details}`;
+      const url = `https://wa.me/966920021310?text=${encodeURIComponent(message)}`;
+      window.location.href = url;
     }
 
+    // Reset Flow to rate again
+    function resetFlow() {
+      currentRatingValue = 0;
+      highlightStars(0);
+      document.getElementById('stepInitialRating').classList.remove('hidden');
+      document.getElementById('stepPositiveFlow').classList.add('hidden');
+      document.getElementById('stepComplaintFlow').classList.add('hidden');
+      document.getElementById('stepSuccessTicket').classList.add('hidden');
+      
+      const headerBackBtn = document.getElementById('headerBackBtn');
+      if (headerBackBtn) headerBackBtn.classList.add('hidden');
 
-    const commentElement =
-        document.getElementById(
-            "comment"
-        );
-
-
-    const comment =
-        commentElement.value.trim();
-
-
-    if (!comment) {
-
-        alert(
-            "فضلاً اكتب ملاحظتك قبل التواصل مع الدعم الفني."
-        );
-
-        commentElement.focus();
-
-        return;
+      const detailsField = document.getElementById('custDetails');
+      if (detailsField) detailsField.value = '';
+      triggerHaptic(15);
+      writeAuditLog(`رجع العميل إلى الشاشة الرئيسية لتعديل التقييم في [${activeBranch.short}]`);
+      lucide.createIcons();
     }
 
+    // Switch branch manually
+    function switchBranch(code) {
+      activeBranch = MERCATO_BRANCHES[String(code)] || MERCATO_BRANCHES['1'];
+      refreshBranchBindings();
+      closeDrawer('branchSelectorModal');
+      resetFlow();
+      writeAuditLog(`تم تبديل الفرع النشط إلى: [${activeBranch.name}]`);
+    }
 
-    const message =
+    // Drawer Helpers
+    function openDrawer(id) {
+      const drawer = document.getElementById(id);
+      const backdrop = document.getElementById(id + 'Backdrop');
+      if (drawer && backdrop) {
+        backdrop.classList.remove('pointer-events-none');
+        backdrop.classList.remove('opacity-0');
+        backdrop.classList.add('opacity-100');
+        drawer.classList.add('open');
+      }
+    }
 
-        "مرحباً، لدي ملاحظة على تجربتي مع MERCATO.\n\n" +
+    function closeDrawer(id) {
+      const drawer = document.getElementById(id);
+      const backdrop = document.getElementById(id + 'Backdrop');
+      if (drawer && backdrop) {
+        drawer.classList.remove('open');
+        backdrop.classList.remove('opacity-100');
+        backdrop.classList.add('opacity-0');
+        setTimeout(() => {
+          backdrop.classList.add('pointer-events-none');
+        }, 300);
+      }
+    }
 
-        "الفرع: " +
-        currentBranch.name +
-        "\n" +
+    // Copy QR Link
+    function copyQrLink() {
+      const link = `https://mercato-reviews.com/?branch=${activeBranch.code}`;
+      copyToClipboard(link);
+      triggerHaptic(20);
+      const btnText = document.getElementById('qrCopyBtnText');
+      btnText.innerText = 'تم نسخ الرابط!';
+      setTimeout(() => {
+        btnText.innerText = 'نسخ رابط الباركود';
+      }, 2000);
+    }
 
-        "التقييم: " +
-        selectedRating +
-        " من 5\n\n" +
+    // Webhook simulation update
+    function dispatchWebhookPayload(payload) {
+      const terminal = document.getElementById('jsonPayloadTerminal');
+      const badge = document.getElementById('webhookBadgeStatus');
+      terminal.innerText = JSON.stringify(payload, null, 2);
+      badge.innerText = '200 OK (تم الإرسال)';
+      badge.className = 'text-[9px] bg-emerald-950 text-emerald-300 border border-emerald-800 px-2 py-0.5 rounded';
+    }
 
-        "الملاحظة:\n" +
-        comment;
+    // Audit Log Writer
+    function writeAuditLog(message) {
+      const logContainer = document.getElementById('systemAuditLog');
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('ar-SA', { hour12: false });
+      const row = document.createElement('div');
+      row.className = 'text-slate-300';
+      row.innerHTML = `<span class="text-sky-400">[${timeStr}]</span> ${message}`;
+      logContainer.prepend(row);
+    }
 
+    // Robust Clipboard Copy
+    function copyToClipboard(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
 
-    const whatsappURL =
-
-        "https://wa.me/966920021310?text=" +
-
-        encodeURIComponent(message);
-
-
-    window.location.href =
-        whatsappURL;
-
-}
-
-</script>
-
+    // Mobile Vibration Haptic Feedback
+    function triggerHaptic(duration) {
+      if ('vibrate' in navigator) {
+        try {
+          navigator.vibrate(duration);
+        } catch(e) {}
+      }
+    }
+  </script>
 </body>
 </html>
