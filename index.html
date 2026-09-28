@@ -3,94 +3,105 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>MERCATO | تقييم تجربتك</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
   min-height:100vh;
-  font-family:Arial,sans-serif;
-  background:
-    radial-gradient(circle at 10% 15%,rgba(47,157,122,.10) 0 90px,transparent 91px),
-    radial-gradient(circle at 90% 85%,rgba(188,65,135,.09) 0 110px,transparent 111px),
-    radial-gradient(circle at 85% 12%,rgba(44,121,168,.08) 0 80px,transparent 81px),
-    #fafafa;
-  color:#333;
+  font-family:Arial, Tahoma, sans-serif;
+  background:#fff;
+  color:#222;
+  overflow-x:hidden;
 }
 
+/* الزخارف الجانبية */
+body::before,
+body::after{
+  content:"";
+  position:fixed;
+  width:180px;
+  height:180px;
+  pointer-events:none;
+  z-index:0;
+}
+
+body::before{
+  top:-25px;
+  left:-45px;
+  background:
+    linear-gradient(55deg, transparent 48%, rgba(44,121,168,.16) 49% 61%, transparent 62%),
+    linear-gradient(125deg, transparent 48%, rgba(194,77,145,.12) 49% 61%, transparent 62%),
+    linear-gradient(0deg, transparent 48%, rgba(44,155,120,.12) 49% 61%, transparent 62%);
+}
+
+body::after{
+  bottom:-30px;
+  right:-35px;
+  background:
+    linear-gradient(125deg, transparent 48%, rgba(194,77,145,.20) 49% 61%, transparent 62%),
+    linear-gradient(55deg, transparent 48%, rgba(44,121,168,.14) 49% 61%, transparent 62%),
+    linear-gradient(0deg, transparent 48%, rgba(44,155,120,.13) 49% 61%, transparent 62%);
+}
+
+/* الصفحة */
 .page{
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:28px 16px;
+  padding:35px 20px;
+  position:relative;
+  z-index:1;
 }
 
 .card{
   width:100%;
-  max-width:560px;
-  background:#fff;
-  border-radius:28px;
-  padding:38px 30px 28px;
+  max-width:650px;
   text-align:center;
-  box-shadow:0 18px 55px rgba(0,0,0,.07);
+  padding:35px 35px 25px;
   position:relative;
-  overflow:hidden;
 }
 
-.top-line{
-  height:5px;
-  width:100%;
-  position:absolute;
-  top:0;
-  right:0;
-  background:linear-gradient(
-    90deg,
-    #2c9b78,
-    #2879a8,
-    #c24d91,
-    #2c9b78
-  );
-}
-
+/* اللوقو */
 .logo-wrapper{
   display:flex;
   justify-content:center;
   align-items:center;
-  margin:8px 0 22px;
+  margin-bottom:18px;
 }
 
 .logo{
-  width:150px;
-  height:150px;
-  object-fit:cover;
-  border-radius:50%;
+  width:78px;
+  height:78px;
+  object-fit:contain;
   display:block;
-  background:#fff;
-  box-shadow:0 8px 25px rgba(0,0,0,.08);
-  border:4px solid #fff;
 }
 
+/* العنوان */
 h1{
-  margin:0 0 10px;
-  font-size:29px;
-  color:#2879a8;
+  margin:0 0 8px;
+  font-size:28px;
+  color:#17344a;
   font-weight:700;
 }
 
 .description{
-  margin:0 auto 18px;
+  margin:0 0 18px;
   color:#777;
-  font-size:15px;
-  line-height:1.8;
+  font-size:14px;
 }
 
+/* الخط الملون */
 .color-line{
-  width:105px;
-  height:4px;
-  margin:0 auto 24px;
+  width:80px;
+  height:3px;
+  margin:0 auto 18px;
   border-radius:20px;
   background:linear-gradient(
     90deg,
@@ -100,20 +111,21 @@ h1{
   );
 }
 
+/* النجوم */
 .stars{
   direction:rtl;
   display:flex;
   justify-content:center;
-  gap:7px;
-  margin-bottom:8px;
+  gap:5px;
+  margin-bottom:4px;
 }
 
 .star{
-  color:#eee9df;
-  font-size:49px;
+  color:#e8edf2;
+  font-size:42px;
   line-height:1;
   cursor:pointer;
-  transition:transform .18s ease,color .18s ease;
+  transition:.18s ease;
   user-select:none;
 }
 
@@ -122,84 +134,117 @@ h1{
 }
 
 .star.active{
-  color:#f4c542;
+  color:#f5b735;
 }
 
+/* نص التقييم */
 #ratingText{
-  min-height:27px;
-  margin:10px 0 20px;
+  min-height:24px;
+  margin:8px 0 18px;
   color:#555;
-  font-size:14px;
+  font-size:13px;
 }
 
+/* عنوان الملاحظات */
 label{
   display:block;
   text-align:right;
-  color:#2879a8;
+  color:#17344a;
   font-weight:700;
-  margin:0 0 8px;
-  font-size:14px;
+  margin:0 auto 7px;
+  max-width:470px;
+  font-size:13px;
 }
 
 textarea{
+  display:block;
   width:100%;
-  height:125px;
+  max-width:470px;
+  height:95px;
   resize:none;
-  border:1px solid #e4e4e4;
-  border-radius:16px;
-  padding:14px;
+  margin:0 auto 16px;
+
+  border:1px solid #e5e8ec;
+  border-radius:12px;
+
+  padding:12px;
   font-family:inherit;
-  font-size:14px;
+  font-size:13px;
+
   outline:none;
   background:#fff;
   color:#333;
-  margin-bottom:16px;
+
+  box-shadow:0 2px 8px rgba(0,0,0,.03);
+}
+
+textarea::placeholder{
+  color:#c5c5c5;
 }
 
 textarea:focus{
   border-color:#2879a8;
-  box-shadow:0 0 0 3px rgba(40,121,168,.08);
+  box-shadow:0 0 0 3px rgba(40,121,168,.07);
 }
 
+/* الزر */
 button{
-  width:100%;
+  width:170px;
   border:0;
   border-radius:999px;
-  padding:15px 20px;
-  background:#2c9b78;
+
+  padding:11px 18px;
+
+  background:linear-gradient(
+    90deg,
+    #2879d8,
+    #1874d1
+  );
+
   color:#fff;
   font-family:inherit;
-  font-size:16px;
+  font-size:13px;
   font-weight:700;
+
   cursor:pointer;
+
+  box-shadow:0 5px 15px rgba(40,121,216,.20);
+
   transition:.2s ease;
 }
 
 button:hover{
-  background:#238363;
   transform:translateY(-1px);
+  box-shadow:0 7px 18px rgba(40,121,216,.25);
 }
 
+/* السهم */
+button span{
+  margin-left:7px;
+  font-size:15px;
+}
+
+/* الفوتر */
 footer{
-  margin-top:20px;
+  margin-top:18px;
   color:#aaa;
-  font-size:12px;
+  font-size:11px;
 }
 
+/* الجوال */
 @media(max-width:600px){
 
   .page{
-    padding:18px 12px;
+    padding:25px 15px;
   }
 
   .card{
-    padding:32px 20px 22px;
-    border-radius:24px;
+    padding:25px 15px 20px;
   }
 
   .logo{
-    width:135px;
-    height:135px;
+    width:75px;
+    height:75px;
   }
 
   h1{
@@ -207,15 +252,24 @@ footer{
   }
 
   .description{
-    font-size:14px;
+    font-size:13px;
   }
 
   .star{
-    font-size:42px;
+    font-size:40px;
+  }
+
+  textarea{
+    height:90px;
+  }
+
+  button{
+    width:160px;
   }
 }
 </style>
 </head>
+
 
 <body>
 
@@ -223,42 +277,62 @@ footer{
 
 <main class="card">
 
-<div class="top-line"></div>
-
+<!-- الصورة الأصلية: لا تحذفينها -->
 <div class="logo-wrapper">
-<img src="./logo.jpeg.jpeg" class="logo" alt="MERCATO">
+  <img
+    src="./logo.jpeg.jpeg"
+    class="logo"
+    alt="MERCATO"
+  >
 </div>
 
-<h1>كيف كانت تجربتك معنا؟</h1>
+
+<h1>
+كيف كانت تجربتك معنا؟
+</h1>
+
 
 <p class="description">
-رأيك يهمنا ويساعدنا لنكون أفضل دائماً
+شاركنا تقييمك
 </p>
+
 
 <div class="color-line"></div>
 
+
 <div class="stars" aria-label="التقييم">
 
-<span class="star" data-rating="1">★</span>
-<span class="star" data-rating="2">★</span>
-<span class="star" data-rating="3">★</span>
-<span class="star" data-rating="4">★</span>
-<span class="star" data-rating="5">★</span>
+  <span class="star" data-rating="1">★</span>
+  <span class="star" data-rating="2">★</span>
+  <span class="star" data-rating="3">★</span>
+  <span class="star" data-rating="4">★</span>
+  <span class="star" data-rating="5">★</span>
 
 </div>
 
+
 <div id="ratingText"></div>
 
-<label for="feedback">ملاحظاتك</label>
+
+<label for="feedback">
+ملاحظاتك تهمنا ✎
+</label>
+
 
 <textarea
-id="feedback"
-placeholder="اكتب لنا ملاحظاتك (اختياري)"
+  id="feedback"
+  placeholder="اكتب لنا تعليقاتك هنا..."
 ></textarea>
 
-<button type="button" onclick="submitRating()">
-إرسال التقييم
+
+<button
+  type="button"
+  onclick="submitRating()"
+>
+  <span>←</span>
+  إرسال التقييم
 </button>
+
 
 <footer>
 شكراً لك على وقتك ومشاركتك لرأيك 🤍
@@ -269,83 +343,102 @@ placeholder="اكتب لنا ملاحظاتك (اختياري)"
 </div>
 
 
+
 <script>
+
+/* =========================
+   واتساب الدعم
+========================= */
 
 const supportUrl =
 "https://wa.me/966920021310";
 
 
+/* =========================
+   روابط فروع MERCATO
+========================= */
+
 const branchLinks = {
 
 "1":
-"https://search.google.com/local/writereview?placeid=ChIJx1prR0YFLz4RreNKvVnR1Rg",
+"https://g.page/r/Ca3jSr1Z0dUYEBM/review",
 
 "2":
-"https://search.google.com/local/writereview?placeid=ChIJk5u_zusBLz4R2WVhyIyhPwY",
+"https://g.page/r/CdllYciMoT8GEBM/review",
 
 "3":
-"https://search.google.com/local/writereview?placeid=ChIJfRyqOI0PLz4Rs2t5sRLs4SI",
+"https://g.page/r/CbNrebES7OEiEBM/review",
 
 "4":
-"https://search.google.com/local/writereview?placeid=ChIJpaxGw_urLz4RUCHT8IkOijU",
+"https://g.page/r/CVAh0_CJDoo1EBM/review",
 
 "5":
-"https://search.google.com/local/writereview?placeid=ChIJg8yTl0PQwxUR-tTTuIwmmak",
+"https://g.page/r/CfrU07iMJpmpEBM/review",
 
 "6":
-"https://search.google.com/local/writereview?placeid=ChIJz6HrZDmJ6RURBF0qzBTMOtM",
+"https://g.page/r/CQRdKswUzDrTEBM/review",
 
 "7":
-"https://search.google.com/local/writereview?placeid=ChIJkVoH9Qr9ST4R3jbshoEHBMM",
+"https://g.page/r/Cd427IaBBwTDEBM/review",
 
 "8":
-"https://search.google.com/local/writereview?placeid=ChIJbWeXLXv8ST4Rc-LKTr8XamM",
+"https://maps.app.goo.gl/jsJ6x368d5EQ8ht6A",
 
 "9":
-"https://search.google.com/local/writereview?placeid=ChIJ_bV1UkfpST4RZuxqbKY1-ps",
+"https://g.page/r/CWbsamymNfqbEBM/review",
 
 "10":
-"https://search.google.com/local/writereview?placeid=ChIJnV4PWBHvgRURZPr12VcTJcM",
+"https://g.page/r/CWT69dlXEyXDEBM/review",
 
 "11":
-"https://search.google.com/local/writereview?placeid=ChIJsSjNzXdXfxURI-3M0owGRJM",
+"https://g.page/r/CSPtzNKMBkSTEBM/review",
 
 "12":
-"https://search.google.com/local/writereview?placeid=ChIJq5JfE3i5vRURpSr2GTXROQU",
+"https://g.page/r/CaUq9hk10TkFEBM/review",
 
 "13":
-"https://search.google.com/local/writereview?placeid=ChIJd54MeaWtqRURJUCjRz9ceUw",
+"https://g.page/r/CSVAo0c_XHlMEBM/review",
 
 "14":
-"https://search.google.com/local/writereview?placeid=ChIJAes6kg9HdhURTXa1XQC_W1Y",
+"https://g.page/r/CU12tV0Av1tWEBM/review",
 
 "15":
-"https://search.google.com/local/writereview?placeid=ChIJB1RrDahV4xURfpy_V6IySyI",
+"https://g.page/r/CX6cv1eiMksiEBM/review",
 
 "16":
-"https://search.google.com/local/writereview?placeid=ChIJwZ3WSgCr_BURbFs-BvewKks",
+"https://g.page/r/CWxbPgb3sCpLEBM/review",
 
 "17":
-"https://search.google.com/local/writereview?placeid=ChIJ29udk-JY-xURBz_SqdC0fPI",
+"https://g.page/r/CQc_0qnQtHzyEBM/review",
 
 "18":
-"https://search.google.com/local/writereview?placeid=ChIJYyBPLw2F5BURsxdFp8hqmW0",
+"https://maps.app.goo.gl/LN2hneroRqdXBQVY8",
 
 "19":
-"https://search.google.com/local/writereview?placeid=ChIJHevpGHjD_hUR5HNDGF3zgAg",
+"https://g.page/r/CeRzQxhd84AIEBM/review",
 
 "20":
-"https://search.google.com/local/writereview?placeid=ChIJ3aESDqyXNz4RXs74UiWeLpE",
+"https://g.page/r/CV7O-FIlni6REBM/review",
 
 "21":
-"https://search.google.com/local/writereview?placeid=ChIJneS2VABB1z8R8rvM5HrUWaE"
+"https://g.page/r/CfK7zOR61FmhEBM/review"
 
 };
 
 
-const branch =
-new URLSearchParams(window.location.search).get("branch");
+/* =========================
+   تحديد الفرع من الرابط
+========================= */
 
+const branch =
+new URLSearchParams(
+  window.location.search
+).get("branch");
+
+
+/* =========================
+   النجوم
+========================= */
 
 const stars =
 document.querySelectorAll(".star");
@@ -358,78 +451,98 @@ let selectedRating = 0;
 
 stars.forEach(star => {
 
-star.addEventListener("click", function(){
+  star.addEventListener("click", function(){
 
-selectedRating =
-Number(this.dataset.rating);
+    selectedRating =
+    Number(this.dataset.rating);
 
 
-stars.forEach(item => {
+    stars.forEach(item => {
 
-item.classList.toggle(
-"active",
-Number(item.dataset.rating) <= selectedRating
-);
+      item.classList.toggle(
+        "active",
+        Number(item.dataset.rating)
+        <= selectedRating
+      );
+
+    });
+
+
+    ratingText.textContent = {
+
+      1:
+      "نأسف أن تجربتك لم تكن بالمستوى المطلوب",
+
+      2:
+      "نحتاج إلى تحسين تجربتك",
+
+      3:
+      "تجربة جيدة",
+
+      4:
+      "تجربة ممتازة",
+
+      5:
+      "تجربة رائعة! 🤍"
+
+    }[selectedRating];
+
+  });
 
 });
 
 
-ratingText.textContent = {
-
-1:"نأسف أن تجربتك لم تكن بالمستوى المطلوب",
-
-2:"نحتاج إلى تحسين تجربتك",
-
-3:"تجربة جيدة",
-
-4:"تجربة ممتازة",
-
-5:"تجربة رائعة! 🤍"
-
-}[selectedRating];
-
-});
-
-});
-
+/* =========================
+   إرسال التقييم
+========================= */
 
 function submitRating(){
 
-if(!selectedRating){
+  if(!selectedRating){
 
-alert("فضلاً اختر تقييمك أولاً ⭐");
+    alert(
+      "فضلاً اختر تقييمك أولاً ⭐"
+    );
 
-return;
-
-}
-
-
-if(selectedRating <= 3){
-
-window.location.href =
-supportUrl;
-
-return;
-
-}
+    return;
+  }
 
 
-const mapsUrl =
-branchLinks[branch];
+  /*
+    من 1 إلى 3 نجوم
+    → واتساب الدعم
+  */
+
+  if(selectedRating <= 3){
+
+    window.location.href =
+    supportUrl;
+
+    return;
+  }
 
 
-if(mapsUrl){
+  /*
+    من 4 إلى 5 نجوم
+    → صفحة تقييم الفرع
+  */
 
-window.location.href =
-mapsUrl;
+  const reviewUrl =
+  branchLinks[branch];
 
-}else{
 
-alert(
-"تعذر تحديد الفرع. تأكدي من رابط التقييم."
-);
+  if(reviewUrl){
 
-}
+    window.location.href =
+    reviewUrl;
+
+  }else{
+
+    alert(
+      "تعذر تحديد الفرع. تأكدي من رابط التقييم."
+    );
+
+  }
 
 }
 
