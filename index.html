@@ -112,6 +112,9 @@
       background-size: 24px 24px;
       background-position: 0 0, 12px 12px;
     }
+
+    /* Hide legacy utility controls; the customer-facing page has no bottom admin buttons. */
+    .legacy-utility-controls, #bottomUtilityBar, #utilityBar, [data-legacy-utility="true"] { display:none !important; }
   </style>
 </head>
 
@@ -156,7 +159,6 @@
         </button>
       </div>
 
-
     </div>
   </header>
 
@@ -168,10 +170,13 @@
 
       <!-- High-Precision SVG Logo Section with Denim & Textile Texture -->
       <div class="flex flex-col items-center justify-center pt-2 mb-4 text-center">
-        <div class="relative w-36 h-36 drop-shadow-md rounded-full overflow-hidden bg-white flex items-center justify-center">
-          <img src="./logo.jpeg.jpeg" alt="شعار ميركاتو" class="w-full h-full object-cover rounded-full block" />
+        <div class="relative w-36 h-36 rounded-full bg-white p-[3px] shadow-md overflow-hidden ring-1 ring-white/90">
+          <div class="w-full h-full rounded-full overflow-hidden bg-white">
+            <img src="./logo.jpeg.jpeg" alt="شعار ميركاتو"
+                 class="w-full h-full object-cover rounded-full"
+                 style="display:block; transform:scale(1.035);">
+          </div>
         </div>
-
         <div class="mt-1 space-y-0.5">
           <p class="text-xs font-bold text-mercato-brandtext font-cairo">
             أشهر الماركات العالمية بأسعار مخفضة
@@ -211,13 +216,6 @@
             </button>
           </div>
 
-          <!-- Dynamic Sentiment Feedback -->
-          <div class="h-8 mt-3 flex items-center justify-center">
-            <div id="sentimentDisplay" class="opacity-0 transition-opacity duration-200 inline-flex items-center gap-2 text-xs font-bold py-1 px-3.5 rounded-full border">
-              <span id="sentimentEmoji">⭐</span>
-              <span id="sentimentText">اضغط على النجوم لتسجيل رأيك</span>
-            </div>
-          </div>
         </div>
 
         <!-- Trust footer -->
@@ -255,138 +253,42 @@
         <h2 class="text-xl font-cairo font-black text-slate-900 mb-1">
           رأيك الجميل يدعم فريق ميركاتو!
         </h2>
-        <p class="text-xs text-slate-600 font-tajawal mb-4 max-w-sm mx-auto leading-relaxed">
-          يسعدنا جداً مشاركة رأيك الطيب على خرائط <span class="font-bold text-slate-800">Google</span> لمساعدة عشاق الماركات العالمية المخفضة في معرفة <span id="positiveBranchTitle" class="font-bold text-mercato-darkblue">الفرع</span>.
-        </p>
-
-        <!-- Suggested Review with 1-Tap Copy -->
-        <div class="bg-gradient-to-r from-sky-50 via-purple-50/40 to-lime-50 rounded-2xl p-3.5 border border-slate-200/90 text-right mb-4 shadow-sm">
-          <div class="flex items-center justify-between text-xs mb-1.5">
-            <span class="font-bold text-mercato-brandtext flex items-center gap-1">
-              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-mercato-blue"></i>
-              نص مقترح لتعليقك (جاهز للنسخ):
-            </span>
-            <button onclick="copySuggestedText()" class="inline-flex items-center gap-1 text-[11px] font-bold bg-white text-mercato-darkblue px-2.5 py-1 rounded-lg border border-slate-200 active:scale-95 shadow-sm transition">
-              <i data-lucide="copy" class="w-3 h-3 text-sky-600"></i>
-              <span id="copyButtonText">نسخ النص</span>
-            </button>
-          </div>
-          <p id="suggestedReviewParagraph" class="text-xs text-slate-700 bg-white p-2.5 rounded-xl border border-slate-200 font-tajawal leading-relaxed">
-            ميركاتو خياري الأول دائماً للماركات العالمية الأصلية والملابس بأسعار مخفضة جداً! خامات ممتازة، ومقاسات متنوعة، وطاقم عمل راقٍ وسريع في الخدمة. أنصح به وبشدة! ⭐⭐⭐⭐⭐
-          </p>
-        </div>
-
-        <!-- Google Maps Main Action Button -->
-        <div class="space-y-2.5">
-          <a id="btnGoogleMapsRedirect" href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn-pulse w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-mercato-darkblue via-blue-700 to-mercato-magenta text-white font-cairo font-bold text-sm shadow-xl flex items-center justify-center gap-2.5 active:scale-98 transition">
-            <i data-lucide="map-pin" class="w-5 h-5 text-amber-300"></i>
-            <span>إضافة تقييمك الآن على خرائط Google</span>
-            <i data-lucide="arrow-left" class="w-4 h-4"></i>
-          </a>
-
-          <button onclick="resetFlow()" class="inline-flex items-center justify-center gap-1.5 w-full py-2 px-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-xs text-slate-600 font-cairo font-bold transition">
-            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-            <span>الرجوع وتغيير التقييم</span>
-          </button>
-        </div>
+        <!-- Automatic Google redirect: no suggested text or extra action buttons. -->
 
       </section>
 
       <section id="stepComplaintFlow" class="hidden transition-all duration-300">
-        
-        <!-- Top Back Navigation in Complaint Card -->
         <div class="flex items-center justify-between mb-2">
           <button onclick="resetFlow()" type="button" class="inline-flex items-center gap-1.5 text-xs text-slate-600 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-full font-tajawal active:scale-95 transition">
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
             <span>الرجوع للتقييم</span>
           </button>
-          <span class="text-[11px] font-bold text-rose-500 flex items-center gap-1">
-            <i data-lucide="help-circle" class="w-3.5 h-3.5"></i>
-            نقرت بالخطأ؟ يمكنك الرجوع
-          </span>
+          <span class="text-[11px] font-bold text-rose-500">نأخذ ملاحظتك بجدية</span>
         </div>
 
         <div class="text-center mb-3">
-          <div class="w-12 h-12 mx-auto rounded-2xl bg-pink-50 text-mercato-magenta border border-pink-200 flex items-center justify-center mb-1.5 shadow-sm">
-            <i data-lucide="shield-alert" class="w-6 h-6"></i>
+          <div class="w-12 h-12 mx-auto rounded-2xl bg-pink-50 text-mercato-magenta border border-pink-200 flex items-center justify-center mb-2 shadow-sm">
+            <i data-lucide="message-circle" class="w-6 h-6"></i>
           </div>
           <h2 class="text-lg font-cairo font-black text-slate-900 leading-snug">
-            نعتذر منك بشدة.. صوتك يصل لمدير الفرع فوراً!
+            نبي نسمع ملاحظتك
           </h2>
-          <p class="text-xs text-slate-500 font-tajawal mt-0.5">
-            في <span class="font-bold text-mercato-brandtext">ميركاتو</span>، جودة تسوقك وحقك في أفضل تجربة هو واجبنا. اكتب ملاحظتك وسنتواصل معك شخصياً للحل والتعويض.
+          <p class="text-xs text-slate-500 font-tajawal mt-1">
+            اكتب ملاحظتك، وبيتم تحويلها مباشرة للدعم الفني في واتساب.
           </p>
         </div>
 
-        <!-- Complaint Form -->
-        <form id="complaintSubmitForm" onsubmit="submitCustomerComplaint(event)" class="space-y-2.5 text-right">
-          
-          <input type="hidden" id="hiddenBranchCode" value="tahlia">
-          <input type="hidden" id="hiddenBranchName" value="فرع التحلية - جدة">
-          <input type="hidden" id="hiddenRatingScore" value="1">
+        <form id="complaintSubmitForm" onsubmit="submitCustomerComplaint(event)" class="space-y-3 text-right">
+          <textarea id="custDetails" rows="5" required
+            placeholder="اكتب ملاحظتك أو تجربتك هنا..."
+            class="w-full text-sm p-3 rounded-2xl border border-slate-200 focus:border-mercato-blue focus:ring-2 focus:ring-sky-100 bg-slate-50 outline-none transition resize-none font-tajawal"></textarea>
 
-          <!-- Category Specific to Clothing / Mercato Outlets -->
-          <div>
-            <label class="block text-[11px] font-bold text-slate-700 mb-1">
-              تصنيف الملاحظة <span class="text-rose-500">*</span>
-            </label>
-            <select id="complaintDept" required class="w-full text-xs py-2.5 px-3 rounded-xl border border-slate-200 focus:border-mercato-blue focus:ring-2 focus:ring-sky-100 bg-slate-50 outline-none transition font-tajawal">
-              <option value="المقاسات وتوفر الماركات">توفر المقاسات وتنوع الماركات المعروضة</option>
-              <option value="الأسعار والعروض والفاتورة">الأسعار، الخصومات أو تدقيق الفاتورة</option>
-              <option value="تعامل الكاشير والموظفين">تعامل الكاشير أو موظفي الصالة</option>
-              <option value="غرف القياس والترتيب">نظافة وتنظيم غرف القياس أو المحل</option>
-              <option value="الاستبدال والاسترجاع">سياسة وخدمة الاستبدال والاسترجاع</option>
-              <option value="ملاحظة عامة أخرى">ملاحظة عامة أخرى لإدارة الفرع</option>
-            </select>
-          </div>
-
-          <!-- Customer Name -->
-          <div>
-            <label class="block text-[11px] font-bold text-slate-700 mb-1">
-              الاسم الكريم <span class="text-rose-500">*</span>
-            </label>
-            <input type="text" id="custName" required placeholder="مثال: فيصل الغامدي" class="w-full text-xs py-2.5 px-3 rounded-xl border border-slate-200 focus:border-mercato-blue focus:ring-2 focus:ring-sky-100 bg-slate-50 outline-none transition font-tajawal">
-          </div>
-
-          <!-- Saudi Mobile Phone Field with Validation -->
-          <div>
-            <label class="block text-[11px] font-bold text-slate-700 mb-1">
-              رقم الجوال للتواصل والتعويض <span class="text-rose-500">*</span>
-            </label>
-            <div class="relative flex items-center">
-              <input type="tel" id="custPhone" dir="ltr" required placeholder="05xxxxxxxx" pattern="^(05)[0-9]{8}$" class="w-full text-xs text-right py-2.5 pr-3 pl-16 rounded-xl border border-slate-200 focus:border-mercato-blue focus:ring-2 focus:ring-sky-100 bg-slate-50 outline-none transition font-mono">
-              <div class="absolute left-2 flex items-center gap-1 px-1.5 py-0.5 rounded bg-slate-200/80 text-[10px] font-mono text-slate-600" dir="ltr">
-                <span>🇸🇦</span>
-                <span>+966</span>
-              </div>
-            </div>
-            <span class="text-[10px] text-slate-400 font-tajawal">يبدأ بـ 05 ويتكون من 10 أرقام</span>
-          </div>
-
-          <!-- Complaint Description -->
-          <div>
-            <label class="block text-[11px] font-bold text-slate-700 mb-1">
-              تفاصيل ما حدث معك <span class="text-rose-500">*</span>
-            </label>
-            <textarea id="custDetails" rows="2" required placeholder="فضلاً اذكر تفاصيل المشكلة لنقوم بمعالجتها ومحاسبة المقصر فوراً..." class="w-full text-xs p-2.5 rounded-xl border border-slate-200 focus:border-mercato-blue focus:ring-2 focus:ring-sky-100 bg-slate-50 outline-none transition resize-none font-tajawal"></textarea>
-          </div>
-
-          <!-- Submit Button -->
-          <button type="submit" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-mercato-magenta to-mercato-plum active:scale-98 text-white font-cairo font-bold text-xs shadow-md shadow-pink-900/20 transition flex items-center justify-center gap-2">
+          <button type="submit"
+            class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-mercato-magenta to-mercato-plum active:scale-98 text-white font-cairo font-bold text-sm shadow-md shadow-pink-900/20 transition flex items-center justify-center gap-2">
             <i data-lucide="send" class="w-4 h-4"></i>
-            <span>إرسال الشكوى لمدير فرع ميركاتو شخصياً</span>
+            <span>إرسال للدعم الفني عبر واتساب</span>
           </button>
-
         </form>
-
-        <!-- Ethical Policy Compliance: Subtle Google Maps link to prevent algorithmic gating penalties -->
-        <div class="mt-3 pt-2 border-t border-slate-100 text-center">
-          <a id="ethicalMapLink" href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="text-[11px] text-slate-400 hover:text-slate-600 inline-flex items-center gap-1 font-tajawal">
-            <span>أو يمكنك المتابعة إلى خرائط Google مباشرة</span>
-            <i data-lucide="external-link" class="w-3 h-3"></i>
-          </a>
-        </div>
-
       </section>
 
       <section id="stepSuccessTicket" class="hidden text-center py-2 transition-all duration-300">
@@ -433,22 +335,6 @@
 
     </div>
   </main>
-
-  <footer class="w-full max-w-md mx-auto py-2.5 px-4 relative z-20">
-    <div class="flex items-center justify-center gap-2">
-      
-      <button onclick="openDrawer('branchSelectorModal')" class="flex-1 py-2 px-3 rounded-2xl bg-white/90 active:bg-white text-slate-800 text-xs font-cairo font-bold border border-slate-200/90 shadow-sm flex items-center justify-center gap-1.5 backdrop-blur-md touch-bounce">
-        <i data-lucide="store" class="w-3.5 h-3.5 text-mercato-lime"></i>
-        <span>تبديل الفرع (محاكاة QR)</span>
-      </button>
-
-      <button onclick="openDrawer('automationDrawer')" class="flex-1 py-2 px-3 rounded-2xl bg-slate-900 active:bg-slate-800 text-white text-xs font-cairo font-bold border border-slate-700 shadow-sm flex items-center justify-center gap-1.5 touch-bounce">
-        <i data-lucide="workflow" class="w-3.5 h-3.5 text-sky-400"></i>
-        <span>شاشة الأتمتة المباشرة</span>
-      </button>
-
-    </div>
-  </footer>
 
   <div id="branchSelectorModalBackdrop" onclick="closeDrawer('branchSelectorModal')" class="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"></div>
   <div id="branchSelectorModal" class="fixed inset-x-0 bottom-0 max-w-md mx-auto z-50 bg-white text-slate-800 rounded-t-[2rem] border-t border-slate-200 shadow-2xl sheet-drawer p-5 pb-8">
@@ -623,54 +509,198 @@
   <script>
     // 1. Mercato Official Branches Database
     const MERCATO_BRANCHES = {
-      'tahlia': {
-        code: 'tahlia',
-        name: 'فرع التحلية - جدة',
-        short: 'فرع التحلية',
-        city: 'جدة',
-        manager: 'أ. حسام البارقي (مدير فرع التحلية)',
-        phone: '+966 50 112 3344',
-        googleMapsUrl: 'https://maps.google.com/?cid=1001'
-      },
-      'salam': {
-        code: 'salam',
-        name: 'فرع السلام مول - جدة',
-        short: 'فرع السلام مول',
-        city: 'جدة',
-        manager: 'أ. طارق الشهري (مدير فرع السلام)',
-        phone: '+966 55 223 4455',
-        googleMapsUrl: 'https://maps.google.com/?cid=1002'
-      },
-      'rawdah': {
-        code: 'rawdah',
-        name: 'فرع الروضة - الرياض',
-        short: 'فرع الروضة',
+      '1': {
+        code: '1',
+        name: 'فرع الرياض - الملز',
+        short: 'فرع الرياض - الملز',
         city: 'الرياض',
-        manager: 'أ. مروان السعيد (مدير فرع الروضة)',
-        phone: '+966 54 334 5566',
-        googleMapsUrl: 'https://maps.google.com/?cid=1003'
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://g.page/r/Ca3jSr1Z0dUYEBM/review'
       },
-      'redsea': {
-        code: 'redsea',
-        name: 'فرع ردسي مول - جدة',
-        short: 'فرع ردسي مول',
+      '2': {
+        code: '2',
+        name: 'فرع الرياض - إشبيلية',
+        short: 'فرع الرياض - إشبيلية',
+        city: 'الرياض',
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://g.page/r/CdllYciMoT8GEBM/review'
+      },
+      '3': {
+        code: '3',
+        name: 'فرع الرياض - الشفا',
+        short: 'فرع الرياض - الشفا',
+        city: 'الرياض',
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://g.page/r/CbNrebES7OEiEBM/review'
+      },
+      '4': {
+        code: '4',
+        name: 'فرع الرياض - النسيم',
+        short: 'فرع الرياض - النسيم',
+        city: 'الرياض',
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://g.page/r/CVAh0_CJDoo1EBM/review'
+      },
+      '5': {
+        code: '5',
+        name: 'فرع جدة - الفيصلية',
+        short: 'فرع جدة - الفيصلية',
         city: 'جدة',
-        manager: 'أ. فيصل المالكي (مدير فرع ردسي)',
-        phone: '+966 56 445 6677',
-        googleMapsUrl: 'https://maps.google.com/?cid=1004'
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://g.page/r/CfrU07iMJpmpEBM/review'
+      },
+      '6': {
+        code: '6',
+        name: 'فرع الطائف - شارع أبو بكر',
+        short: 'فرع الطائف - شارع أبو بكر',
+        city: 'الطائف',
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://g.page/r/CQRdKswUzDrTEBM/review'
+      },
+      '7': {
+        code: '7',
+        name: 'فرع الدمام - حياة بلازا',
+        short: 'فرع الدمام - حياة بلازا',
+        city: 'الدمام',
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://g.page/r/Cd427IaBBwTDEBM/review'
+      },
+      '8': {
+        code: '8',
+        name: 'فرع الدمام - النخيل',
+        short: 'فرع الدمام - النخيل',
+        city: 'الدمام',
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://maps.app.goo.gl/jsJ6x368d5EQ8ht6A'
+      },
+      '9': {
+        code: '9',
+        name: 'فرع الخبر - شمال الخبر',
+        short: 'فرع الخبر - شمال الخبر',
+        city: 'الخبر',
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://g.page/r/CWbsamymNfqbEBM/review'
+      },
+      '10': {
+        code: '10',
+        name: 'فرع عنيزة - السليمانية',
+        short: 'فرع عنيزة - السليمانية',
+        city: 'عنيزة',
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://g.page/r/CWT69dlXEyXDEBM/review'
+      },
+      '11': {
+        code: '11',
+        name: 'فرع بريدة - الإسكان',
+        short: 'فرع بريدة - الإسكان',
+        city: 'بريدة',
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://g.page/r/CSPtzNKMBkSTEBM/review'
+      },
+      '12': {
+        code: '12',
+        name: 'فرع المدينة المنورة - الجماوات',
+        short: 'فرع المدينة المنورة - الجماوات',
+        city: 'المدينة المنورة',
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://g.page/r/CaUq9hk10TkFEBM/review'
+      },
+      '13': {
+        code: '13',
+        name: 'فرع تبوك - العزيزية القديمة',
+        short: 'فرع تبوك - العزيزية القديمة',
+        city: 'تبوك',
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://g.page/r/CSVAo0c_XHlMEBM/review'
+      },
+      '14': {
+        code: '14',
+        name: 'فرع حائل - الزبارة',
+        short: 'فرع حائل - الزبارة',
+        city: 'حائل',
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://g.page/r/CU12tV0Av1tWEBM/review'
+      },
+      '15': {
+        code: '15',
+        name: 'فرع أبها - الربوة',
+        short: 'فرع أبها - الربوة',
+        city: 'أبها',
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://g.page/r/CX6cv1eiMksiEBM/review'
+      },
+      '16': {
+        code: '16',
+        name: 'فرع أبها الجديدة - طريق الملك فهد',
+        short: 'فرع أبها الجديدة - طريق الملك فهد',
+        city: 'أبها الجديدة',
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://g.page/r/CWxbPgb3sCpLEBM/review'
+      },
+      '17': {
+        code: '17',
+        name: 'فرع خميس مشيط - الرصراص',
+        short: 'فرع خميس مشيط - الرصراص',
+        city: 'خميس مشيط',
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://g.page/r/CQc_0qnQtHzyEBM/review'
+      },
+      '18': {
+        code: '18',
+        name: 'فرع محايل عسير - طريق الملك عبدالعزيز',
+        short: 'فرع محايل عسير - طريق الملك عبدالعزيز',
+        city: 'محايل عسير',
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://maps.app.goo.gl/LN2hneroRqdXBQVY8'
+      },
+      '19': {
+        code: '19',
+        name: 'فرع نجران - الفيصلية',
+        short: 'فرع نجران - الفيصلية',
+        city: 'نجران',
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://g.page/r/CeRzQxhd84AIEBM/review'
+      },
+      '20': {
+        code: '20',
+        name: 'فرع الأحساء - المسعودي',
+        short: 'فرع الأحساء - المسعودي',
+        city: 'الأحساء',
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://g.page/r/CV7O-FIlni6REBM/review'
+      },
+      '21': {
+        code: '21',
+        name: 'فرع حفر الباطن - الخالدية',
+        short: 'فرع حفر الباطن - الخالدية',
+        city: 'حفر الباطن',
+        manager: 'إدارة فرع ميركاتو',
+        phone: '',
+        googleMapsUrl: 'https://g.page/r/CfK7zOR61FmhEBM/review'
       }
     };
 
-    // Sentiment Dictionary
-    const SENTIMENTS = {
-      1: { text: 'غير راضٍ عن التجربة', emoji: '😡', color: 'text-rose-600 bg-rose-50 border-rose-200' },
-      2: { text: 'تجربة دون المأمول', emoji: '🙁', color: 'text-orange-600 bg-orange-50 border-orange-200' },
-      3: { text: 'مقبولة وبحاجة لتحسين', emoji: '😐', color: 'text-amber-600 bg-amber-50 border-amber-200' },
-      4: { text: 'تسوق رائع ومميز!', emoji: '😊', color: 'text-sky-600 bg-sky-50 border-sky-200' },
-      5: { text: 'ماركات وتجربة استثنائية! 🌿', emoji: '🤩', color: 'text-mercato-lime bg-lime-50 border-lime-300' }
-    };
-
-    let activeBranch = MERCATO_BRANCHES['tahlia'];
+    let activeBranch = MERCATO_BRANCHES['1'];
     let currentRatingValue = 0;
 
     // Initialization on DOM Load
@@ -684,12 +714,12 @@
     function initBranchFromUrl() {
       try {
         const urlParams = new URLSearchParams(window.location.search);
-        const branchCode = urlParams.get('branch');
+        const branchCode = (urlParams.get('branch') || '').trim();
         if (branchCode && MERCATO_BRANCHES[branchCode.toLowerCase()]) {
           activeBranch = MERCATO_BRANCHES[branchCode.toLowerCase()];
         }
       } catch (err) {
-        activeBranch = MERCATO_BRANCHES['tahlia'];
+        activeBranch = MERCATO_BRANCHES['1'];
       }
       refreshBranchBindings();
     }
@@ -697,8 +727,6 @@
     // Update all text and link bindings across DOM
     function refreshBranchBindings() {
       document.getElementById('headerBranchLabel').innerText = activeBranch.name;
-      document.getElementById('currentBranchLabelHero').innerText = activeBranch.name;
-      document.getElementById('positiveBranchTitle').innerText = activeBranch.name;
       document.getElementById('hiddenBranchCode').value = activeBranch.code;
       document.getElementById('hiddenBranchName').value = activeBranch.name;
       document.getElementById('confirmedTicketBranch').innerText = activeBranch.name;
@@ -706,9 +734,6 @@
       document.getElementById('waBranchNameText').innerText = activeBranch.name;
       document.getElementById('waManagerTarget').innerText = `إلى: ${activeBranch.manager}`;
       
-      // Update Google maps links
-      document.getElementById('btnGoogleMapsRedirect').href = activeBranch.googleMapsUrl;
-      document.getElementById('ethicalMapLink').href = activeBranch.googleMapsUrl;
 
       // Update QR modal
       document.getElementById('qrModalBranchLabel').innerText = activeBranch.name;
@@ -722,7 +747,6 @@
       currentRatingValue = stars;
 
       highlightStars(stars);
-      renderSentimentLabel(stars);
 
       writeAuditLog(`قام العميل بالنقر على تقييم: (${stars} من 5 نجوم) في [${activeBranch.short}]`);
 
@@ -745,19 +769,6 @@
       });
     }
 
-    function renderSentimentLabel(stars) {
-      const badge = document.getElementById('sentimentDisplay');
-      const emojiEl = document.getElementById('sentimentEmoji');
-      const textEl = document.getElementById('sentimentText');
-      const sentiment = SENTIMENTS[stars];
-
-      if (sentiment) {
-        emojiEl.innerText = sentiment.emoji;
-        textEl.innerText = sentiment.text;
-        badge.className = `transition-opacity duration-200 inline-flex items-center gap-2 text-xs font-bold py-1 px-3.5 rounded-full border ${sentiment.color} opacity-100 shadow-sm`;
-      }
-    }
-
     // Review Gating core logic
     function executeGatingLogic(stars) {
       const stepInitial = document.getElementById('stepInitialRating');
@@ -769,10 +780,12 @@
       if (headerBackBtn) headerBackBtn.classList.remove('hidden');
 
       if (stars >= 4) {
-        // POSITIVE (4-5 Stars) -> Google Maps
+        // 4-5 stars: celebration first, then direct Google review page.
         stepPositive.classList.remove('hidden');
         shootMercatoConfetti();
-        writeAuditLog(`مسار إيجابي (${stars} نجوم) ➔ توجيه العميل إلى خرائط Google`);
+        playPositiveCelebration(stars);
+
+        writeAuditLog(`تقييم إيجابي (${stars} نجوم) ➔ تفاعل احتفالي ثم توجيه مباشر إلى خرائط Google`);
 
         dispatchWebhookPayload({
           event: "positive_rating_gated",
@@ -782,21 +795,52 @@
           timestamp: new Date().toISOString()
         });
 
+        setTimeout(() => {
+          // Directly open the exact Google review link for the active branch.
+          window.location.assign(activeBranch.googleMapsUrl);
+        }, 900);
+
       } else {
-        // NEGATIVE (1-3 Stars) -> Internal Complaint Form
+        // 1-3 stars: show the comment box immediately.
         stepComplaint.classList.remove('hidden');
-        document.getElementById('hiddenRatingScore').value = stars;
-        writeAuditLog(`مسار سلبي (${stars} نجوم) ➔ تحويل العميل لنموذج الشكاوى والعناية بـ [${activeBranch.short}]`);
+        writeAuditLog(`تقييم (${stars} نجوم) ➔ فتح خانة الملاحظة وإرسالها للدعم الفني عبر واتساب`);
 
         dispatchWebhookPayload({
           event: "negative_feedback_intercepted",
           stars: `${stars}/5`,
           branch: activeBranch,
-          destination: "Internal_Care_Desk",
+          destination: "WhatsApp_Support",
           timestamp: new Date().toISOString()
         });
       }
+
       lucide.createIcons();
+    }
+
+    // Positive interaction inspired by the supplied reference:
+    // confetti + animated appreciation state before Google redirect.
+    function playPositiveCelebration(stars) {
+      const card = document.getElementById('stepPositiveFlow');
+      if (!card) return;
+
+      card.classList.add('positive-celebration');
+      card.animate(
+        [
+          { transform: 'scale(0.96)', opacity: 0.75 },
+          { transform: 'scale(1.035)', opacity: 1 },
+          { transform: 'scale(1)', opacity: 1 }
+        ],
+        { duration: 650, easing: 'cubic-bezier(.2,.8,.2,1)' }
+      );
+
+      triggerHaptic(stars === 5 ? [25, 35, 25] : [20, 30]);
+
+      const title = card.querySelector('h2');
+      if (title) {
+        title.innerText = stars === 5
+          ? 'يا سلام! ⭐⭐⭐⭐⭐'
+          : 'تقييم رائع! ⭐⭐⭐⭐';
+      }
     }
 
     // Mercato Themed Confetti Explosion
@@ -811,67 +855,33 @@
       }
     }
 
-    // Copy Predefined Review Text
-    function copySuggestedText() {
-      const text = document.getElementById('suggestedReviewParagraph').innerText;
-      copyToClipboard(text);
-      triggerHaptic(20);
-
-      const btnText = document.getElementById('copyButtonText');
-      btnText.innerText = 'تم النسخ بنجاح!';
-      setTimeout(() => {
-        btnText.innerText = 'نسخ النص';
-      }, 2000);
-
-      writeAuditLog("نسخ العميل نص التقييم المقترح لنشره على قوقل");
-    }
-
-    // Submit Internal Complaint
+    // Send the customer's exact comment to Mercato support via WhatsApp.
     function submitCustomerComplaint(e) {
       e.preventDefault();
 
-      const name = document.getElementById('custName').value.trim();
-      const phone = document.getElementById('custPhone').value.trim();
-      const dept = document.getElementById('complaintDept').value;
       const details = document.getElementById('custDetails').value.trim();
-      const score = document.getElementById('hiddenRatingScore').value;
-      const randomTicketId = `#MC-${Math.floor(10000 + Math.random() * 90000)}`;
+      if (!details) return;
 
-      document.getElementById('stepComplaintFlow').classList.add('hidden');
-      document.getElementById('stepSuccessTicket').classList.remove('hidden');
-      document.getElementById('ticketNumberDisplay').innerText = randomTicketId;
+      const score = currentRatingValue || 1;
+      const message =
+        `مرحباً دعم ميركاتو،\n` +
+        `لدي ملاحظة من عميل على ${activeBranch.name}.\n` +
+        `التقييم: ${score}/5\n` +
+        `الملاحظة: ${details}`;
 
-      triggerHaptic([40, 60, 40]);
+      const whatsappUrl = `https://wa.me/966920021310?text=${encodeURIComponent(message)}`;
 
-      // Update WhatsApp Simulation card
-      document.getElementById('waCustomerName').innerText = name;
-      document.getElementById('waCustomerPhone').innerText = phone;
-      document.getElementById('waCategoryText').innerText = dept;
-      document.getElementById('waDetailsText').innerText = details;
-      document.getElementById('waBranchNameText').innerText = activeBranch.name;
-      document.getElementById('waManagerTarget').innerText = `إلى: ${activeBranch.manager}`;
+      triggerHaptic([30, 50, 30]);
+      writeAuditLog(`تم تجهيز ملاحظة العميل (${score}/5) وإرسالها إلى دعم ميركاتو عبر واتساب`);
 
-      // Dispatch simulated Webhook
-      dispatchWebhookPayload({
-        event: "complaint_ticket_created",
-        ticket_id: randomTicketId,
-        customer: { name, phone },
-        rating: `${score}/5`,
-        category: dept,
-        notes: details,
-        branch: activeBranch,
-        status: "urgent_followup_pending",
-        timestamp: new Date().toISOString()
-      });
-
-      writeAuditLog(`تم فتح تذكرة شكوى [${randomTicketId}] وإشعار مدير [${activeBranch.short}] بالواتساب`);
+      window.location.href = whatsappUrl;
     }
+
 
     // Reset Flow to rate again
     function resetFlow() {
       currentRatingValue = 0;
       highlightStars(0);
-      document.getElementById('sentimentDisplay').classList.add('opacity-0');
       document.getElementById('stepInitialRating').classList.remove('hidden');
       document.getElementById('stepPositiveFlow').classList.add('hidden');
       document.getElementById('stepComplaintFlow').classList.add('hidden');
@@ -888,7 +898,7 @@
 
     // Switch branch manually
     function switchBranch(code) {
-      activeBranch = MERCATO_BRANCHES[code] || MERCATO_BRANCHES['tahlia'];
+      activeBranch = MERCATO_BRANCHES[code] || MERCATO_BRANCHES['1'];
       refreshBranchBindings();
       closeDrawer('branchSelectorModal');
       resetFlow();
