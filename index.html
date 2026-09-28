@@ -198,22 +198,28 @@
 
         <!-- 5 Interactive Ergonomic Stars -->
         <div class="flex flex-col items-center justify-center my-3">
-          <div id="starContainer" class="flex items-center justify-center gap-2 p-2.5 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-inner w-full max-w-xs">
-            <button type="button" onclick="rateStore(1)" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none" aria-label="نجمة 1">
+          <div id="starContainer" class="flex items-start justify-center gap-2 p-2.5 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-inner w-full max-w-xs">
+            <div class="flex flex-col items-center">
+              <button type="button" onclick="rateStore(1)" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none" aria-label="نجمة 1">
+                <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
+              </button>
+              <span class="text-[11px] font-bold text-slate-500 mt-0.5 whitespace-nowrap">ممتاز</span>
+            </div>
+            <button type="button" onclick="rateStore(2)" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none mt-0.5" aria-label="نجمتان">
               <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
             </button>
-            <button type="button" onclick="rateStore(2)" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none" aria-label="نجمتان">
+            <button type="button" onclick="rateStore(3)" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none mt-0.5" aria-label="3 نجوم">
               <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
             </button>
-            <button type="button" onclick="rateStore(3)" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none" aria-label="3 نجوم">
+            <button type="button" onclick="rateStore(4)" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none mt-0.5" aria-label="4 نجوم">
               <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
             </button>
-            <button type="button" onclick="rateStore(4)" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none" aria-label="4 نجوم">
-              <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
-            </button>
-            <button type="button" onclick="rateStore(5)" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none" aria-label="5 نجوم">
-              <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
-            </button>
+            <div class="flex flex-col items-center">
+              <button type="button" onclick="rateStore(5)" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none" aria-label="نجمة 5">
+                <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
+              </button>
+              <span class="text-[11px] font-bold text-slate-500 mt-0.5 whitespace-nowrap">غير راضي</span>
+            </div>
           </div>
 
         </div>
