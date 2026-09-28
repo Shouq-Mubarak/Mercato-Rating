@@ -14,13 +14,13 @@
 body{
   margin:0;
   min-height:100vh;
-  font-family:Arial, Tahoma, sans-serif;
+  font-family:Arial,Tahoma,sans-serif;
   background:#fff;
   color:#222;
   overflow-x:hidden;
 }
 
-/* الزخارف الجانبية */
+/* الزخارف */
 body::before,
 body::after{
   content:"";
@@ -35,21 +35,53 @@ body::before{
   top:-25px;
   left:-45px;
   background:
-    linear-gradient(55deg, transparent 48%, rgba(44,121,168,.16) 49% 61%, transparent 62%),
-    linear-gradient(125deg, transparent 48%, rgba(194,77,145,.12) 49% 61%, transparent 62%),
-    linear-gradient(0deg, transparent 48%, rgba(44,155,120,.12) 49% 61%, transparent 62%);
+    linear-gradient(
+      55deg,
+      transparent 48%,
+      rgba(44,121,168,.16) 49% 61%,
+      transparent 62%
+    ),
+    linear-gradient(
+      125deg,
+      transparent 48%,
+      rgba(194,77,145,.12) 49% 61%,
+      transparent 62%
+    ),
+    linear-gradient(
+      0deg,
+      transparent 48%,
+      rgba(44,155,120,.12) 49% 61%,
+      transparent 62%
+    );
 }
 
 body::after{
   bottom:-30px;
   right:-35px;
   background:
-    linear-gradient(125deg, transparent 48%, rgba(194,77,145,.20) 49% 61%, transparent 62%),
-    linear-gradient(55deg, transparent 48%, rgba(44,121,168,.14) 49% 61%, transparent 62%),
-    linear-gradient(0deg, transparent 48%, rgba(44,155,120,.13) 49% 61%, transparent 62%);
+    linear-gradient(
+      125deg,
+      transparent 48%,
+      rgba(194,77,145,.20) 49% 61%,
+      transparent 62%
+    ),
+    linear-gradient(
+      55deg,
+      transparent 48%,
+      rgba(44,121,168,.14) 49% 61%,
+      transparent 62%
+    ),
+    linear-gradient(
+      0deg,
+      transparent 48%,
+      rgba(44,155,120,.13) 49% 61%,
+      transparent 62%
+    );
 }
 
+
 /* الصفحة */
+
 .page{
   min-height:100vh;
   display:flex;
@@ -68,7 +100,9 @@ body::after{
   position:relative;
 }
 
-/* اللوقو */
+
+/* الصورة */
+
 .logo-wrapper{
   display:flex;
   justify-content:center;
@@ -83,7 +117,9 @@ body::after{
   display:block;
 }
 
+
 /* العنوان */
+
 h1{
   margin:0 0 8px;
   font-size:28px;
@@ -97,21 +133,27 @@ h1{
   font-size:14px;
 }
 
+
 /* الخط الملون */
+
 .color-line{
   width:80px;
   height:3px;
   margin:0 auto 18px;
   border-radius:20px;
-  background:linear-gradient(
-    90deg,
-    #2c9b78 0 33%,
-    #2879a8 33% 66%,
-    #c24d91 66%
-  );
+
+  background:
+    linear-gradient(
+      90deg,
+      #2c9b78 0 33%,
+      #2879a8 33% 66%,
+      #c24d91 66%
+    );
 }
 
+
 /* النجوم */
+
 .stars{
   direction:rtl;
   display:flex;
@@ -137,7 +179,9 @@ h1{
   color:#f5b735;
 }
 
+
 /* نص التقييم */
+
 #ratingText{
   min-height:24px;
   margin:8px 0 18px;
@@ -145,7 +189,9 @@ h1{
   font-size:13px;
 }
 
-/* عنوان الملاحظات */
+
+/* الملاحظات */
+
 label{
   display:block;
   text-align:right;
@@ -161,21 +207,26 @@ textarea{
   width:100%;
   max-width:470px;
   height:95px;
+
   resize:none;
+
   margin:0 auto 16px;
 
   border:1px solid #e5e8ec;
   border-radius:12px;
 
   padding:12px;
+
   font-family:inherit;
   font-size:13px;
 
   outline:none;
+
   background:#fff;
   color:#333;
 
-  box-shadow:0 2px 8px rgba(0,0,0,.03);
+  box-shadow:
+    0 2px 8px rgba(0,0,0,.03);
 }
 
 textarea::placeholder{
@@ -184,54 +235,67 @@ textarea::placeholder{
 
 textarea:focus{
   border-color:#2879a8;
-  box-shadow:0 0 0 3px rgba(40,121,168,.07);
+
+  box-shadow:
+    0 0 0 3px rgba(40,121,168,.07);
 }
 
+
 /* الزر */
+
 button{
   width:170px;
+
   border:0;
   border-radius:999px;
 
   padding:11px 18px;
 
-  background:linear-gradient(
-    90deg,
-    #2879d8,
-    #1874d1
-  );
+  background:
+    linear-gradient(
+      90deg,
+      #2879d8,
+      #1874d1
+    );
 
   color:#fff;
+
   font-family:inherit;
   font-size:13px;
   font-weight:700;
 
   cursor:pointer;
 
-  box-shadow:0 5px 15px rgba(40,121,216,.20);
+  box-shadow:
+    0 5px 15px rgba(40,121,216,.20);
 
   transition:.2s ease;
 }
 
 button:hover{
   transform:translateY(-1px);
-  box-shadow:0 7px 18px rgba(40,121,216,.25);
+
+  box-shadow:
+    0 7px 18px rgba(40,121,216,.25);
 }
 
-/* السهم */
 button span{
   margin-left:7px;
   font-size:15px;
 }
 
+
 /* الفوتر */
+
 footer{
   margin-top:18px;
   color:#aaa;
   font-size:11px;
 }
 
+
 /* الجوال */
+
 @media(max-width:600px){
 
   .page{
@@ -268,6 +332,7 @@ footer{
   }
 }
 </style>
+
 </head>
 
 
@@ -277,15 +342,20 @@ footer{
 
 <main class="card">
 
-<!-- الصورة الأصلية: لا تحذفينها -->
+
+<!-- صورة MERCATO -->
 <div class="logo-wrapper">
-  <img
-    src="./logo.jpeg.jpeg"
-    class="logo"
-    alt="MERCATO"
-  >
+
+<img
+  src="./logo.jpeg.jpeg"
+  class="logo"
+  alt="MERCATO"
+>
+
 </div>
 
+
+<!-- العنوان -->
 
 <h1>
 كيف كانت تجربتك معنا؟
@@ -300,19 +370,45 @@ footer{
 <div class="color-line"></div>
 
 
-<div class="stars" aria-label="التقييم">
+<!-- النجوم -->
 
-  <span class="star" data-rating="1">★</span>
-  <span class="star" data-rating="2">★</span>
-  <span class="star" data-rating="3">★</span>
-  <span class="star" data-rating="4">★</span>
-  <span class="star" data-rating="5">★</span>
+<div
+  class="stars"
+  aria-label="التقييم"
+>
+
+<span
+  class="star"
+  data-rating="1"
+>★</span>
+
+<span
+  class="star"
+  data-rating="2"
+>★</span>
+
+<span
+  class="star"
+  data-rating="3"
+>★</span>
+
+<span
+  class="star"
+  data-rating="4"
+>★</span>
+
+<span
+  class="star"
+  data-rating="5"
+>★</span>
 
 </div>
 
 
 <div id="ratingText"></div>
 
+
+<!-- الملاحظات -->
 
 <label for="feedback">
 ملاحظاتك تهمنا ✎
@@ -325,12 +421,17 @@ footer{
 ></textarea>
 
 
+<!-- الزر -->
+
 <button
   type="button"
   onclick="submitRating()"
 >
-  <span>←</span>
-  إرسال التقييم
+
+<span>←</span>
+
+إرسال التقييم
+
 </button>
 
 
@@ -338,10 +439,10 @@ footer{
 شكراً لك على وقتك ومشاركتك لرأيك 🤍
 </footer>
 
+
 </main>
 
 </div>
-
 
 
 <script>
@@ -355,7 +456,7 @@ const supportUrl =
 
 
 /* =========================
-   روابط فروع MERCATO
+   روابط Google لكل فرع
 ========================= */
 
 const branchLinks = {
@@ -427,12 +528,12 @@ const branchLinks = {
 
 
 /* =========================
-   تحديد الفرع من الرابط
+   معرفة رقم الفرع
 ========================= */
 
 const branch =
 new URLSearchParams(
-  window.location.search
+window.location.search
 ).get("branch");
 
 
@@ -451,43 +552,46 @@ let selectedRating = 0;
 
 stars.forEach(star => {
 
-  star.addEventListener("click", function(){
+  star.addEventListener(
+    "click",
+    function(){
 
-    selectedRating =
-    Number(this.dataset.rating);
-
-
-    stars.forEach(item => {
-
-      item.classList.toggle(
-        "active",
-        Number(item.dataset.rating)
-        <= selectedRating
-      );
-
-    });
+      selectedRating =
+      Number(this.dataset.rating);
 
 
-    ratingText.textContent = {
+      stars.forEach(item => {
 
-      1:
-      "نأسف أن تجربتك لم تكن بالمستوى المطلوب",
+        item.classList.toggle(
+          "active",
+          Number(item.dataset.rating)
+          <= selectedRating
+        );
 
-      2:
-      "نحتاج إلى تحسين تجربتك",
+      });
 
-      3:
-      "تجربة جيدة",
 
-      4:
-      "تجربة ممتازة",
+      ratingText.textContent = {
 
-      5:
-      "تجربة رائعة! 🤍"
+        1:
+        "نأسف أن تجربتك لم تكن بالمستوى المطلوب",
 
-    }[selectedRating];
+        2:
+        "نحتاج إلى تحسين تجربتك",
 
-  });
+        3:
+        "تجربة جيدة",
+
+        4:
+        "تجربة ممتازة",
+
+        5:
+        "تجربة رائعة! 🤍"
+
+      }[selectedRating];
+
+    }
+  );
 
 });
 
@@ -497,6 +601,8 @@ stars.forEach(star => {
 ========================= */
 
 function submitRating(){
+
+  /* لازم يختار تقييم */
 
   if(!selectedRating){
 
@@ -509,8 +615,10 @@ function submitRating(){
 
 
   /*
-    من 1 إلى 3 نجوم
-    → واتساب الدعم
+
+  1 - 3 نجوم
+  يذهب إلى واتساب
+
   */
 
   if(selectedRating <= 3){
@@ -523,8 +631,10 @@ function submitRating(){
 
 
   /*
-    من 4 إلى 5 نجوم
-    → صفحة تقييم الفرع
+
+  4 - 5 نجوم
+  يذهب إلى Google الخاص بالفرع
+
   */
 
   const reviewUrl =
@@ -536,7 +646,9 @@ function submitRating(){
     window.location.href =
     reviewUrl;
 
-  }else{
+  }
+
+  else{
 
     alert(
       "تعذر تحديد الفرع. تأكدي من رابط التقييم."
