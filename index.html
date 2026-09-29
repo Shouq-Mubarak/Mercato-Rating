@@ -132,7 +132,7 @@
     .legacy-utility-controls, #bottomUtilityBar, #utilityBar, [data-legacy-utility="true"] { display:none !important; }
 
     /* Customer view: branch is fixed by the QR/link and cannot be changed manually. */
-    #branchSelectorModal, #branchSelectorModalBackdrop { display: none !important; }
+
 
   </style>
 </head>
@@ -348,38 +348,174 @@
     </p>
 
     <!-- Branch List -->
-    <div class="space-y-2 text-right">
-      <button onclick="switchBranch('tahlia')" class="w-full p-3 rounded-2xl bg-slate-50 hover:bg-sky-50 active:bg-sky-100 border border-slate-200/90 flex items-center justify-between group transition">
-        <div>
-          <div class="font-cairo font-bold text-xs text-slate-900 group-hover:text-mercato-darkblue">فرع التحلية - جدة</div>
-          <div class="text-[11px] text-slate-500 font-tajawal">شارع التحلية، بجوار المركز</div>
+    <div class="space-y-2 text-right max-h-[60vh] overflow-y-auto pr-1">
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('1')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع الرياض - الملز</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=1" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=1</a>
+          <a href="https://g.page/r/Ca3jSr1Z0dUYEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/Ca3jSr1Z0dUYEBM/review</a>
         </div>
-        <span class="font-mono text-[10px] text-sky-700 bg-sky-100 px-2 py-0.5 rounded-full font-bold">?branch=tahlia</span>
-      </button>
+      </div>
 
-      <button onclick="switchBranch('salam')" class="w-full p-3 rounded-2xl bg-slate-50 hover:bg-sky-50 active:bg-sky-100 border border-slate-200/90 flex items-center justify-between group transition">
-        <div>
-          <div class="font-cairo font-bold text-xs text-slate-900 group-hover:text-mercato-darkblue">فرع السلام مول - جدة</div>
-          <div class="text-[11px] text-slate-500 font-tajawal">بوابة رقم 3، الدور الأرضي</div>
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('2')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع الرياض - إشبيلية</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=2" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=2</a>
+          <a href="https://g.page/r/CdllYciMoT8GEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CdllYciMoT8GEBM/review</a>
         </div>
-        <span class="font-mono text-[10px] text-purple-700 bg-purple-100 px-2 py-0.5 rounded-full font-bold">?branch=salam</span>
-      </button>
+      </div>
 
-      <button onclick="switchBranch('rawdah')" class="w-full p-3 rounded-2xl bg-slate-50 hover:bg-sky-50 active:bg-sky-100 border border-slate-200/90 flex items-center justify-between group transition">
-        <div>
-          <div class="font-cairo font-bold text-xs text-slate-900 group-hover:text-mercato-darkblue">فرع الروضة - الرياض</div>
-          <div class="text-[11px] text-slate-500 font-tajawal">طريق خريص، تقاطع الروضة</div>
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('3')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع الرياض - الشفا</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=3" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=3</a>
+          <a href="https://g.page/r/CbNrebES7OEiEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CbNrebES7OEiEBM/review</a>
         </div>
-        <span class="font-mono text-[10px] text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full font-bold">?branch=rawdah</span>
-      </button>
+      </div>
 
-      <button onclick="switchBranch('redsea')" class="w-full p-3 rounded-2xl bg-slate-50 hover:bg-sky-50 active:bg-sky-100 border border-slate-200/90 flex items-center justify-between group transition">
-        <div>
-          <div class="font-cairo font-bold text-xs text-slate-900 group-hover:text-mercato-darkblue">فرع ردسي مول - جدة</div>
-          <div class="text-[11px] text-slate-500 font-tajawal">طريق الملك، الطابق الأرضي</div>
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('4')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع الرياض - النسيم</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=4" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=4</a>
+          <a href="https://g.page/r/CVAh0_CJDoo1EBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CVAh0_CJDoo1EBM/review</a>
         </div>
-        <span class="font-mono text-[10px] text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full font-bold">?branch=redsea</span>
-      </button>
+      </div>
+
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('5')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع جدة - الفيصلية</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=5" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=5</a>
+          <a href="https://g.page/r/CfrU07iMJpmpEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CfrU07iMJpmpEBM/review</a>
+        </div>
+      </div>
+
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('6')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع الطائف - شارع أبو بكر</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=6" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=6</a>
+          <a href="https://g.page/r/CQRdKswUzDrTEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CQRdKswUzDrTEBM/review</a>
+        </div>
+      </div>
+
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('7')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع الدمام - حياة بلازا</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=7" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=7</a>
+          <a href="https://g.page/r/Cd427IaBBwTDEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/Cd427IaBBwTDEBM/review</a>
+        </div>
+      </div>
+
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('8')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع الدمام - النخيل</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=8" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=8</a>
+          <a href="https://maps.app.goo.gl/jsJ6x368d5EQ8ht6A" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://maps.app.goo.gl/jsJ6x368d5EQ8ht6A</a>
+        </div>
+      </div>
+
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('9')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع الخبر - شمال الخبر</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=9" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=9</a>
+          <a href="https://g.page/r/CWbsamymNfqbEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CWbsamymNfqbEBM/review</a>
+        </div>
+      </div>
+
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('10')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع عنيزة - السليمانية</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=10" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=10</a>
+          <a href="https://g.page/r/CWT69dlXEyXDEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CWT69dlXEyXDEBM/review</a>
+        </div>
+      </div>
+
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('11')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع بريدة - الإسكان</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=11" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=11</a>
+          <a href="https://g.page/r/CSPtzNKMBkSTEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CSPtzNKMBkSTEBM/review</a>
+        </div>
+      </div>
+
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('12')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع المدينة المنورة - الجماوات</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=12" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=12</a>
+          <a href="https://g.page/r/CaUq9hk10TkFEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CaUq9hk10TkFEBM/review</a>
+        </div>
+      </div>
+
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('13')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع تبوك - العزيزية القديمة</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=13" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=13</a>
+          <a href="https://g.page/r/CSVAo0c_XHlMEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CSVAo0c_XHlMEBM/review</a>
+        </div>
+      </div>
+
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('14')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع حائل - الزبارة</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=14" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=14</a>
+          <a href="https://g.page/r/CU12tV0Av1tWEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CU12tV0Av1tWEBM/review</a>
+        </div>
+      </div>
+
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('15')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع أبها - الربوة</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=15" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=15</a>
+          <a href="https://g.page/r/CX6cv1eiMksiEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CX6cv1eiMksiEBM/review</a>
+        </div>
+      </div>
+
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('16')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع أبها الجديدة - طريق الملك فهد</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=16" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=16</a>
+          <a href="https://g.page/r/CWxbPgb3sCpLEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CWxbPgb3sCpLEBM/review</a>
+        </div>
+      </div>
+
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('17')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع خميس مشيط - الرصراص</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=17" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=17</a>
+          <a href="https://g.page/r/CQc_0qnQtHzyEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CQc_0qnQtHzyEBM/review</a>
+        </div>
+      </div>
+
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('18')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع محايل عسير - طريق الملك عبدالعزيز</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=18" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=18</a>
+          <a href="https://maps.app.goo.gl/LN2hneroRqdXBQVY8" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://maps.app.goo.gl/LN2hneroRqdXBQVY8</a>
+        </div>
+      </div>
+
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('19')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع نجران - الفيصلية</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=19" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=19</a>
+          <a href="https://g.page/r/CeRzQxhd84AIEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CeRzQxhd84AIEBM/review</a>
+        </div>
+      </div>
+
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('20')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع الأحساء - المسعودي</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=20" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=20</a>
+          <a href="https://g.page/r/CV7O-FIlni6REBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CV7O-FIlni6REBM/review</a>
+        </div>
+      </div>
+
+      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('21')">
+        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع حفر الباطن - الخالدية</div>
+        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
+          <a href="https://mercato-reviews.com/?branch=21" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=21</a>
+          <a href="https://g.page/r/CfK7zOR61FmhEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CfK7zOR61FmhEBM/review</a>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -915,9 +1051,13 @@
       lucide.createIcons();
     }
 
-    // Switch branch manually
+    // Switch branch manually and keep a unique URL for each branch.
     function switchBranch(code) {
-      activeBranch = MERCATO_BRANCHES[code] || MERCATO_BRANCHES['1'];
+      const branchCode = String(code);
+      activeBranch = MERCATO_BRANCHES[branchCode] || MERCATO_BRANCHES['1'];
+      const url = new URL(window.location.href);
+      url.searchParams.set('branch', activeBranch.code);
+      window.history.replaceState({}, '', url.toString());
       refreshBranchBindings();
       closeDrawer('branchSelectorModal');
       resetFlow();
