@@ -85,6 +85,14 @@
     .star-btn:active {
       transform: scale(1.4) rotate(-8deg);
     }
+    @keyframes star-selected-pop {
+      0% { transform: scale(1); }
+      45% { transform: scale(1.32) rotate(-6deg); }
+      100% { transform: scale(1); }
+    }
+    .star-btn.star-selected {
+      animation: star-selected-pop 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
 
     /* Bottom Sheet Slide */
     .sheet-drawer {
@@ -751,6 +759,11 @@
         const isFilled = starValue <= count;
         btn.classList.toggle('text-amber-400', isFilled);
         btn.classList.toggle('text-slate-300', !isFilled);
+        btn.classList.remove('star-selected');
+        if (isFilled) {
+          void btn.offsetWidth;
+          btn.classList.add('star-selected');
+        }
       });
     }
 
