@@ -283,32 +283,28 @@
   <div class="fixed -top-24 right-1/2 translate-x-1/2 w-96 h-96 bg-gradient-to-b from-sky-400/20 via-pink-400/15 to-transparent rounded-full blur-3xl pointer-events-none"></div>
 
   <!-- Header -->
-  <header class="sticky top-0 z-30 w-full w-full px-4 py-2.5 backdrop-blur-md bg-white/85 border-b border-slate-200/80 shadow-sm">
-    <div class="flex items-center justify-between">
-<!-- Store & Branch Badge -->
-        <div class="flex items-center gap-2 text-right">
-          <div class="w-9 h-9 rounded-full bg-white p-0.5 shadow border-2 border-mercato-lime flex items-center justify-center shrink-0 group-active:scale-95 transition">
-            <svg viewBox="0 0 100 100" class="w-full h-full" fill="none">
-              <polygon points="32,60 38,42 44,60" fill="#7cb342"/>
-              <polygon points="40,24 52,60 44,60 38,42" fill="#0288d1"/>
-              <polygon points="56,24 64,60 56,60 50,42" fill="#ad1457"/>
-              <polygon points="64,44 72,60 64,60" fill="#c2185b"/>
-              <text x="50" y="78" font-family="'Cairo', sans-serif" font-size="14" font-weight="900" fill="#0b5394" text-anchor="middle">ميركاتو</text>
-            </svg>
-          </div>
-          <div>
-            <div class="flex items-center gap-1">
-              <span class="font-cairo font-black text-xs text-slate-900 tracking-tight">ميركاتو</span>
-              <span class="font-outfit text-[10px] font-bold text-sky-600 tracking-wide uppercase">MERCATO</span>
-            </div>
-            <div class="flex items-center gap-1 text-[11px] font-bold text-mercato-greenborder">
-              <i data-lucide="map-pin" class="w-3 h-3 text-mercato-lime"></i>
-              <span id="headerBranchLabel" class="truncate max-w-[180px]">يرجى استخدام رابط الفرع الصحيح</span>
-            </div>
-          </div>
-        </div>
+  <header class="sticky top-0 z-30 w-full px-4 py-3 backdrop-blur-md bg-white/85 border-b border-slate-200/80 shadow-sm">
+    <div class="flex flex-col items-center justify-center text-center">
+      <!-- Centered Mercato Logo -->
+      <div class="w-14 h-14 rounded-full bg-white p-0.5 shadow-md border-2 border-mercato-lime flex items-center justify-center shrink-0">
+        <svg viewBox="0 0 100 100" class="w-full h-full" fill="none">
+          <polygon points="32,60 38,42 44,60" fill="#7cb342"/>
+          <polygon points="40,24 52,60 44,60 38,42" fill="#0288d1"/>
+          <polygon points="56,24 64,60 56,60 50,42" fill="#ad1457"/>
+          <polygon points="64,44 72,60 64,60" fill="#c2185b"/>
+          <text x="50" y="78" font-family="'Cairo', sans-serif" font-size="14" font-weight="900" fill="#0b5394" text-anchor="middle">ميركاتو</text>
+        </svg>
       </div>
 
+      <div class="mt-1 flex flex-col items-center">
+        <div class="font-cairo font-black text-sm text-slate-900 tracking-tight">
+          ميركاتو | ماركات عالمية مخفضة
+        </div>
+        <div class="flex items-center justify-center gap-1 mt-0.5 text-[11px] font-bold text-mercato-greenborder">
+          <i data-lucide="map-pin" class="w-3 h-3 text-mercato-lime"></i>
+          <span id="headerBranchLabel" class="truncate max-w-[220px]">فرع التحلية - جدة</span>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -410,8 +406,8 @@
   <script>
     // 1. Mercato Official Branches Database
     const MERCATO_BRANCHES = {
-      'K7a': {
-        code: 'K7a',
+      '1': {
+        code: '1',
         name: 'فرع الرياض - الملز',
         short: 'فرع الرياض - الملز',
         city: 'الرياض',
@@ -419,8 +415,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/Ca3jSr1Z0dUYEBM/review'
       },
-      'R2x': {
-        code: 'R2x',
+      '2': {
+        code: '2',
         name: 'فرع الرياض - إشبيلية',
         short: 'فرع الرياض - إشبيلية',
         city: 'الرياض',
@@ -428,8 +424,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CdllYciMoT8GEBM/review'
       },
-      'V9p': {
-        code: 'V9p',
+      '3': {
+        code: '3',
         name: 'فرع الرياض - الشفا',
         short: 'فرع الرياض - الشفا',
         city: 'الرياض',
@@ -437,8 +433,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CbNrebES7OEiEBM/review'
       },
-      'T4m': {
-        code: 'T4m',
+      '4': {
+        code: '4',
         name: 'فرع الرياض - النسيم',
         short: 'فرع الرياض - النسيم',
         city: 'الرياض',
@@ -446,8 +442,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CVAh0_CJDoo1EBM/review'
       },
-      'H8c': {
-        code: 'H8c',
+      '5': {
+        code: '5',
         name: 'فرع جدة - الفيصلية',
         short: 'فرع جدة - الفيصلية',
         city: 'جدة',
@@ -455,8 +451,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CfrU07iMJpmpEBM/review'
       },
-      'M3q': {
-        code: 'M3q',
+      '6': {
+        code: '6',
         name: 'فرع الطائف - شارع أبو بكر',
         short: 'فرع الطائف - شارع أبو بكر',
         city: 'الطائف',
@@ -464,8 +460,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CQRdKswUzDrTEBM/review'
       },
-      'Y6k': {
-        code: 'Y6k',
+      '7': {
+        code: '7',
         name: 'فرع الدمام - حياة بلازا',
         short: 'فرع الدمام - حياة بلازا',
         city: 'الدمام',
@@ -473,8 +469,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/Cd427IaBBwTDEBM/review'
       },
-      'P9d': {
-        code: 'P9d',
+      '8': {
+        code: '8',
         name: 'فرع الدمام - النخيل',
         short: 'فرع الدمام - النخيل',
         city: 'الدمام',
@@ -482,8 +478,8 @@
         phone: '',
         googleMapsUrl: 'https://maps.app.goo.gl/jsJ6x368d5EQ8ht6A'
       },
-      'X2v': {
-        code: 'X2v',
+      '9': {
+        code: '9',
         name: 'فرع الخبر - شمال الخبر',
         short: 'فرع الخبر - شمال الخبر',
         city: 'الخبر',
@@ -491,8 +487,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CWbsamymNfqbEBM/review'
       },
-      'G5t': {
-        code: 'G5t',
+      '10': {
+        code: '10',
         name: 'فرع عنيزة - السليمانية',
         short: 'فرع عنيزة - السليمانية',
         city: 'عنيزة',
@@ -500,8 +496,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CWT69dlXEyXDEBM/review'
       },
-      'Q8s': {
-        code: 'Q8s',
+      '11': {
+        code: '11',
         name: 'فرع بريدة - الإسكان',
         short: 'فرع بريدة - الإسكان',
         city: 'بريدة',
@@ -509,8 +505,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CSPtzNKMBkSTEBM/review'
       },
-      'L4z': {
-        code: 'L4z',
+      '12': {
+        code: '12',
         name: 'فرع المدينة المنورة - الجماوات',
         short: 'فرع المدينة المنورة - الجماوات',
         city: 'المدينة المنورة',
@@ -518,8 +514,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CaUq9hk10TkFEBM/review'
       },
-      'W7h': {
-        code: 'W7h',
+      '13': {
+        code: '13',
         name: 'فرع تبوك - العزيزية القديمة',
         short: 'فرع تبوك - العزيزية القديمة',
         city: 'تبوك',
@@ -527,8 +523,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CSVAo0c_XHlMEBM/review'
       },
-      'N3j': {
-        code: 'N3j',
+      '14': {
+        code: '14',
         name: 'فرع حائل - الزبارة',
         short: 'فرع حائل - الزبارة',
         city: 'حائل',
@@ -536,8 +532,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CU12tV0Av1tWEBM/review'
       },
-      'B6r': {
-        code: 'B6r',
+      '15': {
+        code: '15',
         name: 'فرع أبها - الربوة',
         short: 'فرع أبها - الربوة',
         city: 'أبها',
@@ -545,8 +541,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CX6cv1eiMksiEBM/review'
       },
-      'F9k': {
-        code: 'F9k',
+      '16': {
+        code: '16',
         name: 'فرع أبها الجديدة - طريق الملك فهد',
         short: 'فرع أبها الجديدة - طريق الملك فهد',
         city: 'أبها الجديدة',
@@ -554,8 +550,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CWxbPgb3sCpLEBM/review'
       },
-      'Z2q': {
-        code: 'Z2q',
+      '17': {
+        code: '17',
         name: 'فرع خميس مشيط - الرصراص',
         short: 'فرع خميس مشيط - الرصراص',
         city: 'خميس مشيط',
@@ -563,8 +559,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CQc_0qnQtHzyEBM/review'
       },
-      'C5w': {
-        code: 'C5w',
+      '18': {
+        code: '18',
         name: 'فرع محايل عسير - طريق الملك عبدالعزيز',
         short: 'فرع محايل عسير - طريق الملك عبدالعزيز',
         city: 'محايل عسير',
@@ -572,8 +568,8 @@
         phone: '',
         googleMapsUrl: 'https://maps.app.goo.gl/LN2hneroRqdXBQVY8'
       },
-      'J8n': {
-        code: 'J8n',
+      '19': {
+        code: '19',
         name: 'فرع نجران - الفيصلية',
         short: 'فرع نجران - الفيصلية',
         city: 'نجران',
@@ -581,8 +577,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CeRzQxhd84AIEBM/review'
       },
-      'S4v': {
-        code: 'S4v',
+      '20': {
+        code: '20',
         name: 'فرع الأحساء - المسعودي',
         short: 'فرع الأحساء - المسعودي',
         city: 'الأحساء',
@@ -590,8 +586,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CV7O-FIlni6REBM/review'
       },
-      'D7y': {
-        code: 'D7y',
+      '21': {
+        code: '21',
         name: 'فرع حفر الباطن - الخالدية',
         short: 'فرع حفر الباطن - الخالدية',
         city: 'حفر الباطن',
@@ -610,7 +606,7 @@
       5: { text: 'ماركات وتجربة استثنائية! 🌿', emoji: '🤩', color: 'text-mercato-lime bg-lime-50 border-lime-300' }
     };
 
-    let activeBranch = MERCATO_BRANCHES['K7a'];
+    let activeBranch = MERCATO_BRANCHES['1'];
     let hasValidBranch = false;
     let currentRatingValue = 0;
 
@@ -630,10 +626,10 @@
           activeBranch = MERCATO_BRANCHES[branchCode];
           hasValidBranch = true;
         } else {
-          activeBranch = MERCATO_BRANCHES['K7a'];
+          activeBranch = MERCATO_BRANCHES['1'];
         }
       } catch (err) {
-        activeBranch = MERCATO_BRANCHES['K7a'];
+        activeBranch = MERCATO_BRANCHES['1'];
         hasValidBranch = false;
       }
       refreshBranchBindings();
