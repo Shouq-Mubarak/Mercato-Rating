@@ -303,7 +303,7 @@
             </div>
             <div class="flex items-center gap-1 text-[11px] font-bold text-mercato-greenborder">
               <i data-lucide="map-pin" class="w-3 h-3 text-mercato-lime"></i>
-              <span id="headerBranchLabel" class="truncate max-w-[180px]">فرع التحلية - جدة</span>
+              <span id="headerBranchLabel" class="truncate max-w-[180px]">يرجى استخدام رابط الفرع الصحيح</span>
             </div>
           </div>
         </div>
@@ -410,8 +410,8 @@
   <script>
     // 1. Mercato Official Branches Database
     const MERCATO_BRANCHES = {
-      '1': {
-        code: '1',
+      'K7a': {
+        code: 'K7a',
         name: 'فرع الرياض - الملز',
         short: 'فرع الرياض - الملز',
         city: 'الرياض',
@@ -419,8 +419,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/Ca3jSr1Z0dUYEBM/review'
       },
-      '2': {
-        code: '2',
+      'R2x': {
+        code: 'R2x',
         name: 'فرع الرياض - إشبيلية',
         short: 'فرع الرياض - إشبيلية',
         city: 'الرياض',
@@ -428,8 +428,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CdllYciMoT8GEBM/review'
       },
-      '3': {
-        code: '3',
+      'V9p': {
+        code: 'V9p',
         name: 'فرع الرياض - الشفا',
         short: 'فرع الرياض - الشفا',
         city: 'الرياض',
@@ -437,8 +437,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CbNrebES7OEiEBM/review'
       },
-      '4': {
-        code: '4',
+      'T4m': {
+        code: 'T4m',
         name: 'فرع الرياض - النسيم',
         short: 'فرع الرياض - النسيم',
         city: 'الرياض',
@@ -446,8 +446,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CVAh0_CJDoo1EBM/review'
       },
-      '5': {
-        code: '5',
+      'H8c': {
+        code: 'H8c',
         name: 'فرع جدة - الفيصلية',
         short: 'فرع جدة - الفيصلية',
         city: 'جدة',
@@ -455,8 +455,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CfrU07iMJpmpEBM/review'
       },
-      '6': {
-        code: '6',
+      'M3q': {
+        code: 'M3q',
         name: 'فرع الطائف - شارع أبو بكر',
         short: 'فرع الطائف - شارع أبو بكر',
         city: 'الطائف',
@@ -464,8 +464,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CQRdKswUzDrTEBM/review'
       },
-      '7': {
-        code: '7',
+      'Y6k': {
+        code: 'Y6k',
         name: 'فرع الدمام - حياة بلازا',
         short: 'فرع الدمام - حياة بلازا',
         city: 'الدمام',
@@ -473,8 +473,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/Cd427IaBBwTDEBM/review'
       },
-      '8': {
-        code: '8',
+      'P9d': {
+        code: 'P9d',
         name: 'فرع الدمام - النخيل',
         short: 'فرع الدمام - النخيل',
         city: 'الدمام',
@@ -482,8 +482,8 @@
         phone: '',
         googleMapsUrl: 'https://maps.app.goo.gl/jsJ6x368d5EQ8ht6A'
       },
-      '9': {
-        code: '9',
+      'X2v': {
+        code: 'X2v',
         name: 'فرع الخبر - شمال الخبر',
         short: 'فرع الخبر - شمال الخبر',
         city: 'الخبر',
@@ -491,8 +491,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CWbsamymNfqbEBM/review'
       },
-      '10': {
-        code: '10',
+      'G5t': {
+        code: 'G5t',
         name: 'فرع عنيزة - السليمانية',
         short: 'فرع عنيزة - السليمانية',
         city: 'عنيزة',
@@ -500,8 +500,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CWT69dlXEyXDEBM/review'
       },
-      '11': {
-        code: '11',
+      'Q8s': {
+        code: 'Q8s',
         name: 'فرع بريدة - الإسكان',
         short: 'فرع بريدة - الإسكان',
         city: 'بريدة',
@@ -509,8 +509,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CSPtzNKMBkSTEBM/review'
       },
-      '12': {
-        code: '12',
+      'L4z': {
+        code: 'L4z',
         name: 'فرع المدينة المنورة - الجماوات',
         short: 'فرع المدينة المنورة - الجماوات',
         city: 'المدينة المنورة',
@@ -518,8 +518,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CaUq9hk10TkFEBM/review'
       },
-      '13': {
-        code: '13',
+      'W7h': {
+        code: 'W7h',
         name: 'فرع تبوك - العزيزية القديمة',
         short: 'فرع تبوك - العزيزية القديمة',
         city: 'تبوك',
@@ -527,8 +527,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CSVAo0c_XHlMEBM/review'
       },
-      '14': {
-        code: '14',
+      'N3j': {
+        code: 'N3j',
         name: 'فرع حائل - الزبارة',
         short: 'فرع حائل - الزبارة',
         city: 'حائل',
@@ -536,8 +536,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CU12tV0Av1tWEBM/review'
       },
-      '15': {
-        code: '15',
+      'B6r': {
+        code: 'B6r',
         name: 'فرع أبها - الربوة',
         short: 'فرع أبها - الربوة',
         city: 'أبها',
@@ -545,8 +545,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CX6cv1eiMksiEBM/review'
       },
-      '16': {
-        code: '16',
+      'F9k': {
+        code: 'F9k',
         name: 'فرع أبها الجديدة - طريق الملك فهد',
         short: 'فرع أبها الجديدة - طريق الملك فهد',
         city: 'أبها الجديدة',
@@ -554,8 +554,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CWxbPgb3sCpLEBM/review'
       },
-      '17': {
-        code: '17',
+      'Z2q': {
+        code: 'Z2q',
         name: 'فرع خميس مشيط - الرصراص',
         short: 'فرع خميس مشيط - الرصراص',
         city: 'خميس مشيط',
@@ -563,8 +563,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CQc_0qnQtHzyEBM/review'
       },
-      '18': {
-        code: '18',
+      'C5w': {
+        code: 'C5w',
         name: 'فرع محايل عسير - طريق الملك عبدالعزيز',
         short: 'فرع محايل عسير - طريق الملك عبدالعزيز',
         city: 'محايل عسير',
@@ -572,8 +572,8 @@
         phone: '',
         googleMapsUrl: 'https://maps.app.goo.gl/LN2hneroRqdXBQVY8'
       },
-      '19': {
-        code: '19',
+      'J8n': {
+        code: 'J8n',
         name: 'فرع نجران - الفيصلية',
         short: 'فرع نجران - الفيصلية',
         city: 'نجران',
@@ -581,8 +581,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CeRzQxhd84AIEBM/review'
       },
-      '20': {
-        code: '20',
+      'S4v': {
+        code: 'S4v',
         name: 'فرع الأحساء - المسعودي',
         short: 'فرع الأحساء - المسعودي',
         city: 'الأحساء',
@@ -590,8 +590,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CV7O-FIlni6REBM/review'
       },
-      '21': {
-        code: '21',
+      'D7y': {
+        code: 'D7y',
         name: 'فرع حفر الباطن - الخالدية',
         short: 'فرع حفر الباطن - الخالدية',
         city: 'حفر الباطن',
@@ -610,7 +610,7 @@
       5: { text: 'ماركات وتجربة استثنائية! 🌿', emoji: '🤩', color: 'text-mercato-lime bg-lime-50 border-lime-300' }
     };
 
-    let activeBranch = MERCATO_BRANCHES['1'];
+    let activeBranch = MERCATO_BRANCHES['K7a'];
     let hasValidBranch = false;
     let currentRatingValue = 0;
 
@@ -630,10 +630,10 @@
           activeBranch = MERCATO_BRANCHES[branchCode];
           hasValidBranch = true;
         } else {
-          activeBranch = MERCATO_BRANCHES['1'];
+          activeBranch = MERCATO_BRANCHES['K7a'];
         }
       } catch (err) {
-        activeBranch = MERCATO_BRANCHES['1'];
+        activeBranch = MERCATO_BRANCHES['K7a'];
         hasValidBranch = false;
       }
       refreshBranchBindings();
