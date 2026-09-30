@@ -102,15 +102,6 @@
     #stepComplaintFlow.feedback-reveal textarea { animation: feedback-reveal .38s cubic-bezier(.2,.8,.2,1) both; }
     #stepComplaintFlow.feedback-reveal button { animation: feedback-reveal .48s cubic-bezier(.2,.8,.2,1) both; }
 
-    /* Bottom Sheet Slide */
-    .sheet-drawer {
-      transform: translateY(100%);
-      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .sheet-drawer.open {
-      transform: translateY(0%);
-    }
-
     /* Pulse Glow */
     @keyframes pulse-subtle {
       0%, 100% { transform: scale(1); box-shadow: 0 10px 25px rgba(2, 119, 189, 0.35); }
@@ -129,9 +120,6 @@
       background-position: 0 0, 12px 12px;
     }
 
-    /* Hide legacy utility controls; the customer-facing page has no bottom admin buttons. */
-    .legacy-utility-controls, #bottomUtilityBar, #utilityBar, [data-legacy-utility="true"] { display:none !important; }
-
     /* Customer view: branch is fixed by the QR/link and cannot be changed manually. */
 
 
@@ -141,36 +129,73 @@
 <body class="denim-pattern text-slate-800 min-h-screen flex flex-col justify-between antialiased relative overflow-x-hidden selection:bg-sky-500 selection:text-white">
 
   <script>
-    (function () {
-      const params = new URLSearchParams(window.location.search);
-      const branch = (params.get('branch') || '').trim();
-      const valid = /^(?:[1-9]|1[0-9]|2[01])$/.test(branch);
-      if (!valid) {
-        document.documentElement.innerHTML = `
-          <html lang="ar" dir="rtl">
-            <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>رابط الفرع غير صالح</title></head>
-            <body style="margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f8fafc;font-family:Arial,sans-serif;text-align:center;color:#0f172a;">
-              <div style="padding:32px;max-width:420px;">
-                <div style="font-size:48px;margin-bottom:14px;">⚠️</div>
-                <h1 style="margin:0 0 10px;font-size:28px;">رابط الفرع غير صالح</h1>
-                <p style="margin:0;color:#64748b;font-size:17px;">يرجى استخدام رابط الفرع الصحيح.</p>
-              </div>
-            </body>
-          </html>`;
-        throw new Error('Invalid or missing branch');
-      }
-    })();
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    const branch = (params.get('branch') || '').trim().toUpperCase();
+    const valid = /^[A-Z0-9]{4}$/.test(branch);
+
+    if (!valid) {
+      document.documentElement.innerHTML = `
+        <html lang="ar" dir="rtl">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>رابط الفرع غير صالح</title>
+            <style>
+              * { box-sizing: border-box; }
+              body {
+                margin: 0;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 24px;
+                background: #f8fafc;
+                font-family: Arial, sans-serif;
+                color: #0f172a;
+              }
+              .invalid-branch-box {
+                width: min(100%, 460px);
+                background: #fff;
+                border: 1px solid #e2e8f0;
+                border-radius: 24px;
+                padding: 32px 24px;
+                text-align: center;
+                box-shadow: 0 10px 30px rgba(15, 23, 42, .08);
+              }
+              h1 {
+                margin: 0 0 10px;
+                font-size: 24px;
+              }
+              p {
+                margin: 0;
+                color: #64748b;
+                font-size: 16px;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="invalid-branch-box">
+              <h1>رابط الفرع غير صالح</h1>
+              <p>يرجى استخدام رابط الفرع الصحيح.</p>
+            </div>
+          </body>
+        </html>`;
+      throw new Error('Invalid or missing branch');
+    }
+  })();
   </script>
+
 
   <!-- Top Ambient Glow Orbs -->
   <div class="fixed -top-24 right-1/2 translate-x-1/2 w-96 h-96 bg-gradient-to-b from-sky-400/20 via-pink-400/15 to-transparent rounded-full blur-3xl pointer-events-none"></div>
 
   <!-- Header -->
   <header class="sticky top-0 z-30 w-full w-full px-4 py-2.5 backdrop-blur-md bg-white/85 border-b border-slate-200/80 shadow-sm">
-    <div class="flex items-center justify-center w-full">
+    <div class="flex items-center justify-between">
 <!-- Store & Branch Badge -->
-        <div class="flex items-center justify-center gap-3 group text-center">
-          <div class="w-11 h-11 rounded-full bg-white p-0.5 shadow border-2 border-mercato-lime flex items-center justify-center shrink-0 group-active:scale-95 transition">
+        <div class="flex items-center gap-2 text-right">
+          <div class="w-9 h-9 rounded-full bg-white p-0.5 shadow border-2 border-mercato-lime flex items-center justify-center shrink-0 group-active:scale-95 transition">
             <svg viewBox="0 0 100 100" class="w-full h-full" fill="none">
               <polygon points="32,60 38,42 44,60" fill="#7cb342"/>
               <polygon points="40,24 52,60 44,60 38,42" fill="#0288d1"/>
@@ -180,13 +205,12 @@
             </svg>
           </div>
           <div>
-            <div class="flex items-center gap-1.5">
-              <span class="font-cairo font-black text-lg text-slate-900 tracking-tight">ميركاتو</span>
-              <span class="font-cairo font-bold text-base text-slate-600 tracking-tight">|</span>
-              <span class="font-cairo font-bold text-base text-slate-700 tracking-tight">ماركات عالمية مخفضة</span>
+            <div class="flex items-center gap-1">
+              <span class="font-cairo font-black text-xs text-slate-900 tracking-tight">ميركاتو</span>
+              <span class="font-outfit text-[10px] font-bold text-sky-600 tracking-wide uppercase">MERCATO</span>
             </div>
-            <div class="flex items-center gap-1 text-sm font-bold text-mercato-greenborder">
-              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-mercato-lime"></i>
+            <div class="flex items-center gap-1 text-[11px] font-bold text-mercato-greenborder">
+              <i data-lucide="map-pin" class="w-3 h-3 text-mercato-lime"></i>
               <span id="headerBranchLabel" class="truncate max-w-[180px]">فرع التحلية - جدة</span>
             </div>
           </div>
@@ -197,16 +221,22 @@
   </header>
 
   <main class="w-full w-full px-4 py-3 flex-1 flex flex-col justify-center relative z-10">
-    <div class="bg-white rounded-3xl p-5 sm:p-6 relative overflow-hidden transition-all duration-300">
-<!-- High-Precision SVG Logo Section with Denim & Textile Texture -->
-      <div class="flex flex-col items-center justify-center pt-1 mb-4 text-center">
-        <div class="relative w-[154px] h-[154px] rounded-full overflow-hidden bg-white flex items-center justify-center shadow-sm">
-          <img src="data:image/jpeg;base64,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" alt="شعار ميركاتو"
-               class="w-full h-full object-cover rounded-full"
-               style="transform:scale(1.285); display:block;">
+    <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-app border border-slate-100 relative overflow-hidden transition-all duration-300">
+
+      <!-- Mercato Color Accent Bar -->
+      <div class="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-mercato-lime via-mercato-blue via-mercato-magenta to-mercato-lime"></div>
+
+      <!-- High-Precision SVG Logo Section with Denim & Textile Texture -->
+      <div class="flex flex-col items-center justify-center pt-2 mb-4 text-center">
+        <div class="relative w-36 h-36 rounded-full bg-white p-[3px] shadow-md overflow-hidden ring-1 ring-white/90">
+          <div class="w-full h-full rounded-full overflow-hidden bg-white">
+            <img src="logo.jpeg" alt="شعار ميركاتو"
+                 class="w-full h-full object-cover rounded-full"
+                 style="display:block; transform:scale(1.035);">
+          </div>
         </div>
         <div class="mt-1 space-y-0.5">
-          <p class="text-sm font-bold text-mercato-brandtext font-cairo">
+          <p class="text-xs font-bold text-mercato-brandtext font-cairo">
             أشهر الماركات العالمية بأسعار مخفضة
           </p>
         </div>
@@ -219,19 +249,19 @@
             <i data-lucide="tag" class="w-3.5 h-3.5 text-mercato-blue"></i>
             <span>ميركاتو تهتم برأيك دائماً</span>
           </div>
-          <h1 class="text-[26px] sm:text-2xl font-cairo font-black text-slate-900 leading-tight">
+          <h1 class="text-xl font-cairo font-black text-slate-900 leading-tight">
             كيف كانت تجربة تسوقك اليوم؟
           </h1>
         </div>
 
         <!-- 5 Interactive Ergonomic Stars -->
-        <div class="flex flex-col items-center justify-center my-2.5">
+        <div class="flex flex-col items-center justify-center my-3">
           <div id="starContainer" dir="rtl" class="flex items-start justify-center gap-2 p-2.5 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-inner w-full max-w-xs">
             <div class="flex flex-col items-center">
               <button type="button" onclick="rateStore(5)" data-rating="5" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none" aria-label="5 نجوم - ممتاز">
                 <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
               </button>
-              <span class="text-xs font-bold text-slate-500 mt-0.5 whitespace-nowrap">ممتاز</span>
+              <span class="text-[11px] font-bold text-slate-500 mt-0.5 whitespace-nowrap">ممتاز</span>
             </div>
             <button type="button" onclick="rateStore(4)" data-rating="4" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none mt-0.5" aria-label="4 نجوم">
               <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
@@ -246,7 +276,7 @@
               <button type="button" onclick="rateStore(1)" data-rating="1" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none" aria-label="نجمة واحدة - غير راضي">
                 <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
               </button>
-              <span class="text-xs font-bold text-slate-500 mt-0.5 whitespace-nowrap">غير راضي</span>
+              <span class="text-[11px] font-bold text-slate-500 mt-0.5 whitespace-nowrap">غير راضي</span>
             </div>
           </div>
 
@@ -275,389 +305,21 @@
         </div>
 
         <!-- Trust footer -->
-        <div class="mt-5 pt-3 border-t border-slate-100 flex items-center justify-center gap-2 text-sm text-slate-400">
+        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-center gap-1.5 text-[11px] text-slate-400">
           <i data-lucide="badge-check" class="w-4 h-4 text-mercato-lime"></i>
-          <span class="text-base font-bold">تقييم آمن ومباشر لإدارة فروع ميركاتو</span>
+          <span>تقييم آمن ومباشر لإدارة فروع ميركاتو</span>
         </div>
-
-      </section>
-
-      <section id="stepPositiveFlow" class="hidden text-center transition-all duration-300">
-        <!-- Celebration Crown -->
-        <div class="w-16 h-16 mx-auto rounded-3xl bg-gradient-to-tr from-mercato-blue via-mercato-magenta to-mercato-lime p-0.5 shadow-lg mb-3">
-          <div class="w-full h-full bg-white rounded-[1.35rem] flex items-center justify-center text-mercato-magenta">
-            <i data-lucide="heart-handshake" class="w-8 h-8 text-mercato-pinkpurple"></i>
-          </div>
-        </div>
-
-        <span class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-lime-50 text-mercato-greenborder border border-lime-200 mb-1.5 font-cairo">
-          نسعد دائماً بخدمتك ويسرنا رضاك! 🌿
-        </span>
-        <h2 class="text-xl font-cairo font-black text-slate-900 mb-1">
-          رأيك الجميل يدعم فريق ميركاتو!
-        </h2>
-        <!-- Automatic Google redirect: no suggested text or extra action buttons. -->
-
-      </section>
-
-      
-
-      <section id="stepSuccessTicket" class="hidden text-center py-2 transition-all duration-300">
-        
-        <div class="w-14 h-14 mx-auto rounded-3xl bg-lime-50 text-mercato-lime border-2 border-mercato-lime flex items-center justify-center mb-2 shadow-sm">
-          <i data-lucide="check" class="w-8 h-8 stroke-[3]"></i>
-        </div>
-
-        <span class="inline-block px-3 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200 mb-1 font-cairo">
-          تم فتح تذكرة عناية عاجلة 🚨
-        </span>
-        <h2 class="text-lg font-cairo font-black text-slate-900 mb-1">
-          شكراً لصراحتك.. حقك محفوظ
-        </h2>
-        <p class="text-xs text-slate-500 font-tajawal mb-3">
-          تم توجيه البلاغ مباشرة لهاتف مدير <span id="confirmedTicketBranch" class="font-bold text-mercato-darkblue">الفرع</span>
-        </p>
-
-        <!-- Summary Card -->
-        <div class="bg-slate-50 rounded-2xl border border-slate-200 p-3 mb-3 text-right space-y-1.5 text-xs font-tajawal">
-          <div class="flex items-center justify-between border-b border-slate-200/70 pb-1.5">
-            <span class="text-slate-500">رقم البلاغ:</span>
-            <span id="ticketNumberDisplay" class="font-mono font-bold text-mercato-brandtext bg-white px-2 py-0.5 rounded border border-slate-200">#MC-99214</span>
-          </div>
-          <div class="flex items-center justify-between border-b border-slate-200/70 pb-1.5">
-            <span class="text-slate-500">الفرع المعني:</span>
-            <span id="ticketBranchDisplay" class="font-bold text-slate-800">فرع التحلية</span>
-          </div>
-          <div class="flex items-center justify-between">
-            <span class="text-slate-500">وقت الاتصال المتوقع:</span>
-            <span class="font-bold text-mercato-lime flex items-center gap-1">
-              <i data-lucide="clock" class="w-3.5 h-3.5"></i>
-              أقل من 15 دقيقة
-            </span>
-          </div>
-        </div>
-
-        <button onclick="resetFlow()" class="inline-flex items-center gap-1.5 text-xs text-mercato-brandtext font-cairo font-bold bg-sky-50 px-4 py-2 rounded-xl border border-sky-100 active:scale-95 transition">
-          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-          <span>تقييم تجربة جديدة</span>
-        </button>
 
       </section>
 
     </div>
   </main>
 
-  <div id="branchSelectorModalBackdrop" onclick="closeDrawer('branchSelectorModal')" class="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"></div>
-  <div id="branchSelectorModal" class="fixed inset-x-0 bottom-0 w-full z-50 bg-white text-slate-800 rounded-t-[2rem] border-t border-slate-200 shadow-2xl sheet-drawer p-5 pb-8">
-    <div class="w-12 h-1 bg-slate-300 rounded-full mx-auto mb-4"></div>
-    
-    <div class="flex items-center justify-between mb-2">
-      <h3 class="font-cairo font-bold text-base text-slate-900 flex items-center gap-2">
-        <i data-lucide="store" class="w-4 h-4 text-mercato-lime"></i>
-        <span>فروع ميركاتو (Mercato Branches)</span>
-      </h3>
-      <button onclick="closeDrawer('branchSelectorModal')" class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-500">
-        <i data-lucide="x" class="w-4 h-4"></i>
-      </button>
-    </div>
-
-    <p class="text-xs text-slate-500 font-tajawal mb-3 leading-relaxed">
-      عند طباعة باركود الـ QR ووضعه على استاند الكاونتر في أي فرع، يحمل الرابط كود الفرع (<code class="font-mono text-sky-600 bg-sky-50 px-1 py-0.5 rounded">?branch=code</code>) ليقرأه النظام آلياً:
-    </p>
-
-    <!-- Branch List -->
-    <div class="space-y-2 text-right max-h-[60vh] overflow-y-auto pr-1">
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('1')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع الرياض - الملز</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=1" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=1</a>
-          <a href="https://g.page/r/Ca3jSr1Z0dUYEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/Ca3jSr1Z0dUYEBM/review</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('2')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع الرياض - إشبيلية</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=2" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=2</a>
-          <a href="https://g.page/r/CdllYciMoT8GEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CdllYciMoT8GEBM/review</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('3')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع الرياض - الشفا</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=3" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=3</a>
-          <a href="https://g.page/r/CbNrebES7OEiEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CbNrebES7OEiEBM/review</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('4')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع الرياض - النسيم</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=4" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=4</a>
-          <a href="https://g.page/r/CVAh0_CJDoo1EBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CVAh0_CJDoo1EBM/review</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('5')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع جدة - الفيصلية</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=5" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=5</a>
-          <a href="https://g.page/r/CfrU07iMJpmpEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CfrU07iMJpmpEBM/review</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('6')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع الطائف - شارع أبو بكر</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=6" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=6</a>
-          <a href="https://g.page/r/CQRdKswUzDrTEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CQRdKswUzDrTEBM/review</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('7')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع الدمام - حياة بلازا</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=7" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=7</a>
-          <a href="https://g.page/r/Cd427IaBBwTDEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/Cd427IaBBwTDEBM/review</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('8')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع الدمام - النخيل</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=8" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=8</a>
-          <a href="https://maps.app.goo.gl/jsJ6x368d5EQ8ht6A" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://maps.app.goo.gl/jsJ6x368d5EQ8ht6A</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('9')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع الخبر - شمال الخبر</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=9" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=9</a>
-          <a href="https://g.page/r/CWbsamymNfqbEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CWbsamymNfqbEBM/review</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('10')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع عنيزة - السليمانية</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=10" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=10</a>
-          <a href="https://g.page/r/CWT69dlXEyXDEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CWT69dlXEyXDEBM/review</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('11')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع بريدة - الإسكان</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=11" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=11</a>
-          <a href="https://g.page/r/CSPtzNKMBkSTEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CSPtzNKMBkSTEBM/review</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('12')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع المدينة المنورة - الجماوات</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=12" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=12</a>
-          <a href="https://g.page/r/CaUq9hk10TkFEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CaUq9hk10TkFEBM/review</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('13')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع تبوك - العزيزية القديمة</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=13" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=13</a>
-          <a href="https://g.page/r/CSVAo0c_XHlMEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CSVAo0c_XHlMEBM/review</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('14')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع حائل - الزبارة</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=14" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=14</a>
-          <a href="https://g.page/r/CU12tV0Av1tWEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CU12tV0Av1tWEBM/review</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('15')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع أبها - الربوة</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=15" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=15</a>
-          <a href="https://g.page/r/CX6cv1eiMksiEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CX6cv1eiMksiEBM/review</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('16')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع أبها الجديدة - طريق الملك فهد</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=16" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=16</a>
-          <a href="https://g.page/r/CWxbPgb3sCpLEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CWxbPgb3sCpLEBM/review</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('17')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع خميس مشيط - الرصراص</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=17" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=17</a>
-          <a href="https://g.page/r/CQc_0qnQtHzyEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CQc_0qnQtHzyEBM/review</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('18')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع محايل عسير - طريق الملك عبدالعزيز</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=18" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=18</a>
-          <a href="https://maps.app.goo.gl/LN2hneroRqdXBQVY8" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://maps.app.goo.gl/LN2hneroRqdXBQVY8</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('19')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع نجران - الفيصلية</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=19" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=19</a>
-          <a href="https://g.page/r/CeRzQxhd84AIEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CeRzQxhd84AIEBM/review</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('20')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع الأحساء - المسعودي</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=20" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=20</a>
-          <a href="https://g.page/r/CV7O-FIlni6REBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CV7O-FIlni6REBM/review</a>
-        </div>
-      </div>
-
-      <div class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200/90 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 transition-colors" onclick="switchBranch('21')">
-        <div class="font-cairo font-bold text-xs text-slate-900 shrink-0">فرع حفر الباطن - الخالدية</div>
-        <div class="flex flex-col items-end gap-1 min-w-0 text-left" dir="ltr">
-          <a href="https://mercato-reviews.com/?branch=21" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[10px] text-emerald-700 hover:text-emerald-900 underline underline-offset-2 break-all">https://mercato-reviews.com/?branch=21</a>
-          <a href="https://g.page/r/CfK7zOR61FmhEBM/review" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="font-mono text-[9px] text-sky-700 hover:text-mercato-darkblue underline underline-offset-2 break-all">تقييم Google: https://g.page/r/CfK7zOR61FmhEBM/review</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="automationDrawerBackdrop" onclick="closeDrawer('automationDrawer')" class="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"></div>
-  <div id="automationDrawer" class="fixed inset-x-0 bottom-0 w-full z-50 bg-[#070e1b] text-white rounded-t-[2rem] border-t border-sky-500/30 shadow-2xl sheet-drawer p-4 pb-8 max-h-[85vh] flex flex-col">
-    <div class="w-12 h-1 bg-white/20 rounded-full mx-auto mb-3 shrink-0"></div>
-
-    <div class="flex items-center justify-between mb-3 shrink-0">
-      <div class="flex items-center gap-2">
-        <div class="w-8 h-8 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center">
-          <i data-lucide="cpu" class="w-4 h-4"></i>
-        </div>
-        <div>
-          <h3 class="font-cairo font-bold text-sm text-white">محاكاة الأتمتة الحية (Make / Zapier / WhatsApp)</h3>
-          <p class="text-[10px] text-slate-400 font-tajawal">توجيه الشكوى تلقائياً حسب الفرع</p>
-        </div>
-      </div>
-      <button onclick="closeDrawer('automationDrawer')" class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-slate-400 hover:text-white">
-        <i data-lucide="x" class="w-4 h-4"></i>
-      </button>
-    </div>
-
-    <div class="overflow-y-auto space-y-3.5 pr-0.5 text-right flex-1">
-      
-      <!-- WhatsApp Simulation Box -->
-      <div>
-        <div class="flex items-center justify-between text-xs font-bold text-slate-300 mb-1.5 font-cairo">
-          <span class="flex items-center gap-1.5 text-emerald-400">
-            <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
-            رسالة الواتساب الفورية لمدير الفرع
-          </span>
-          <span class="text-[9px] bg-emerald-950 text-emerald-300 px-2 py-0.5 rounded border border-emerald-800">WhatsApp Business API</span>
-        </div>
-        
-        <div class="bg-[#0b141a] p-3 rounded-2xl border border-slate-800 text-[11px] font-tajawal space-y-1.5 shadow-inner">
-          <div class="flex items-center justify-between border-b border-white/10 pb-1 text-[10px] text-slate-400">
-            <span id="waManagerTarget">إلى: م. أحمد الغامدي (مدير فرع التحلية)</span>
-            <span class="text-emerald-400 font-bold">الآن ⚡</span>
-          </div>
-          <div class="text-slate-200 leading-relaxed space-y-1 text-[11px]">
-            <p class="font-cairo font-bold text-amber-300">🚨 تنبيه تذكرة عناية عملاء - ميركاتو Mercato</p>
-            <p>• <strong>الفرع:</strong> <span id="waBranchNameText">فرع التحلية - جدة</span></p>
-            <p>• <strong>العميل:</strong> <span id="waCustomerName">فيصل الغامدي</span></p>
-            <p>• <strong>الجوال:</strong> <span id="waCustomerPhone" class="font-mono">05xxxxxxxx</span></p>
-            <p>• <strong>القسم:</strong> <span id="waCategoryText">المقاسات وتوفر الماركات</span></p>
-            <p>• <strong>الملاحظة:</strong> <span id="waDetailsText">تأخر في المحاسبة أو ملاحظة بخصوص المقاسات...</span></p>
-            <div class="pt-1.5 mt-1 border-t border-white/10 text-[9px] text-slate-400 flex items-center justify-between">
-              <span>⏱️ المهلة النظامية للاتصال بالعميل: 15 دقيقة</span>
-              <span class="text-sky-400 font-bold">CRM Synced</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- JSON Webhook Payload -->
-      <div>
-        <div class="flex items-center justify-between text-xs font-bold text-slate-300 mb-1.5 font-cairo">
-          <span class="flex items-center gap-1.5 text-sky-300">
-            <i data-lucide="code-2" class="w-3.5 h-3.5"></i>
-            حزمة الـ JSON المرسلة للـ Webhook
-          </span>
-          <span id="webhookBadgeStatus" class="text-[9px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">في وضع الاستعداد</span>
-        </div>
-        <pre id="jsonPayloadTerminal" class="bg-[#040810] text-emerald-400 font-mono text-[10px] p-2.5 rounded-xl border border-slate-800 overflow-x-auto max-h-32 text-left dir-ltr">{
-  "status": "ready",
-  "brand": "Mercato",
-  "active_branch": "tahlia"
-}</pre>
-      </div>
-
-      <!-- Audit Log Console -->
-      <div>
-        <div class="text-xs font-bold text-slate-300 mb-1 flex items-center gap-1 font-cairo text-sky-400">
-          <i data-lucide="terminal" class="w-3 h-3"></i>
-          <span>سجل التوجيه المباشر (Audit Log)</span>
-        </div>
-        <div id="systemAuditLog" class="bg-[#040810] p-2 rounded-xl border border-slate-800 text-[10px] font-mono space-y-1 max-h-24 overflow-y-auto">
-          <div class="text-slate-500">[SYSTEM] نظام تقييمات ميركاتو جاهز ويعمل بكفاءة...</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div id="qrDrawerBackdrop" onclick="closeDrawer('qrDrawer')" class="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
-    <div onclick="event.stopPropagation()" class="bg-white text-slate-900 rounded-3xl p-5 max-w-xs w-full text-center shadow-2xl relative">
-      <button onclick="closeDrawer('qrDrawer')" class="absolute top-3 left-3 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200">
-        <i data-lucide="x" class="w-4 h-4"></i>
-      </button>
-
-      <div class="w-12 h-12 mx-auto rounded-2xl bg-sky-50 text-mercato-blue border border-sky-100 flex items-center justify-center mb-2">
-        <i data-lucide="qr-code" class="w-6 h-6"></i>
-      </div>
-      
-      <h3 class="font-cairo font-black text-base text-slate-900">باركود تقييم الفرع</h3>
-      <p id="qrModalBranchLabel" class="text-xs text-mercato-brandtext font-bold mb-3">فرع التحلية - جدة</p>
-
-      <!-- Dynamic QR Code Image Container -->
-      <div class="p-3 bg-white border-2 border-mercato-lime rounded-2xl shadow-inner inline-block mb-3">
-        <img id="qrImageDisplay" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://mercato-reviews.com/?branch=tahlia" alt="Mercato QR Code" class="w-40 h-40 mx-auto rounded-lg">
-      </div>
-
-      <p class="text-[11px] text-slate-500 font-tajawal mb-3 leading-relaxed">
-        يطبع هذا الباركود ويوضع أمام العميل على الكاونترات أو طاولات المحاسبة لتوجيهه لهذا الفرع حصراً.
-      </p>
-
-      <div class="space-y-1.5">
-        <button onclick="copyQrLink()" class="w-full py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-800 text-xs font-cairo font-bold flex items-center justify-center gap-1.5 transition">
-          <i data-lucide="link" class="w-3.5 h-3.5"></i>
-          <span id="qrCopyBtnText">نسخ رابط الباركود</span>
-        </button>
-
-        <button onclick="closeDrawer('qrDrawer')" class="w-full py-2 px-3 rounded-xl bg-slate-900 text-white text-xs font-cairo font-bold">
-          إغلاق
-        </button>
-      </div>
-    </div>
-  </div>
-
   <script>
     // 1. Mercato Official Branches Database
     const MERCATO_BRANCHES = {
-      '1': {
-        code: '1',
+      'R7K2': {
+        code: 'R7K2',
         name: 'فرع الرياض - الملز',
         short: 'فرع الرياض - الملز',
         city: 'الرياض',
@@ -665,8 +327,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/Ca3jSr1Z0dUYEBM/review'
       },
-      '2': {
-        code: '2',
+      'M4X9': {
+        code: 'M4X9',
         name: 'فرع الرياض - إشبيلية',
         short: 'فرع الرياض - إشبيلية',
         city: 'الرياض',
@@ -674,8 +336,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CdllYciMoT8GEBM/review'
       },
-      '3': {
-        code: '3',
+      'Q8P1': {
+        code: 'Q8P1',
         name: 'فرع الرياض - الشفا',
         short: 'فرع الرياض - الشفا',
         city: 'الرياض',
@@ -683,8 +345,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CbNrebES7OEiEBM/review'
       },
-      '4': {
-        code: '4',
+      'T5N3': {
+        code: 'T5N3',
         name: 'فرع الرياض - النسيم',
         short: 'فرع الرياض - النسيم',
         city: 'الرياض',
@@ -692,8 +354,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CVAh0_CJDoo1EBM/review'
       },
-      '5': {
-        code: '5',
+      'L6V4': {
+        code: 'L6V4',
         name: 'فرع جدة - الفيصلية',
         short: 'فرع جدة - الفيصلية',
         city: 'جدة',
@@ -701,8 +363,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CfrU07iMJpmpEBM/review'
       },
-      '6': {
-        code: '6',
+      'B9H2': {
+        code: 'B9H2',
         name: 'فرع الطائف - شارع أبو بكر',
         short: 'فرع الطائف - شارع أبو بكر',
         city: 'الطائف',
@@ -710,8 +372,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CQRdKswUzDrTEBM/review'
       },
-      '7': {
-        code: '7',
+      'C3W7': {
+        code: 'C3W7',
         name: 'فرع الدمام - حياة بلازا',
         short: 'فرع الدمام - حياة بلازا',
         city: 'الدمام',
@@ -719,8 +381,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/Cd427IaBBwTDEBM/review'
       },
-      '8': {
-        code: '8',
+      'F8D5': {
+        code: 'F8D5',
         name: 'فرع الدمام - النخيل',
         short: 'فرع الدمام - النخيل',
         city: 'الدمام',
@@ -728,8 +390,8 @@
         phone: '',
         googleMapsUrl: 'https://maps.app.goo.gl/jsJ6x368d5EQ8ht6A'
       },
-      '9': {
-        code: '9',
+      'J2S6': {
+        code: 'J2S6',
         name: 'فرع الخبر - شمال الخبر',
         short: 'فرع الخبر - شمال الخبر',
         city: 'الخبر',
@@ -737,8 +399,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CWbsamymNfqbEBM/review'
       },
-      '10': {
-        code: '10',
+      'P4Z8': {
+        code: 'P4Z8',
         name: 'فرع عنيزة - السليمانية',
         short: 'فرع عنيزة - السليمانية',
         city: 'عنيزة',
@@ -746,8 +408,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CWT69dlXEyXDEBM/review'
       },
-      '11': {
-        code: '11',
+      'K7A3': {
+        code: 'K7A3',
         name: 'فرع بريدة - الإسكان',
         short: 'فرع بريدة - الإسكان',
         city: 'بريدة',
@@ -755,8 +417,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CSPtzNKMBkSTEBM/review'
       },
-      '12': {
-        code: '12',
+      'N5Y1': {
+        code: 'N5Y1',
         name: 'فرع المدينة المنورة - الجماوات',
         short: 'فرع المدينة المنورة - الجماوات',
         city: 'المدينة المنورة',
@@ -764,8 +426,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CaUq9hk10TkFEBM/review'
       },
-      '13': {
-        code: '13',
+      'G9E4': {
+        code: 'G9E4',
         name: 'فرع تبوك - العزيزية القديمة',
         short: 'فرع تبوك - العزيزية القديمة',
         city: 'تبوك',
@@ -773,8 +435,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CSVAo0c_XHlMEBM/review'
       },
-      '14': {
-        code: '14',
+      'U3R6': {
+        code: 'U3R6',
         name: 'فرع حائل - الزبارة',
         short: 'فرع حائل - الزبارة',
         city: 'حائل',
@@ -782,8 +444,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CU12tV0Av1tWEBM/review'
       },
-      '15': {
-        code: '15',
+      'X8M2': {
+        code: 'X8M2',
         name: 'فرع أبها - الربوة',
         short: 'فرع أبها - الربوة',
         city: 'أبها',
@@ -791,8 +453,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CX6cv1eiMksiEBM/review'
       },
-      '16': {
-        code: '16',
+      'V5Q7': {
+        code: 'V5Q7',
         name: 'فرع أبها الجديدة - طريق الملك فهد',
         short: 'فرع أبها الجديدة - طريق الملك فهد',
         city: 'أبها الجديدة',
@@ -800,8 +462,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CWxbPgb3sCpLEBM/review'
       },
-      '17': {
-        code: '17',
+      'D4L9': {
+        code: 'D4L9',
         name: 'فرع خميس مشيط - الرصراص',
         short: 'فرع خميس مشيط - الرصراص',
         city: 'خميس مشيط',
@@ -809,8 +471,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CQc_0qnQtHzyEBM/review'
       },
-      '18': {
-        code: '18',
+      'H6C1': {
+        code: 'H6C1',
         name: 'فرع محايل عسير - طريق الملك عبدالعزيز',
         short: 'فرع محايل عسير - طريق الملك عبدالعزيز',
         city: 'محايل عسير',
@@ -818,8 +480,8 @@
         phone: '',
         googleMapsUrl: 'https://maps.app.goo.gl/LN2hneroRqdXBQVY8'
       },
-      '19': {
-        code: '19',
+      'S7F3': {
+        code: 'S7F3',
         name: 'فرع نجران - الفيصلية',
         short: 'فرع نجران - الفيصلية',
         city: 'نجران',
@@ -827,8 +489,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CeRzQxhd84AIEBM/review'
       },
-      '20': {
-        code: '20',
+      'W2J8': {
+        code: 'W2J8',
         name: 'فرع الأحساء - المسعودي',
         short: 'فرع الأحساء - المسعودي',
         city: 'الأحساء',
@@ -836,8 +498,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CV7O-FIlni6REBM/review'
       },
-      '21': {
-        code: '21',
+      'Z5T4': {
+        code: 'Z5T4',
         name: 'فرع حفر الباطن - الخالدية',
         short: 'فرع حفر الباطن - الخالدية',
         city: 'حفر الباطن',
@@ -856,7 +518,7 @@
       5: { text: 'ماركات وتجربة استثنائية! 🌿', emoji: '🤩', color: 'text-mercato-lime bg-lime-50 border-lime-300' }
     };
 
-    let activeBranch = MERCATO_BRANCHES['1'];
+    let activeBranch = MERCATO_BRANCHES['R7K2'];
     let hasValidBranch = false;
     let currentRatingValue = 0;
 
@@ -864,7 +526,6 @@
     window.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
       initBranchFromUrl();
-      writeAuditLog(`تم تشغيل تطبيق ميركاتو وضبط الفرع الحالي على [${activeBranch.name}]`);
     });
 
     // Extract Branch code from URL Search Query (?branch=code)
@@ -872,36 +533,23 @@
       hasValidBranch = false;
       try {
         const urlParams = new URLSearchParams(window.location.search);
-        const branchCode = (urlParams.get('branch') || '').trim();
-        if (/^(?:[1-9]|1[0-9]|2[01])$/.test(branchCode) && MERCATO_BRANCHES[branchCode]) {
+        const branchCode = (urlParams.get('branch') || '').trim().toUpperCase();
+        if (/^[A-Z0-9]{4}$/.test(branchCode) && MERCATO_BRANCHES[branchCode]) {
           activeBranch = MERCATO_BRANCHES[branchCode];
           hasValidBranch = true;
         } else {
-          hasValidBranch = false;
-          return;
+          activeBranch = MERCATO_BRANCHES['R7K2'];
         }
       } catch (err) {
+        activeBranch = MERCATO_BRANCHES['R7K2'];
         hasValidBranch = false;
-        return;
       }
       refreshBranchBindings();
     }
 
-    // Update all text and link bindings across DOM
     function refreshBranchBindings() {
-      document.getElementById('headerBranchLabel').innerText = activeBranch.name;
-      document.getElementById('hiddenBranchCode').value = activeBranch.code;
-      document.getElementById('hiddenBranchName').value = activeBranch.name;
-      document.getElementById('confirmedTicketBranch').innerText = activeBranch.name;
-      document.getElementById('ticketBranchDisplay').innerText = activeBranch.name;
-      document.getElementById('waBranchNameText').innerText = activeBranch.name;
-      document.getElementById('waManagerTarget').innerText = `إلى: ${activeBranch.manager}`;
-      
-
-      // Update QR modal
-      document.getElementById('qrModalBranchLabel').innerText = activeBranch.name;
-      const targetUrl = `https://mercato-reviews.com/?branch=${activeBranch.code}`;
-      document.getElementById('qrImageDisplay').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(targetUrl)}`;
+      const headerBranchLabel = document.getElementById('headerBranchLabel');
+      if (headerBranchLabel) headerBranchLabel.innerText = activeBranch.name;
     }
 
     // Rate store function triggered by clicking any star
@@ -911,8 +559,6 @@
 
       highlightStars(stars);
       renderSentimentLabel(stars);
-
-      writeAuditLog(`قام العميل بالنقر على تقييم: (${stars} من 5 نجوم) في [${activeBranch.short}]`);
 
       // Gentle transition timeout
       setTimeout(() => {
@@ -945,83 +591,27 @@
 
     // Review Gating core logic
     function executeGatingLogic(stars) {
-      const stepInitial = document.getElementById('stepInitialRating');
-      const stepPositive = document.getElementById('stepPositiveFlow');
       const stepComplaint = document.getElementById('stepComplaintFlow');
-      const headerBackBtn = document.getElementById('headerBackBtn');
-
-      if (headerBackBtn) headerBackBtn.classList.add('hidden');
 
       if (stars >= 4) {
-        stepInitial.classList.remove('hidden');
-        // 4-5 stars: celebration first, then direct Google review page.
-        stepPositive.classList.add('hidden');
+        // 4-5 stars: celebration, then direct Google review page.
         shootMercatoConfetti();
-        playPositiveCelebration(stars);
-
-        writeAuditLog(`تقييم إيجابي (${stars} نجوم) ➔ تفاعل احتفالي ثم توجيه مباشر إلى خرائط Google`);
-
-        dispatchWebhookPayload({
-          event: "positive_rating_gated",
-          stars: `${stars}/5`,
-          branch: activeBranch,
-          destination: "Google_Maps_Redirect",
-          timestamp: new Date().toISOString()
-        });
+        triggerHaptic(stars === 5 ? [25, 35, 25] : [20, 30]);
 
         if (hasValidBranch) {
           setTimeout(() => {
-            // Directly open the exact Google review link for the valid branch in the URL.
             window.location.assign(activeBranch.googleMapsUrl);
           }, 2450);
-        } else {
-          writeAuditLog('لا يوجد كود فرع رقمي صالح في الرابط ➔ تم منع فتح Google.');
         }
-
       } else {
-        // 1-3 stars: keep the rating visible and gently reveal the notes box on the same page.
+        // 1-3 stars: reveal the notes box on the same page.
         stepComplaint.classList.remove('hidden');
         stepComplaint.classList.remove('feedback-reveal');
         void stepComplaint.offsetWidth;
         stepComplaint.classList.add('feedback-reveal');
-        writeAuditLog(`تقييم (${stars} نجوم) ➔ ظهور خانة الملاحظة بانمشين خفيف في نفس الصفحة وإرسالها للدعم الفني عبر واتساب`);
-
-        dispatchWebhookPayload({
-          event: "negative_feedback_intercepted",
-          stars: `${stars}/5`,
-          branch: activeBranch,
-          destination: "WhatsApp_Support",
-          timestamp: new Date().toISOString()
-        });
       }
 
       lucide.createIcons();
-    }
-
-    // Positive interaction inspired by the supplied reference:
-    // confetti + animated appreciation state before Google redirect.
-    function playPositiveCelebration(stars) {
-      const card = document.getElementById('stepPositiveFlow');
-      if (!card) return;
-
-      card.classList.add('positive-celebration');
-      card.animate(
-        [
-          { transform: 'scale(0.96)', opacity: 0.75 },
-          { transform: 'scale(1.035)', opacity: 1 },
-          { transform: 'scale(1)', opacity: 1 }
-        ],
-        { duration: 650, easing: 'cubic-bezier(.2,.8,.2,1)' }
-      );
-
-      triggerHaptic(stars === 5 ? [25, 35, 25] : [20, 30]);
-
-      const title = card.querySelector('h2');
-      if (title) {
-        title.innerText = stars === 5
-          ? 'يا سلام! ⭐⭐⭐⭐⭐'
-          : 'تقييم رائع! ⭐⭐⭐⭐';
-      }
     }
 
     // Mercato Themed Confetti Explosion
@@ -1053,111 +643,8 @@
       const whatsappUrl = `https://wa.me/966920021310?text=${encodeURIComponent(message)}`;
 
       triggerHaptic([30, 50, 30]);
-      writeAuditLog(`تم تجهيز ملاحظة العميل (${score}/5) وإرسالها إلى دعم ميركاتو عبر واتساب`);
 
       window.location.href = whatsappUrl;
-    }
-
-
-    // Reset Flow to rate again
-    function resetFlow() {
-      currentRatingValue = 0;
-      highlightStars(0);
-      const sentimentDisplay = document.getElementById('sentimentDisplay');
-      if (sentimentDisplay) sentimentDisplay.classList.add('opacity-0');
-      document.getElementById('stepComplaintFlow').classList.remove('feedback-reveal');
-      document.getElementById('stepInitialRating').classList.remove('hidden');
-      document.getElementById('stepPositiveFlow').classList.add('hidden');
-      document.getElementById('stepComplaintFlow').classList.add('hidden');
-      document.getElementById('stepSuccessTicket').classList.add('hidden');
-      
-      const headerBackBtn = document.getElementById('headerBackBtn');
-      if (headerBackBtn) headerBackBtn.classList.add('hidden');
-
-      document.getElementById('complaintSubmitForm').reset();
-      triggerHaptic(15);
-      writeAuditLog(`رجع العميل إلى الشاشة الرئيسية لتعديل التقييم في [${activeBranch.short}]`);
-      lucide.createIcons();
-    }
-
-    // Switch branch manually and keep a unique URL for each branch.
-    function switchBranch(code) {
-      const branchCode = String(code);
-      activeBranch = MERCATO_BRANCHES[branchCode] || MERCATO_BRANCHES['1'];
-      const url = new URL(window.location.href);
-      url.searchParams.set('branch', activeBranch.code);
-      window.history.replaceState({}, '', url.toString());
-      refreshBranchBindings();
-      closeDrawer('branchSelectorModal');
-      resetFlow();
-      writeAuditLog(`تم تبديل الفرع النشط إلى: [${activeBranch.name}]`);
-    }
-
-    // Drawer Helpers
-    function openDrawer(id) {
-      const drawer = document.getElementById(id);
-      const backdrop = document.getElementById(id + 'Backdrop');
-      if (drawer && backdrop) {
-        backdrop.classList.remove('pointer-events-none');
-        backdrop.classList.remove('opacity-0');
-        backdrop.classList.add('opacity-100');
-        drawer.classList.add('open');
-      }
-    }
-
-    function closeDrawer(id) {
-      const drawer = document.getElementById(id);
-      const backdrop = document.getElementById(id + 'Backdrop');
-      if (drawer && backdrop) {
-        drawer.classList.remove('open');
-        backdrop.classList.remove('opacity-100');
-        backdrop.classList.add('opacity-0');
-        setTimeout(() => {
-          backdrop.classList.add('pointer-events-none');
-        }, 300);
-      }
-    }
-
-    // Copy QR Link
-    function copyQrLink() {
-      const link = `https://mercato-reviews.com/?branch=${activeBranch.code}`;
-      copyToClipboard(link);
-      triggerHaptic(20);
-      const btnText = document.getElementById('qrCopyBtnText');
-      btnText.innerText = 'تم نسخ الرابط!';
-      setTimeout(() => {
-        btnText.innerText = 'نسخ رابط الباركود';
-      }, 2000);
-    }
-
-    // Webhook simulation update
-    function dispatchWebhookPayload(payload) {
-      const terminal = document.getElementById('jsonPayloadTerminal');
-      const badge = document.getElementById('webhookBadgeStatus');
-      terminal.innerText = JSON.stringify(payload, null, 2);
-      badge.innerText = '200 OK (تم الإرسال)';
-      badge.className = 'text-[9px] bg-emerald-950 text-emerald-300 border border-emerald-800 px-2 py-0.5 rounded';
-    }
-
-    // Audit Log Writer
-    function writeAuditLog(message) {
-      const logContainer = document.getElementById('systemAuditLog');
-      const now = new Date();
-      const timeStr = now.toLocaleTimeString('ar-SA', { hour12: false });
-      const row = document.createElement('div');
-      row.className = 'text-slate-300';
-      row.innerHTML = `<span class="text-sky-400">[${timeStr}]</span> ${message}`;
-      logContainer.prepend(row);
-    }
-
-    // Robust Clipboard Copy
-    function copyToClipboard(text) {
-      const textarea = document.createElement('textarea');
-      textarea.value = text;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
     }
 
     // Mobile Vibration Haptic Feedback
