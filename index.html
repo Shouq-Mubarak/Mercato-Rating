@@ -131,55 +131,147 @@
   <script>
   (function () {
     const params = new URLSearchParams(window.location.search);
-    const branch = (params.get('branch') || '').trim().toUpperCase();
-    const valid = /^[A-Z0-9]{4}$/.test(branch);
+    const branch = (params.get('branch') || '').trim();
 
-    if (!valid) {
+    const validCodes = new Set([
+      'K7a','R2x','V9p','T4m','H8c','M3q','Y6k','P9d','X2v','G5t','Q8s',
+      'L4z','W7h','N3j','B6r','F9k','Z2q','C5w','J8n','S4v','D7y'
+    ]);
+
+    if (!validCodes.has(branch)) {
       document.documentElement.innerHTML = `
         <html lang="ar" dir="rtl">
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>رابط الفرع غير صالح</title>
-            <style>
-              * { box-sizing: border-box; }
-              body {
-                margin: 0;
-                min-height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 24px;
-                background: #f8fafc;
-                font-family: Arial, sans-serif;
-                color: #0f172a;
-              }
-              .invalid-branch-box {
-                width: min(100%, 460px);
-                background: #fff;
-                border: 1px solid #e2e8f0;
-                border-radius: 24px;
-                padding: 32px 24px;
-                text-align: center;
-                box-shadow: 0 10px 30px rgba(15, 23, 42, .08);
-              }
-              h1 {
-                margin: 0 0 10px;
-                font-size: 24px;
-              }
-              p {
-                margin: 0;
-                color: #64748b;
-                font-size: 16px;
-              }
-            </style>
-          </head>
-          <body>
-            <div class="invalid-branch-box">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>رابط الفرع غير صالح | ميركاتو</title>
+          <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+          <style>
+            * { box-sizing: border-box; }
+            html, body { min-height: 100%; }
+            body {
+              margin: 0;
+              min-height: 100vh;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: 24px;
+              background:
+                radial-gradient(circle at 15% 15%, rgba(180,55,132,.10), transparent 28%),
+                radial-gradient(circle at 85% 85%, rgba(39,96,168,.12), transparent 30%),
+                #f3ecf3;
+              color: #333333;
+              font-family: 'Tajawal','Cairo',sans-serif;
+              overflow: hidden;
+            }
+            .invalid-wrap {
+              position: relative;
+              width: min(100%, 430px);
+            }
+            .decor {
+              position: absolute;
+              border-radius: 999px;
+              pointer-events: none;
+              filter: blur(1px);
+            }
+            .decor.one {
+              width: 100px; height: 100px;
+              background: rgba(39,96,168,.10);
+              top: -42px; left: -32px;
+            }
+            .decor.two {
+              width: 82px; height: 82px;
+              background: rgba(180,55,132,.10);
+              bottom: -30px; right: -22px;
+            }
+            .card {
+              position: relative;
+              background: rgba(255,255,255,.96);
+              border: 1px solid rgba(39,96,168,.10);
+              border-radius: 30px;
+              padding: 28px 22px 30px;
+              text-align: center;
+              box-shadow: 0 18px 45px rgba(39,96,168,.10), 0 8px 22px rgba(180,55,132,.06);
+              overflow: hidden;
+            }
+            .top-line {
+              position: absolute;
+              top: 0; right: 0; left: 0;
+              height: 6px;
+              background: linear-gradient(90deg,#2760a8,#b43784,#2760a8);
+            }
+            .logo-box {
+              width: 112px;
+              height: 112px;
+              margin: 8px auto 18px;
+              border-radius: 50%;
+              background: #fff;
+              border: 1px solid #eee;
+              box-shadow: 0 8px 20px rgba(39,96,168,.10);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              overflow: hidden;
+            }
+            .logo-box img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+            .warning {
+              width: 58px;
+              height: 58px;
+              margin: 0 auto 14px;
+              border-radius: 18px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background: #f1e4ed;
+              color: #b43784;
+              font-size: 31px;
+              font-weight: 900;
+            }
+            h1 {
+              margin: 0 0 10px;
+              color: #2760a8;
+              font-family: 'Cairo','Tajawal',sans-serif;
+              font-size: 23px;
+              font-weight: 900;
+              line-height: 1.5;
+            }
+            p {
+              margin: 0 auto;
+              max-width: 320px;
+              color: #666;
+              font-size: 15px;
+              line-height: 1.9;
+              font-weight: 500;
+            }
+            .mini-brand {
+              margin-top: 20px;
+              color: #b43784;
+              font-size: 11px;
+              font-weight: 800;
+              letter-spacing: .4px;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="invalid-wrap">
+            <span class="decor one"></span>
+            <span class="decor two"></span>
+            <div class="card">
+              <div class="top-line"></div>
+              <div class="logo-box">
+                <img src="logo.jpeg" alt="شعار ميركاتو">
+              </div>
+              <div class="warning">!</div>
               <h1>رابط الفرع غير صالح</h1>
-              <p>يرجى استخدام رابط الفرع الصحيح.</p>
+              <p>يرجى استخدام رابط الفرع الصحيح للوصول إلى صفحة التقييم.</p>
+              <div class="mini-brand">MERCATO</div>
             </div>
-          </body>
+          </div>
+        </body>
         </html>`;
       throw new Error('Invalid or missing branch');
     }
@@ -318,8 +410,8 @@
   <script>
     // 1. Mercato Official Branches Database
     const MERCATO_BRANCHES = {
-      'R7K2': {
-        code: 'R7K2',
+      '1': {
+        code: '1',
         name: 'فرع الرياض - الملز',
         short: 'فرع الرياض - الملز',
         city: 'الرياض',
@@ -327,8 +419,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/Ca3jSr1Z0dUYEBM/review'
       },
-      'M4X9': {
-        code: 'M4X9',
+      '2': {
+        code: '2',
         name: 'فرع الرياض - إشبيلية',
         short: 'فرع الرياض - إشبيلية',
         city: 'الرياض',
@@ -336,8 +428,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CdllYciMoT8GEBM/review'
       },
-      'Q8P1': {
-        code: 'Q8P1',
+      '3': {
+        code: '3',
         name: 'فرع الرياض - الشفا',
         short: 'فرع الرياض - الشفا',
         city: 'الرياض',
@@ -345,8 +437,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CbNrebES7OEiEBM/review'
       },
-      'T5N3': {
-        code: 'T5N3',
+      '4': {
+        code: '4',
         name: 'فرع الرياض - النسيم',
         short: 'فرع الرياض - النسيم',
         city: 'الرياض',
@@ -354,8 +446,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CVAh0_CJDoo1EBM/review'
       },
-      'L6V4': {
-        code: 'L6V4',
+      '5': {
+        code: '5',
         name: 'فرع جدة - الفيصلية',
         short: 'فرع جدة - الفيصلية',
         city: 'جدة',
@@ -363,8 +455,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CfrU07iMJpmpEBM/review'
       },
-      'B9H2': {
-        code: 'B9H2',
+      '6': {
+        code: '6',
         name: 'فرع الطائف - شارع أبو بكر',
         short: 'فرع الطائف - شارع أبو بكر',
         city: 'الطائف',
@@ -372,8 +464,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CQRdKswUzDrTEBM/review'
       },
-      'C3W7': {
-        code: 'C3W7',
+      '7': {
+        code: '7',
         name: 'فرع الدمام - حياة بلازا',
         short: 'فرع الدمام - حياة بلازا',
         city: 'الدمام',
@@ -381,8 +473,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/Cd427IaBBwTDEBM/review'
       },
-      'F8D5': {
-        code: 'F8D5',
+      '8': {
+        code: '8',
         name: 'فرع الدمام - النخيل',
         short: 'فرع الدمام - النخيل',
         city: 'الدمام',
@@ -390,8 +482,8 @@
         phone: '',
         googleMapsUrl: 'https://maps.app.goo.gl/jsJ6x368d5EQ8ht6A'
       },
-      'J2S6': {
-        code: 'J2S6',
+      '9': {
+        code: '9',
         name: 'فرع الخبر - شمال الخبر',
         short: 'فرع الخبر - شمال الخبر',
         city: 'الخبر',
@@ -399,8 +491,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CWbsamymNfqbEBM/review'
       },
-      'P4Z8': {
-        code: 'P4Z8',
+      '10': {
+        code: '10',
         name: 'فرع عنيزة - السليمانية',
         short: 'فرع عنيزة - السليمانية',
         city: 'عنيزة',
@@ -408,8 +500,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CWT69dlXEyXDEBM/review'
       },
-      'K7A3': {
-        code: 'K7A3',
+      '11': {
+        code: '11',
         name: 'فرع بريدة - الإسكان',
         short: 'فرع بريدة - الإسكان',
         city: 'بريدة',
@@ -417,8 +509,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CSPtzNKMBkSTEBM/review'
       },
-      'N5Y1': {
-        code: 'N5Y1',
+      '12': {
+        code: '12',
         name: 'فرع المدينة المنورة - الجماوات',
         short: 'فرع المدينة المنورة - الجماوات',
         city: 'المدينة المنورة',
@@ -426,8 +518,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CaUq9hk10TkFEBM/review'
       },
-      'G9E4': {
-        code: 'G9E4',
+      '13': {
+        code: '13',
         name: 'فرع تبوك - العزيزية القديمة',
         short: 'فرع تبوك - العزيزية القديمة',
         city: 'تبوك',
@@ -435,8 +527,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CSVAo0c_XHlMEBM/review'
       },
-      'U3R6': {
-        code: 'U3R6',
+      '14': {
+        code: '14',
         name: 'فرع حائل - الزبارة',
         short: 'فرع حائل - الزبارة',
         city: 'حائل',
@@ -444,8 +536,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CU12tV0Av1tWEBM/review'
       },
-      'X8M2': {
-        code: 'X8M2',
+      '15': {
+        code: '15',
         name: 'فرع أبها - الربوة',
         short: 'فرع أبها - الربوة',
         city: 'أبها',
@@ -453,8 +545,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CX6cv1eiMksiEBM/review'
       },
-      'V5Q7': {
-        code: 'V5Q7',
+      '16': {
+        code: '16',
         name: 'فرع أبها الجديدة - طريق الملك فهد',
         short: 'فرع أبها الجديدة - طريق الملك فهد',
         city: 'أبها الجديدة',
@@ -462,8 +554,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CWxbPgb3sCpLEBM/review'
       },
-      'D4L9': {
-        code: 'D4L9',
+      '17': {
+        code: '17',
         name: 'فرع خميس مشيط - الرصراص',
         short: 'فرع خميس مشيط - الرصراص',
         city: 'خميس مشيط',
@@ -471,8 +563,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CQc_0qnQtHzyEBM/review'
       },
-      'H6C1': {
-        code: 'H6C1',
+      '18': {
+        code: '18',
         name: 'فرع محايل عسير - طريق الملك عبدالعزيز',
         short: 'فرع محايل عسير - طريق الملك عبدالعزيز',
         city: 'محايل عسير',
@@ -480,8 +572,8 @@
         phone: '',
         googleMapsUrl: 'https://maps.app.goo.gl/LN2hneroRqdXBQVY8'
       },
-      'S7F3': {
-        code: 'S7F3',
+      '19': {
+        code: '19',
         name: 'فرع نجران - الفيصلية',
         short: 'فرع نجران - الفيصلية',
         city: 'نجران',
@@ -489,8 +581,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CeRzQxhd84AIEBM/review'
       },
-      'W2J8': {
-        code: 'W2J8',
+      '20': {
+        code: '20',
         name: 'فرع الأحساء - المسعودي',
         short: 'فرع الأحساء - المسعودي',
         city: 'الأحساء',
@@ -498,8 +590,8 @@
         phone: '',
         googleMapsUrl: 'https://g.page/r/CV7O-FIlni6REBM/review'
       },
-      'Z5T4': {
-        code: 'Z5T4',
+      '21': {
+        code: '21',
         name: 'فرع حفر الباطن - الخالدية',
         short: 'فرع حفر الباطن - الخالدية',
         city: 'حفر الباطن',
@@ -518,7 +610,7 @@
       5: { text: 'ماركات وتجربة استثنائية! 🌿', emoji: '🤩', color: 'text-mercato-lime bg-lime-50 border-lime-300' }
     };
 
-    let activeBranch = MERCATO_BRANCHES['R7K2'];
+    let activeBranch = MERCATO_BRANCHES['1'];
     let hasValidBranch = false;
     let currentRatingValue = 0;
 
@@ -533,15 +625,15 @@
       hasValidBranch = false;
       try {
         const urlParams = new URLSearchParams(window.location.search);
-        const branchCode = (urlParams.get('branch') || '').trim().toUpperCase();
-        if (/^[A-Z0-9]{4}$/.test(branchCode) && MERCATO_BRANCHES[branchCode]) {
+        const branchCode = (urlParams.get('branch') || '').trim();
+        if (MERCATO_BRANCHES[branchCode]) {
           activeBranch = MERCATO_BRANCHES[branchCode];
           hasValidBranch = true;
         } else {
-          activeBranch = MERCATO_BRANCHES['R7K2'];
+          activeBranch = MERCATO_BRANCHES['1'];
         }
       } catch (err) {
-        activeBranch = MERCATO_BRANCHES['R7K2'];
+        activeBranch = MERCATO_BRANCHES['1'];
         hasValidBranch = false;
       }
       refreshBranchBindings();
