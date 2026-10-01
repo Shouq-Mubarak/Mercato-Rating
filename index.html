@@ -146,6 +146,7 @@
       border-radius: 50% !important;
       overflow: hidden !important;
       aspect-ratio: 1 / 1;
+      border: none !important;
     }
     .mercato-logo-circle img {
       width: 100% !important;
@@ -252,7 +253,7 @@
             .logo-box img {
               width: 100%;
               height: 100%;
-              object-fit: cover;
+              object-fit: contain;
             }
             .warning {
               width: 58px;
@@ -378,25 +379,34 @@
         <div class="flex flex-col items-center justify-center my-3">
           <div id="starContainer" dir="rtl" class="flex items-start justify-center gap-2 p-2.5 rounded-2xl bg-slate-50 border border-slate-200/90 shadow-inner w-full max-w-xs">
             <div class="flex flex-col items-center">
-              <button type="button" onclick="rateStore(5)" data-rating="5" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none" aria-label="5 نجوم - ممتاز">
+              <button type="button" onclick="rateStore(5)" data-rating="5" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none" aria-label="5 نجوم">
                 <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
               </button>
-              <span class="text-[11px] font-bold text-slate-500 mt-0.5 whitespace-nowrap">ممتاز</span>
+              <span class="text-[11px] font-bold text-slate-500 mt-0.5 whitespace-nowrap">5</span>
             </div>
-            <button type="button" onclick="rateStore(4)" data-rating="4" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none mt-0.5" aria-label="4 نجوم">
-              <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
-            </button>
-            <button type="button" onclick="rateStore(3)" data-rating="3" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none mt-0.5" aria-label="3 نجوم">
-              <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
-            </button>
-            <button type="button" onclick="rateStore(2)" data-rating="2" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none mt-0.5" aria-label="نجمتان">
-              <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
-            </button>
             <div class="flex flex-col items-center">
-              <button type="button" onclick="rateStore(1)" data-rating="1" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none" aria-label="نجمة واحدة - غير راضي">
+              <button type="button" onclick="rateStore(4)" data-rating="4" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none mt-0.5" aria-label="4 نجوم">
                 <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
               </button>
-              <span class="text-[11px] font-bold text-slate-500 mt-0.5 whitespace-nowrap">غير راضي</span>
+              <span class="text-[11px] font-bold text-slate-500 mt-0.5 whitespace-nowrap">4</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <button type="button" onclick="rateStore(3)" data-rating="3" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none mt-0.5" aria-label="3 نجوم">
+                <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
+              </button>
+              <span class="text-[11px] font-bold text-slate-500 mt-0.5 whitespace-nowrap">3</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <button type="button" onclick="rateStore(2)" data-rating="2" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none mt-0.5" aria-label="2 نجوم">
+                <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
+              </button>
+              <span class="text-[11px] font-bold text-slate-500 mt-0.5 whitespace-nowrap">2</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <button type="button" onclick="rateStore(1)" data-rating="1" class="star-btn p-1 text-slate-300 hover:text-amber-400 focus:outline-none" aria-label="1 نجمة">
+                <i data-lucide="star" class="w-10 h-10 fill-current stroke-1"></i>
+              </button>
+              <span class="text-[11px] font-bold text-slate-500 mt-0.5 whitespace-nowrap">1</span>
             </div>
           </div>
 
@@ -689,10 +699,16 @@
 
       renderSentimentLabel(stars);
 
-      // Gentle transition timeout
-      setTimeout(() => {
-        executeGatingLogic(stars);
-      }, 350);
+      // 5 stars: immediate Google Maps redirect.
+      // 4 stars: Google Maps redirect after exactly 2 seconds.
+      // 1-3 stars: keep the gentle 350ms transition into the complaint flow.
+      if (stars === 5) {
+        executeGatingLogic(5);
+      } else if (stars === 4) {
+        setTimeout(() => executeGatingLogic(4), 2000);
+      } else {
+        setTimeout(() => executeGatingLogic(stars), 350);
+      }
     }
 
     function highlightStars(count) {
@@ -728,9 +744,7 @@
         triggerHaptic(stars === 5 ? [25, 35, 25] : [20, 30]);
 
         if (hasValidBranch) {
-          setTimeout(() => {
-            window.location.href = activeBranch.googleMapsUrl;
-          }, 2450);
+          window.location.href = activeBranch.googleMapsUrl;
         }
       } else {
         // 1-3 stars: reveal the notes box on the same page.
