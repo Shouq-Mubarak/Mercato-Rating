@@ -702,10 +702,15 @@
 
       renderSentimentLabel(stars);
 
-      // Gentle transition timeout
-      setTimeout(() => {
+      // 4-5 stars: handle the Google redirect immediately so the delay is exact.
+      if (stars >= 4) {
         executeGatingLogic(stars);
-      }, 350);
+      } else {
+        // 1-3 stars: keep the gentle reveal transition.
+        setTimeout(() => {
+          executeGatingLogic(stars);
+        }, 350);
+      }
     }
 
     function highlightStars(count) {
@@ -741,9 +746,10 @@
         triggerHaptic(stars === 5 ? [25, 35, 25] : [20, 30]);
 
         if (hasValidBranch) {
+          const redirectDelay = stars === 5 ? 0 : 1000;
           setTimeout(() => {
             window.location.href = activeBranch.googleMapsUrl;
-          }, 2450);
+          }, redirectDelay);
         }
       } else {
         // 1-3 stars: reveal the notes box on the same page.
