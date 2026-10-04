@@ -748,7 +748,7 @@
         triggerHaptic(stars === 5 ? [25, 35, 25] : [20, 30]);
 
         if (hasValidBranch) {
-          const redirectDelay = stars === 5 ? 0 : 1000;
+          const redirectDelay = stars === 5 ? 0 : 1500;
           setTimeout(() => {
             window.location.href = activeBranch.googleMapsUrl;
           }, redirectDelay);
