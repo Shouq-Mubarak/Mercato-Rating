@@ -438,7 +438,7 @@
 
 <div id="stepComplaintFlow" class="hidden mt-3 transition-all duration-300">
           <form id="complaintSubmitForm" onsubmit="submitCustomerComplaint(event)" class="space-y-3 text-right">
-            <textarea id="custDetails" rows="4" required
+            <textarea id="custDetails" rows="4" maxlength="500" required
               placeholder="شاركنا تجربتك؟"
               class="w-full text-sm p-3 rounded-2xl border border-slate-200 focus:border-mercato-blue focus:ring-2 focus:ring-sky-100 bg-slate-50 outline-none transition resize-none font-tajawal"></textarea>
 
@@ -677,20 +677,26 @@
     // Extract Branch code from URL Search Query (?branch=code)
     function initBranchFromUrl() {
       hasValidBranch = false;
+      document.documentElement.classList.remove('invalid-branch');
+
       try {
         const urlParams = new URLSearchParams(window.location.search);
         const branchCode = (urlParams.get('branch') || '').trim();
-        if (MERCATO_BRANCHES[branchCode]) {
+
+        // التحقق من أن كود الفرع موجود فعلاً ضمن قائمة فروع ميركاتو
+        if (Object.prototype.hasOwnProperty.call(MERCATO_BRANCHES, branchCode)) {
           activeBranch = MERCATO_BRANCHES[branchCode];
           hasValidBranch = true;
-        } else {
-          activeBranch = MERCATO_BRANCHES['K7a'];
+          refreshBranchBindings();
+          return;
         }
+
+        // أي رابط غير صحيح يظهر صفحة "الرابط غير صالح"
+        document.documentElement.classList.add('invalid-branch');
       } catch (err) {
-        activeBranch = MERCATO_BRANCHES['K7a'];
-        hasValidBranch = false;
+        // في حالة وجود خطأ في قراءة الرابط
+        document.documentElement.classList.add('invalid-branch');
       }
-      refreshBranchBindings();
     }
 
     function refreshBranchBindings() {
